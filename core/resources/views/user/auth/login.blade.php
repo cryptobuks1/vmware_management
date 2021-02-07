@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/main.css')}}">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/font-awesome.min.css')}}">
-    <title>{{$page_title}} | Vmware Management</title>
+    <title>{{$page_title}} | Virtual Machine Management</title>
 
 </head>
 <body>

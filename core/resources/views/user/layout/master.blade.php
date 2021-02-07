@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Vmware Management | {{$page_title}}</title>
+    <title>Virtual Machine Management | {{$page_title}}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,16 +28,16 @@
 
 
 <!-- Navbar-->
-<header class="app-header"><a class="app-header__logo" href="{{url('/')}}">VmWare Management</a>
+<header class="app-header"><a class="app-header__logo" href="{{url('/')}}">Virtual Machine Management</a>
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
         <!-- User Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu">{{Auth::user()->name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
             <ul class="dropdown-menu settings-menu dropdown-menu-right">
-                <li><a class="dropdown-item" href="{{route('admin.changePass')}}"><i class="fa fa-cog fa-lg"></i> Change Password</a></li>
-                <li><a class="dropdown-item" href="{{route('admin.profile')}}"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-                <li><a class="dropdown-item" href="{{route('admin.logout')}}"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                <li><a class="dropdown-item" href="{{route('user.changePass')}}"><i class="fa fa-cog fa-lg"></i> Change Password</a></li>
+                <li><a class="dropdown-item" href="{{route('user.profile')}}"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="{{route('user.logout')}}"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
             </ul>
         </li>
     </ul>

@@ -114,7 +114,6 @@ class RegisterController extends Controller
             'country' => $data['country'],
             'ref_id' => !empty($data['ref_id'])? $data['ref_id']: 0,
             'status' => 1,
-            'balance' => '0',
             'emailv' =>  $e,
             'smsv' =>  $s,
         ]);

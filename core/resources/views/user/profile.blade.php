@@ -1,19 +1,19 @@
-@extends('admin.layout.master')
+@extends('user.layout.master')
 
 @section('body')
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-                    <form class="form-horizontal" role="form" action="{{url('admin/profile')}}" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="{{url('/profile')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="id" value="{{$admin->id}}">
+                        <input type="hidden" name="id" value="{{$user->id}}">
                         <div class="form-body">
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label class="col-md-2 offset-1 control-label"><b>Name</b></label>
                                 <div class="col-md-9 offset-1">
                                     <div class="input-group">
-                                        <input type="text" name="name" value="{{$admin->name}}" class="form-control input-lg"
+                                        <input type="text" name="name" value="{{$user->name}}" class="form-control input-lg"
                                                placeholder="Your Name">
                                         <div class="input-group-append"><span class="input-group-text"><i class="fa fa-user"></i></span></div>
                                     </div>
@@ -29,7 +29,7 @@
                                 <label class="col-md-2 offset-1 control-label"><b>Email</b></label>
                                 <div class="col-md-9 offset-1">
                                     <div class="input-group">
-                                        <input type="email" name="email" value="{{$admin->email}}" class="form-control input-lg"
+                                        <input type="email" name="email" value="{{$user->email}}" class="form-control input-lg"
                                                placeholder="Your Email">
                                         <div class="input-group-append"><span class="input-group-text"><i class="fa fa-envelope"></i></span></div>
                                     </div>
@@ -45,7 +45,7 @@
                                 <label class="col-md-2 offset-1 control-label"><b>Mobile</b></label>
                                 <div class="col-md-9 offset-1">
                                     <div class="input-group">
-                                        <input type="text" name="mobile" value="{{$admin->mobile}}" class="form-control input-lg"
+                                        <input type="text" name="mobile" value="{{$user->mobile}}" class="form-control input-lg"
                                                placeholder="Your Mobile">
                                         <div class="input-group-append"><span class="input-group-text"><i class="fa fa-phone"></i></span></div>
                                     </div>
@@ -61,13 +61,13 @@
                                 <label class="col-md-2 offset-1 control-label"><b>Profile</b></label>
                                 <div class="col-md-9 offset-1">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
-                                        @if($admin->image == null)
+                                        @if($user->image == null)
                                             <div class="fileinput-new thumbnail" style="width: 215px; height: 215px;" data-trigger="fileinput">
-                                                <img style="width: 215px" src="{{ asset('assets/images/user/user-default.jpg') }}/" alt="...">
+                                                <img style="width: 215px" src="{{ asset('assets/images/user/no_user.png') }}" alt="...">
                                             </div>
                                         @else
                                             <div class="fileinput-new thumbnail" style="width: 215px; height: 215px;" data-trigger="fileinput">
-                                                <img style="width: 215px" src="{{ asset('assets/admin/img') }}/{{$admin->image}}" alt="...">
+                                                <img style="width: 215px" src="{{ asset('assets/images/user') }}/{{$user->image}}" alt="...">
                                             </div>
                                         @endif
 

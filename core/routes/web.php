@@ -50,19 +50,27 @@ Route::group(['prefix' => '/', 'middleware' => 'auth:web'], function () {
 
     Route::get('/home', 'UserController@dashboard')->name('user.home');
     Route::get('/logout', 'Auth\LoginController@logout')->name('user.logout');
+    //profile
+    Route::get('/change/password', 'UserController@changePassword')->name('user.changePass');
+    Route::post('/change/password', 'UserController@updatePassword')->name('user.changePass');
+    Route::get('/profile', 'UserController@profile')->name('user.profile');
+    Route::post('/profile', 'UserController@updateProfile')->name('user.profile');
     Route::post('/sendemailver', 'FrontendController@sendemailver')->name('sendemailver');
     Route::post('/emailverify', 'FrontendController@emailverify')->name('emailverify');
     Route::post('/sendsmsver', 'FrontendController@sendsmsver')->name('sendsmsver');
     Route::post('/smsverify', 'FrontendController@smsverify')->name('smsverify');
     Route::get('/authorization', 'FrontendController@authorization')->name('authorization');
     Route::post('/g2fa-verify', 'FrontendController@verify2fa')->name('go2fa.verify');
-
     //2fa
     Route::get('/security/two/step', 'HomeController@twoFactorIndex')->name('two.factor.index');
     Route::post('/g2fa-create', 'HomeController@create2fa')->name('go2fa.create');
     Route::post('/g2fa-disable', 'HomeController@disable2fa')->name('disable.2fa');
-
     Route::post('/g2fa-check', 'HomeController@checkTwoFactor')->name('check_two_facetor');
+
+});
+Route::group(['prefix' => '/vmware', 'middleware' => 'auth:web'], function () {
+
+    Route::get('/require_classify', 'VmwareController@require_classify')->name('vmware.require_classify');
 
 });
 

@@ -3,42 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
-use App\Courier;
-use App\Customer;
-use App\Deposit;
-use App\Epin;
-use App\Gateway;
-use App\GeneralSettings;
-use App\Invest;
-use App\Invoice;
-use App\Jobs\SendEmail;
-use App\Plan;
-use App\Product;
-use App\Purchase;
-use App\Referral;
-use App\SoldProduct;
-use App\Stock;
-use App\Subscriber;
-use App\TimeSetting;
-use App\Transection;
 use App\User;
-use App\Withdraw;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
-use Intervention\Image\Facades\Image;
-use File;
+use App\Virtualmachine;
 
-class UserController extends Controller
+class VmwareController extends Controller
 {
-    public function dashboard()
+    public function require_classify()
     {
-        $page_title = "User Dashboard";
-
-
-        return view('user.home', compact('page_title'));
+        $vm = Virtualmachine::all();
+        $page_title = "Virtual Machine Requirement Classification";
+        return view('user/require_classify', compact('page_title', 'vm'));
     }
 
     public function changePassword()

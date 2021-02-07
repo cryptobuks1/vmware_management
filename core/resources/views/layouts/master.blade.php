@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Vmware Management {{  '| '.__($pt) }}  </title>
+    <title> Virtual Machine Management {{  '| '.__($pt) }}  </title>
     <!-- favicon -->
     <link rel="shortcut icon" href="{{asset('assets/images/logo/favicon.png')}}" type="image/x-icon">
     <!-- bootstrap -->
@@ -46,7 +46,7 @@
             <div class="col-lg-9 col-md-12 col-sm-12 support-bar-curve">
                 <div class="support-wrapper">
                     <div class="support-bar-left">
-                        <span class="support-item"><i class="fa fa-envelope"></i> vmware@manage.com</span>
+                        <span class="support-item"><i class="fa fa-envelope"></i> virtual.machine@manage.com</span>
                         <span class="support-item"><i class="fa fa-phone"></i> 01234564795</span>
                     </div>
                 </div>
