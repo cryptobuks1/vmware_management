@@ -1,24 +1,13 @@
-core/vendor/
-node_modules/
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
 npm-debug.log
 yarn-error.log
-
-# Laravel 4 specific
-core/bootstrap/compiled.php
-core/app/storage/
-
-# Laravel 5 & Lumen specific
-core/public/storage
-core/public/hot
-
-# Laravel 5 & Lumen specific with changed public path
-core/public_html/storage
-core/public_html/hot
-.idea/
-
-core/storage/*.key
-core/.env
-core/Homestead.yaml
-core/Homestead.json
-core/.vagrant
-core/.phpunit.result.cache
