@@ -204,7 +204,7 @@ $(document).ready(function () {
             {
                 data: "region",
                 "render": function (val, type, row) {
-                    return val == null ? '' : regionAry[val];
+                    return regionAry[val] == undefined ? '' : regionAry[val];
                 }
             },
             {data: "pricetype"},
