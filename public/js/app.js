@@ -35,6 +35,12 @@ __webpack_require__(/*! datatables.net-fixedcolumns */ "./node_modules/datatable
 
 __webpack_require__(/*! datatables.net-fixedcolumns-bs4 */ "./node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4.js");
 
+__webpack_require__(/*! datatables.net-buttons */ "./node_modules/datatables.net-buttons/js/dataTables.buttons.js");
+
+__webpack_require__(/*! ./dataTable-editor.min */ "./resources/js/dataTable-editor.min.js");
+
+__webpack_require__(/*! ./dataTables.checkboxes.min */ "./resources/js/dataTables.checkboxes.min.js");
+
 __webpack_require__(/*! bootstrap-switch */ "./node_modules/bootstrap-switch/dist/js/bootstrap-switch.js");
 
 __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
@@ -78,26 +84,4514 @@ try {
 
 /***/ }),
 
+/***/ "./resources/js/dataTable-editor.min.js":
+/*!**********************************************!*\
+  !*** ./resources/js/dataTable-editor.min.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*!
+ DataTables Editor v1.9.5
+
+ Â©2012-2020 SpryMedia Ltd, all rights reserved.
+ License: editor.datatables.net/license
+*/
+var $jscomp = $jscomp || {};
+$jscomp.scope = {};
+
+$jscomp.findInternal = function (e, y, z) {
+  e instanceof String && (e = String(e));
+
+  for (var u = e.length, C = 0; C < u; C++) {
+    var H = e[C];
+    if (y.call(z, H, C, e)) return {
+      i: C,
+      v: H
+    };
+  }
+
+  return {
+    i: -1,
+    v: void 0
+  };
+};
+
+$jscomp.ASSUME_ES5 = !1;
+$jscomp.ASSUME_NO_NATIVE_MAP = !1;
+$jscomp.ASSUME_NO_NATIVE_SET = !1;
+$jscomp.SIMPLE_FROUND_POLYFILL = !1;
+$jscomp.ISOLATE_POLYFILLS = !1;
+$jscomp.defineProperty = $jscomp.ASSUME_ES5 || "function" == typeof Object.defineProperties ? Object.defineProperty : function (e, y, z) {
+  if (e == Array.prototype || e == Object.prototype) return e;
+  e[y] = z.value;
+  return e;
+};
+
+$jscomp.getGlobal = function (e) {
+  e = ["object" == (typeof globalThis === "undefined" ? "undefined" : _typeof(globalThis)) && globalThis, e, "object" == (typeof window === "undefined" ? "undefined" : _typeof(window)) && window, "object" == (typeof self === "undefined" ? "undefined" : _typeof(self)) && self, "object" == (typeof __webpack_require__.g === "undefined" ? "undefined" : _typeof(__webpack_require__.g)) && __webpack_require__.g];
+
+  for (var y = 0; y < e.length; ++y) {
+    var z = e[y];
+    if (z && z.Math == Math) return z;
+  }
+
+  throw Error("Cannot find global object");
+};
+
+$jscomp.global = $jscomp.getGlobal(this);
+$jscomp.IS_SYMBOL_NATIVE = "function" === typeof Symbol && "symbol" === _typeof(Symbol("x"));
+$jscomp.TRUST_ES6_POLYFILLS = !$jscomp.ISOLATE_POLYFILLS || $jscomp.IS_SYMBOL_NATIVE;
+$jscomp.polyfills = {};
+$jscomp.propertyToPolyfillSymbol = {};
+$jscomp.POLYFILL_PREFIX = "$jscp$";
+
+var $jscomp$lookupPolyfilledValue = function $jscomp$lookupPolyfilledValue(e, y) {
+  var z = $jscomp.propertyToPolyfillSymbol[y];
+  if (null == z) return e[y];
+  z = e[z];
+  return void 0 !== z ? z : e[y];
+};
+
+$jscomp.polyfill = function (e, y, z, u) {
+  y && ($jscomp.ISOLATE_POLYFILLS ? $jscomp.polyfillIsolated(e, y, z, u) : $jscomp.polyfillUnisolated(e, y, z, u));
+};
+
+$jscomp.polyfillUnisolated = function (e, y, z, u) {
+  z = $jscomp.global;
+  e = e.split(".");
+
+  for (u = 0; u < e.length - 1; u++) {
+    var C = e[u];
+    if (!(C in z)) return;
+    z = z[C];
+  }
+
+  e = e[e.length - 1];
+  u = z[e];
+  y = y(u);
+  y != u && null != y && $jscomp.defineProperty(z, e, {
+    configurable: !0,
+    writable: !0,
+    value: y
+  });
+};
+
+$jscomp.polyfillIsolated = function (e, y, z, u) {
+  var C = e.split(".");
+  e = 1 === C.length;
+  u = C[0];
+  u = !e && u in $jscomp.polyfills ? $jscomp.polyfills : $jscomp.global;
+
+  for (var H = 0; H < C.length - 1; H++) {
+    var E = C[H];
+    if (!(E in u)) return;
+    u = u[E];
+  }
+
+  C = C[C.length - 1];
+  z = $jscomp.IS_SYMBOL_NATIVE && "es6" === z ? u[C] : null;
+  y = y(z);
+  null != y && (e ? $jscomp.defineProperty($jscomp.polyfills, C, {
+    configurable: !0,
+    writable: !0,
+    value: y
+  }) : y !== z && ($jscomp.propertyToPolyfillSymbol[C] = $jscomp.IS_SYMBOL_NATIVE ? $jscomp.global.Symbol(C) : $jscomp.POLYFILL_PREFIX + C, C = $jscomp.propertyToPolyfillSymbol[C], $jscomp.defineProperty(u, C, {
+    configurable: !0,
+    writable: !0,
+    value: y
+  })));
+};
+
+$jscomp.polyfill("Array.prototype.find", function (e) {
+  return e ? e : function (y, z) {
+    return $jscomp.findInternal(this, y, z).v;
+  };
+}, "es6", "es3");
+
+(function (e) {
+   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (y) {
+    return e(y, window, document);
+  }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : 0;
+})(function (e, y, z, u) {
+  function C(a) {
+    a = a.context[0];
+    return a.oInit.editor || a._editor;
+  }
+
+  function H(a, b, d, f) {
+    b || (b = {});
+    b.buttons === u && (b.buttons = "_basic");
+    b.title === u && (b.title = a.i18n[d].title);
+    b.message === u && ("remove" === d ? (a = a.i18n[d].confirm, b.message = 1 !== f ? a._.replace(/%d/, f) : a["1"]) : b.message = "");
+    return b;
+  }
+
+  var E = e.fn.dataTable;
+  if (!E || !E.versionCheck || !E.versionCheck("1.10.7")) throw Error("Editor requires DataTables 1.10.7 or newer");
+
+  var m = function m(a) {
+    this instanceof m || alert("DataTables Editor must be initialised as a 'new' instance'");
+
+    this._constructor(a);
+  };
+
+  E.Editor = m;
+  e.fn.DataTable.Editor = m;
+
+  var G = function G(a, b) {
+    b === u && (b = z);
+    return e('*[data-dte-e="' + a + '"]', b);
+  },
+      U = 0,
+      M = function M(a, b) {
+    var d = [];
+    e.each(a, function (f, h) {
+      d.push(h[b]);
+    });
+    return d;
+  },
+      R = function R(a, b) {
+    var d = this.files(a);
+    if (!d[b]) throw "Unknown file id " + b + " in table " + a;
+    return d[b];
+  },
+      S = function S(a) {
+    if (!a) return m.files;
+    var b = m.files[a];
+    if (!b) throw "Unknown file table name: " + a;
+    return b;
+  },
+      T = function T(a) {
+    var b = [],
+        d;
+
+    for (d in a) {
+      a.hasOwnProperty(d) && b.push(d);
+    }
+
+    return b;
+  },
+      P = function P(a, b) {
+    if ("object" !== _typeof(a) || "object" !== _typeof(b)) return a == b;
+    var d = T(a),
+        f = T(b);
+    if (d.length !== f.length) return !1;
+    f = 0;
+
+    for (var h = d.length; f < h; f++) {
+      var c = d[f];
+
+      if ("object" === _typeof(a[c])) {
+        if (!P(a[c], b[c])) return !1;
+      } else if (a[c] != b[c]) return !1;
+    }
+
+    return !0;
+  };
+
+  m.Field = function (a, b, d) {
+    var f = this,
+        h = d.i18n.multi;
+    a = e.extend(!0, {}, m.Field.defaults, a);
+    if (!m.fieldTypes[a.type]) throw "Error adding field - unknown field type " + a.type;
+    this.s = e.extend({}, m.Field.settings, {
+      type: m.fieldTypes[a.type],
+      name: a.name,
+      classes: b,
+      host: d,
+      opts: a,
+      multiValue: !1
+    });
+    a.id || (a.id = "DTE_Field_" + a.name);
+    a.dataProp && (a.data = a.dataProp);
+    "" === a.data && (a.data = a.name);
+    var c = E.ext.oApi;
+
+    this.valFromData = function (p) {
+      return c._fnGetObjectDataFn(a.data)(p, "editor");
+    };
+
+    this.valToData = c._fnSetObjectDataFn(a.data);
+    var g = e('<div class="' + b.wrapper + " " + b.typePrefix + a.type + " " + b.namePrefix + a.name + " " + a.className + '"><label data-dte-e="label" class="' + b.label + '" for="' + m.safeId(a.id) + '">' + a.label + '<div data-dte-e="msg-label" class="' + b["msg-label"] + '">' + a.labelInfo + '</div></label><div data-dte-e="input" class="' + b.input + '"><div data-dte-e="input-control" class="' + b.inputControl + '"></div><div data-dte-e="multi-value" class="' + b.multiValue + '">' + h.title + '<span data-dte-e="multi-info" class="' + b.multiInfo + '">' + h.info + '</span></div><div data-dte-e="msg-multi" class="' + b.multiRestore + '">' + h.restore + '</div><div data-dte-e="msg-error" class="' + b["msg-error"] + '"></div><div data-dte-e="msg-message" class="' + b["msg-message"] + '">' + a.message + '</div><div data-dte-e="msg-info" class="' + b["msg-info"] + '">' + a.fieldInfo + '</div></div><div data-dte-e="field-processing" class="' + b.processing + '"><span></span></div></div>');
+    d = this._typeFn("create", a);
+    null !== d ? G("input-control", g).prepend(d) : g.css("display", "none");
+    this.dom = e.extend(!0, {}, m.Field.models.dom, {
+      container: g,
+      inputControl: G("input-control", g),
+      label: G("label", g),
+      fieldInfo: G("msg-info", g),
+      labelInfo: G("msg-label", g),
+      fieldError: G("msg-error", g),
+      fieldMessage: G("msg-message", g),
+      multi: G("multi-value", g),
+      multiReturn: G("msg-multi", g),
+      multiInfo: G("multi-info", g),
+      processing: G("field-processing", g)
+    });
+    this.dom.multi.on("click", function () {
+      f.s.opts.multiEditable && !g.hasClass(b.disabled) && "readonly" !== a.type && (f.val(""), f.focus());
+    });
+    this.dom.multiReturn.on("click", function () {
+      f.multiRestore();
+    });
+    e.each(this.s.type, function (p, n) {
+      "function" === typeof n && f[p] === u && (f[p] = function () {
+        var r = Array.prototype.slice.call(arguments);
+        r.unshift(p);
+        r = f._typeFn.apply(f, r);
+        return r === u ? f : r;
+      });
+    });
+  };
+
+  m.Field.prototype = {
+    def: function def(a) {
+      var b = this.s.opts;
+      if (a === u) return a = b["default"] !== u ? b["default"] : b.def, "function" === typeof a ? a() : a;
+      b.def = a;
+      return this;
+    },
+    disable: function disable() {
+      this.dom.container.addClass(this.s.classes.disabled);
+
+      this._typeFn("disable");
+
+      return this;
+    },
+    displayed: function displayed() {
+      var a = this.dom.container;
+      return a.parents("body").length && "none" != a.css("display") ? !0 : !1;
+    },
+    enable: function enable() {
+      this.dom.container.removeClass(this.s.classes.disabled);
+
+      this._typeFn("enable");
+
+      return this;
+    },
+    enabled: function enabled() {
+      return !1 === this.dom.container.hasClass(this.s.classes.disabled);
+    },
+    error: function error(a, b) {
+      var d = this.s.classes;
+      a ? this.dom.container.addClass(d.error) : this.dom.container.removeClass(d.error);
+
+      this._typeFn("errorMessage", a);
+
+      return this._msg(this.dom.fieldError, a, b);
+    },
+    fieldInfo: function fieldInfo(a) {
+      return this._msg(this.dom.fieldInfo, a);
+    },
+    isMultiValue: function isMultiValue() {
+      return this.s.multiValue && 1 !== this.s.multiIds.length;
+    },
+    inError: function inError() {
+      return this.dom.container.hasClass(this.s.classes.error);
+    },
+    input: function input() {
+      return this.s.type.input ? this._typeFn("input") : e("input, select, textarea", this.dom.container);
+    },
+    focus: function focus() {
+      this.s.type.focus ? this._typeFn("focus") : e("input, select, textarea", this.dom.container).focus();
+      return this;
+    },
+    get: function get() {
+      if (this.isMultiValue()) return u;
+
+      var a = this._typeFn("get");
+
+      return a !== u ? a : this.def();
+    },
+    hide: function hide(a) {
+      var b = this.dom.container;
+      a === u && (a = !0);
+      this.s.host.display() && a && e.fn.slideUp ? b.slideUp() : b.css("display", "none");
+      return this;
+    },
+    label: function label(a) {
+      var b = this.dom.label,
+          d = this.dom.labelInfo.detach();
+      if (a === u) return b.html();
+      b.html(a);
+      b.append(d);
+      return this;
+    },
+    labelInfo: function labelInfo(a) {
+      return this._msg(this.dom.labelInfo, a);
+    },
+    message: function message(a, b) {
+      return this._msg(this.dom.fieldMessage, a, b);
+    },
+    multiGet: function multiGet(a) {
+      var b = this.s.multiValues,
+          d = this.s.multiIds,
+          f = this.isMultiValue();
+
+      if (a === u) {
+        var h = this.val();
+        a = {};
+
+        for (var c = 0; c < d.length; c++) {
+          a[d[c]] = f ? b[d[c]] : h;
+        }
+      } else a = f ? b[a] : this.val();
+
+      return a;
+    },
+    multiRestore: function multiRestore() {
+      this.s.multiValue = !0;
+
+      this._multiValueCheck();
+    },
+    multiSet: function multiSet(a, b) {
+      var d = this.s.multiValues,
+          f = this.s.multiIds;
+      b === u && (b = a, a = u);
+
+      var h = function h(c, g) {
+        -1 === e.inArray(f) && f.push(c);
+        d[c] = g;
+      };
+
+      e.isPlainObject(b) && a === u ? e.each(b, function (c, g) {
+        h(c, g);
+      }) : a === u ? e.each(f, function (c, g) {
+        h(g, b);
+      }) : h(a, b);
+      this.s.multiValue = !0;
+
+      this._multiValueCheck();
+
+      return this;
+    },
+    name: function name() {
+      return this.s.opts.name;
+    },
+    node: function node() {
+      return this.dom.container[0];
+    },
+    processing: function processing(a) {
+      if (a === u) return "block" === this.dom.processing.css("display");
+      this.dom.processing.css("display", a ? "block" : "none");
+
+      this.s.host._event("processing-field", [a]);
+
+      return this;
+    },
+    set: function set(a, b) {
+      var d = function d(c) {
+        return "string" !== typeof c ? c : c.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#163;/g, "Â£").replace(/&#39;/g, "'").replace(/&#10;/g, "\n");
+      };
+
+      this.s.multiValue = !1;
+      var f = this.s.opts.entityDecode;
+      if (f === u || !0 === f) if (Array.isArray(a)) {
+        f = 0;
+
+        for (var h = a.length; f < h; f++) {
+          a[f] = d(a[f]);
+        }
+      } else a = d(a);
+
+      this._typeFn("set", a);
+
+      b !== u && !0 !== b || this._multiValueCheck();
+      return this;
+    },
+    show: function show(a) {
+      var b = this.dom.container;
+      a === u && (a = !0);
+      this.s.host.display() && a && e.fn.slideDown ? b.slideDown() : b.css("display", "");
+      return this;
+    },
+    val: function val(a) {
+      return a === u ? this.get() : this.set(a);
+    },
+    compare: function compare(a, b) {
+      return (this.s.opts.compare || P)(a, b);
+    },
+    dataSrc: function dataSrc() {
+      return this.s.opts.data;
+    },
+    destroy: function destroy() {
+      this.dom.container.remove();
+
+      this._typeFn("destroy");
+
+      return this;
+    },
+    multiEditable: function multiEditable() {
+      return this.s.opts.multiEditable;
+    },
+    multiIds: function multiIds() {
+      return this.s.multiIds;
+    },
+    multiInfoShown: function multiInfoShown(a) {
+      this.dom.multiInfo.css({
+        display: a ? "block" : "none"
+      });
+    },
+    multiReset: function multiReset() {
+      this.s.multiIds = [];
+      this.s.multiValues = {};
+    },
+    submittable: function submittable() {
+      return this.s.opts.submit;
+    },
+    valFromData: null,
+    valToData: null,
+    _errorNode: function _errorNode() {
+      return this.dom.fieldError;
+    },
+    _msg: function _msg(a, b, d) {
+      if (b === u) return a.html();
+
+      if ("function" === typeof b) {
+        var f = this.s.host;
+        b = b(f, new E.Api(f.s.table));
+      }
+
+      a.parent().is(":visible") && e.fn.animate ? (a.html(b), b ? a.slideDown(d) : a.slideUp(d)) : (a.html(b || "").css("display", b ? "block" : "none"), d && d());
+      return this;
+    },
+    _multiValueCheck: function _multiValueCheck() {
+      var a = this.s.multiIds,
+          b = this.s.multiValues,
+          d = this.s.multiValue,
+          f = this.s.opts.multiEditable,
+          h = !1;
+      if (a) for (var c = 0; c < a.length; c++) {
+        var g = b[a[c]];
+
+        if (0 < c && !P(g, p)) {
+          h = !0;
+          break;
+        }
+
+        var p = g;
+      }
+      h && d || !f && this.isMultiValue() ? (this.dom.inputControl.css({
+        display: "none"
+      }), this.dom.multi.css({
+        display: "block"
+      })) : (this.dom.inputControl.css({
+        display: "block"
+      }), this.dom.multi.css({
+        display: "none"
+      }), d && !h && this.set(p, !1));
+      this.dom.multiReturn.css({
+        display: a && 1 < a.length && h && !d ? "block" : "none"
+      });
+      p = this.s.host.i18n.multi;
+      this.dom.multiInfo.html(f ? p.info : p.noMulti);
+      this.dom.multi.toggleClass(this.s.classes.multiNoEdit, !f);
+
+      this.s.host._multiInfo();
+
+      return !0;
+    },
+    _typeFn: function _typeFn(a) {
+      var b = Array.prototype.slice.call(arguments);
+      b.shift();
+      b.unshift(this.s.opts);
+      var d = this.s.type[a];
+      if (d) return d.apply(this.s.host, b);
+    }
+  };
+  m.Field.models = {};
+  m.Field.defaults = {
+    className: "",
+    data: "",
+    def: "",
+    fieldInfo: "",
+    id: "",
+    label: "",
+    labelInfo: "",
+    name: null,
+    type: "text",
+    message: "",
+    multiEditable: !0,
+    submit: !0
+  };
+  m.Field.models.settings = {
+    type: null,
+    name: null,
+    classes: null,
+    opts: null,
+    host: null
+  };
+  m.Field.models.dom = {
+    container: null,
+    label: null,
+    labelInfo: null,
+    fieldInfo: null,
+    fieldError: null,
+    fieldMessage: null
+  };
+  m.models = {};
+  m.models.displayController = {
+    init: function init(a) {},
+    open: function open(a, b, d) {},
+    close: function close(a, b) {}
+  };
+  m.models.fieldType = {
+    create: function create(a) {},
+    get: function get(a) {},
+    set: function set(a, b) {},
+    enable: function enable(a) {},
+    disable: function disable(a) {}
+  };
+  m.models.settings = {
+    ajaxUrl: null,
+    ajax: null,
+    dataSource: null,
+    domTable: null,
+    opts: null,
+    displayController: null,
+    fields: {},
+    order: [],
+    id: -1,
+    displayed: !1,
+    processing: !1,
+    modifier: null,
+    action: null,
+    idSrc: null,
+    unique: 0
+  };
+  m.models.button = {
+    label: null,
+    fn: null,
+    className: null
+  };
+  m.models.formOptions = {
+    onReturn: "submit",
+    onBlur: "close",
+    onBackground: "blur",
+    onComplete: "close",
+    onEsc: "close",
+    onFieldError: "focus",
+    submit: "all",
+    focus: 0,
+    buttons: !0,
+    title: !0,
+    message: !0,
+    drawType: !1,
+    scope: "row"
+  };
+  m.display = {};
+
+  (function () {
+    m.display.lightbox = e.extend(!0, {}, m.models.displayController, {
+      init: function init(b) {
+        a._init();
+
+        return a;
+      },
+      open: function open(b, d, f) {
+        a._shown ? f && f() : (a._dte = b, b = a._dom.content, b.children().detach(), b.append(d).append(a._dom.close), a._shown = !0, a._show(f));
+      },
+      close: function close(b, d) {
+        a._shown ? (a._dte = b, a._hide(d), a._shown = !1) : d && d();
+      },
+      node: function node(b) {
+        return a._dom.wrapper[0];
+      },
+      _init: function _init() {
+        if (!a._ready) {
+          var b = a._dom;
+          b.content = e("div.DTED_Lightbox_Content", a._dom.wrapper);
+          b.wrapper.css("opacity", 0);
+          b.background.css("opacity", 0);
+        }
+      },
+      _show: function _show(b) {
+        var d = a._dom;
+        y.orientation !== u && e("body").addClass("DTED_Lightbox_Mobile");
+        d.content.css("height", "auto");
+        d.wrapper.css({
+          top: -a.conf.offsetAni
+        });
+        e("body").append(a._dom.background).append(a._dom.wrapper);
+
+        a._heightCalc();
+
+        a._dte._animate(d.wrapper, {
+          opacity: 1,
+          top: 0
+        }, b);
+
+        a._dte._animate(d.background, {
+          opacity: 1
+        });
+
+        setTimeout(function () {
+          e("div.DTE_Footer").css("text-indent", -1);
+        }, 10);
+        d.close.attr("title", a._dte.i18n.close).bind("click.DTED_Lightbox", function (f) {
+          a._dte.close();
+        });
+        d.background.bind("click.DTED_Lightbox", function (f) {
+          f.stopImmediatePropagation();
+
+          a._dte.background();
+        });
+        e("div.DTED_Lightbox_Content_Wrapper", d.wrapper).bind("click.DTED_Lightbox", function (f) {
+          e(f.target).hasClass("DTED_Lightbox_Content_Wrapper") && (f.stopImmediatePropagation(), a._dte.background());
+        });
+        e(y).bind("resize.DTED_Lightbox", function () {
+          a._heightCalc();
+        });
+        a._scrollTop = e("body").scrollTop();
+        y.orientation !== u && (b = e("body").children().not(d.background).not(d.wrapper), e("body").append('<div class="DTED_Lightbox_Shown"></div>'), e("div.DTED_Lightbox_Shown").append(b));
+      },
+      _heightCalc: function _heightCalc() {
+        var b = a._dom,
+            d = e(y).height() - 2 * a.conf.windowPadding - e("div.DTE_Header", b.wrapper).outerHeight() - e("div.DTE_Footer", b.wrapper).outerHeight();
+        e("div.DTE_Body_Content", b.wrapper).css("maxHeight", d);
+      },
+      _hide: function _hide(b) {
+        var d = a._dom;
+        b || (b = function b() {});
+
+        if (y.orientation !== u) {
+          var f = e("div.DTED_Lightbox_Shown");
+          f.children().appendTo("body");
+          f.remove();
+        }
+
+        e("body").removeClass("DTED_Lightbox_Mobile").scrollTop(a._scrollTop);
+
+        a._dte._animate(d.wrapper, {
+          opacity: 0,
+          top: a.conf.offsetAni
+        }, function () {
+          e(this).detach();
+          b();
+        });
+
+        a._dte._animate(d.background, {
+          opacity: 0
+        }, function () {
+          e(this).detach();
+        });
+
+        d.close.unbind("click.DTED_Lightbox");
+        d.background.unbind("click.DTED_Lightbox");
+        e("div.DTED_Lightbox_Content_Wrapper", d.wrapper).unbind("click.DTED_Lightbox");
+        e(y).unbind("resize.DTED_Lightbox");
+      },
+      _dte: null,
+      _ready: !1,
+      _shown: !1,
+      _dom: {
+        wrapper: e('<div class="DTED DTED_Lightbox_Wrapper"><div class="DTED_Lightbox_Container"><div class="DTED_Lightbox_Content_Wrapper"><div class="DTED_Lightbox_Content"></div></div></div></div>'),
+        background: e('<div class="DTED_Lightbox_Background"><div></div></div>'),
+        close: e('<div class="DTED_Lightbox_Close"></div>'),
+        content: null
+      }
+    });
+    var a = m.display.lightbox;
+    a.conf = {
+      offsetAni: 25,
+      windowPadding: 25
+    };
+  })();
+
+  (function () {
+    m.display.envelope = e.extend(!0, {}, m.models.displayController, {
+      init: function init(b) {
+        a._dte = b;
+
+        a._init();
+
+        return a;
+      },
+      open: function open(b, d, f) {
+        a._dte = b;
+        e(a._dom.content).children().detach();
+
+        a._dom.content.appendChild(d);
+
+        a._dom.content.appendChild(a._dom.close);
+
+        a._show(f);
+      },
+      close: function close(b, d) {
+        a._dte = b;
+
+        a._hide(d);
+      },
+      node: function node(b) {
+        return a._dom.wrapper[0];
+      },
+      _init: function _init() {
+        a._ready || (a._dom.content = e("div.DTED_Envelope_Container", a._dom.wrapper)[0], a._dom.background.style.visbility = "hidden", a._dom.background.style.display = "block", a._cssBackgroundOpacity = e(a._dom.background).css("opacity"), a._dom.background.style.display = "none", a._dom.background.style.visbility = "visible");
+      },
+      _show: function _show(b) {
+        b || (b = function b() {});
+        z.body.appendChild(a._dom.background);
+        z.body.appendChild(a._dom.wrapper);
+        a._dom.content.style.height = "auto";
+        var d = a._dom.wrapper.style;
+        d.opacity = 0;
+        d.display = "block";
+
+        var f = a._findAttachRow(),
+            h = a._heightCalc(),
+            c = f.offsetWidth;
+
+        d.display = "none";
+        d.opacity = 1;
+        a._dom.wrapper.style.width = c + "px";
+        a._dom.wrapper.style.marginLeft = -(c / 2) + "px";
+        a._dom.wrapper.style.top = e(f).offset().top + f.offsetHeight + "px";
+        a._dom.content.style.top = -1 * h - 20 + "px";
+        a._dom.background.style.opacity = 0;
+        a._dom.background.style.display = "block";
+        e(a._dom.background).animate({
+          opacity: a._cssBackgroundOpacity
+        }, "normal");
+        e(a._dom.wrapper).fadeIn();
+        a.conf.windowScroll ? e("html,body").animate({
+          scrollTop: e(f).offset().top + f.offsetHeight - a.conf.windowPadding
+        }, function () {
+          e(a._dom.content).animate({
+            top: 0
+          }, 600, b);
+        }) : e(a._dom.content).animate({
+          top: 0
+        }, 600, b);
+        e(a._dom.close).attr("title", a._dte.i18n.close).bind("click.DTED_Envelope", function (g) {
+          a._dte.close();
+        });
+        e(a._dom.background).bind("click.DTED_Envelope", function (g) {
+          a._dte.background();
+        });
+        e("div.DTED_Lightbox_Content_Wrapper", a._dom.wrapper).bind("click.DTED_Envelope", function (g) {
+          e(g.target).hasClass("DTED_Envelope_Content_Wrapper") && a._dte.background();
+        });
+        e(y).bind("resize.DTED_Envelope", function () {
+          a._heightCalc();
+        });
+      },
+      _heightCalc: function _heightCalc() {
+        a.conf.heightCalc ? a.conf.heightCalc(a._dom.wrapper) : e(a._dom.content).children().height();
+        var b = e(y).height() - 2 * a.conf.windowPadding - e("div.DTE_Header", a._dom.wrapper).outerHeight() - e("div.DTE_Footer", a._dom.wrapper).outerHeight();
+        e("div.DTE_Body_Content", a._dom.wrapper).css("maxHeight", b);
+        return e(a._dte.dom.wrapper).outerHeight();
+      },
+      _hide: function _hide(b) {
+        b || (b = function b() {});
+        e(a._dom.content).animate({
+          top: -(a._dom.content.offsetHeight + 50)
+        }, 600, function () {
+          e([a._dom.wrapper, a._dom.background]).fadeOut("normal", function () {
+            e(this).remove();
+            b();
+          });
+        });
+        e(a._dom.close).unbind("click.DTED_Lightbox");
+        e(a._dom.background).unbind("click.DTED_Lightbox");
+        e("div.DTED_Lightbox_Content_Wrapper", a._dom.wrapper).unbind("click.DTED_Lightbox");
+        e(y).unbind("resize.DTED_Lightbox");
+      },
+      _findAttachRow: function _findAttachRow() {
+        var b = new e.fn.dataTable.Api(a._dte.s.table);
+        return "head" === a.conf.attach ? b.table().header() : "create" === a._dte.s.action ? b.table().header() : b.row(a._dte.s.modifier).node();
+      },
+      _dte: null,
+      _ready: !1,
+      _cssBackgroundOpacity: 1,
+      _dom: {
+        wrapper: e('<div class="DTED DTED_Envelope_Wrapper"><div class="DTED_Envelope_Shadow"></div><div class="DTED_Envelope_Container"></div></div>')[0],
+        background: e('<div class="DTED_Envelope_Background"><div></div></div>')[0],
+        close: e('<div class="DTED_Envelope_Close">&times;</div>')[0],
+        content: null
+      }
+    });
+    var a = m.display.envelope;
+    a.conf = {
+      windowPadding: 50,
+      heightCalc: null,
+      attach: "row",
+      windowScroll: !0
+    };
+  })();
+
+  m.prototype.add = function (a, b) {
+    if (Array.isArray(a)) {
+      b !== u && a.reverse();
+
+      for (var d = 0; d < a.length; d++) {
+        this.add(a[d], b);
+      }
+    } else {
+      d = a.name;
+      if (d === u) throw "Error adding field. The field requires a `name` option";
+      if (this.s.fields[d]) throw "Error adding field '" + d + "'. A field already exists with this name";
+
+      this._dataSource("initField", a);
+
+      var f = new m.Field(a, this.classes.field, this);
+      this.s.mode && (a = this.s.editFields, f.multiReset(), e.each(a, function (h, c) {
+        var g;
+        c.data && (g = f.valFromData(c.data));
+        f.multiSet(h, g !== u ? g : f.def());
+      }));
+      this.s.fields[d] = f;
+      b === u ? this.s.order.push(d) : null === b ? this.s.order.unshift(d) : (b = e.inArray(b, this.s.order), this.s.order.splice(b + 1, 0, d));
+    }
+
+    this._displayReorder(this.order());
+
+    return this;
+  };
+
+  m.prototype.ajax = function (a) {
+    return a ? (this.s.ajax = a, this) : this.s.ajax;
+  };
+
+  m.prototype.background = function () {
+    var a = this.s.editOpts.onBackground;
+    "function" === typeof a ? a(this) : "blur" === a ? this.blur() : "close" === a ? this.close() : "submit" === a && this.submit();
+    return this;
+  };
+
+  m.prototype.blur = function () {
+    this._blur();
+
+    return this;
+  };
+
+  m.prototype.bubble = function (a, b, d, f) {
+    var h = this;
+    if (this._tidy(function () {
+      h.bubble(a, b, f);
+    })) return this;
+    e.isPlainObject(b) ? (f = b, b = u, d = !0) : "boolean" === typeof b && (d = b, f = b = u);
+    e.isPlainObject(d) && (f = d, d = !0);
+    d === u && (d = !0);
+    f = e.extend({}, this.s.formOptions.bubble, f);
+
+    var c = this._dataSource("individual", a, b);
+
+    this._edit(a, c, "bubble", f, function () {
+      var g = h._formOptions(f);
+
+      if (!h._preopen("bubble")) return h;
+      e(y).on("resize." + g, function () {
+        h.bubblePosition();
+      });
+      var p = [];
+      h.s.bubbleNodes = p.concat.apply(p, M(c, "attach"));
+      var n = h.classes.bubble;
+      p = e('<div class="' + n.bg + '"><div></div></div>');
+      var r = e('<div class="' + n.wrapper + '"><div class="' + n.liner + '"><div class="' + n.table + '"><div class="' + n.close + '" title="' + h.i18n.close + '"></div><div class="DTE_Processing_Indicator"><span></div></div></div><div class="' + n.pointer + '"></div></div>');
+      d && (r.appendTo("body"), p.appendTo("body"));
+      n = r.children().eq(0);
+      var q = n.children(),
+          k = q.children();
+      n.append(h.dom.formError);
+      q.prepend(h.dom.form);
+      f.message && n.prepend(h.dom.formInfo);
+      f.title && n.prepend(h.dom.header);
+      f.buttons && q.append(h.dom.buttons);
+      var l = e().add(r).add(p);
+
+      h._closeReg(function (t) {
+        h._animate(l, {
+          opacity: 0
+        }, function () {
+          this === r[0] && (l.detach(), e(y).off("resize." + g), h._clearDynamicInfo(), h._event("closed", ["bubble"]));
+        });
+      });
+
+      p.click(function () {
+        h.blur();
+      });
+      k.click(function () {
+        h._close();
+      });
+      h.bubblePosition();
+
+      h._animate(l, {
+        opacity: 1
+      });
+
+      h._focus(h.s.includeFields, f.focus);
+
+      h._postopen("bubble", !0);
+    });
+
+    return this;
+  };
+
+  m.prototype.bubblePosition = function () {
+    var a = e("div.DTE_Bubble"),
+        b = e("div.DTE_Bubble_Liner"),
+        d = this.s.bubbleNodes,
+        f = 0,
+        h = 0,
+        c = 0,
+        g = 0;
+    e.each(d, function (k, l) {
+      k = e(l).offset();
+      l = e(l).get(0);
+      f += k.top;
+      h += k.left;
+      c += k.left + l.offsetWidth;
+      g += k.top + l.offsetHeight;
+    });
+    f /= d.length;
+    h /= d.length;
+    c /= d.length;
+    g /= d.length;
+    d = f;
+    var p = (h + c) / 2,
+        n = b.outerWidth(),
+        r = p - n / 2;
+    n = r + n;
+    var q = e(y).width();
+    a.css({
+      top: d,
+      left: p
+    });
+    b.length && 0 > b.offset().top ? a.css("top", g).addClass("below") : a.removeClass("below");
+    n + 15 > q ? b.css("left", 15 > r ? -(r - 15) : -(n - q + 15)) : b.css("left", 15 > r ? -(r - 15) : 0);
+    return this;
+  };
+
+  m.prototype.buttons = function (a) {
+    var b = this;
+    "_basic" === a ? a = [{
+      text: this.i18n[this.s.action].submit,
+      action: function action() {
+        this.submit();
+      }
+    }] : Array.isArray(a) || (a = [a]);
+    e(this.dom.buttons).empty();
+    e.each(a, function (d, f) {
+      "string" === typeof f && (f = {
+        text: f,
+        action: function action() {
+          this.submit();
+        }
+      });
+      d = f.text || f.label;
+      var h = f.action || f.fn;
+      e("<button></button>", {
+        "class": b.classes.form.button + (f.className ? " " + f.className : "")
+      }).html("function" === typeof d ? d(b) : d || "").attr("tabindex", f.tabIndex !== u ? f.tabIndex : 0).on("keyup", function (c) {
+        13 === c.keyCode && h && h.call(b);
+      }).on("keypress", function (c) {
+        13 === c.keyCode && c.preventDefault();
+      }).on("click", function (c) {
+        c.preventDefault();
+        h && h.call(b, c);
+      }).appendTo(b.dom.buttons);
+    });
+    return this;
+  };
+
+  m.prototype.clear = function (a) {
+    var b = this,
+        d = this.s.fields;
+    "string" === typeof a ? (b.field(a).destroy(), delete d[a], d = e.inArray(a, this.s.order), this.s.order.splice(d, 1), a = e.inArray(a, this.s.includeFields), -1 !== a && this.s.includeFields.splice(a, 1)) : e.each(this._fieldNames(a), function (f, h) {
+      b.clear(h);
+    });
+    return this;
+  };
+
+  m.prototype.close = function () {
+    this._close(!1);
+
+    return this;
+  };
+
+  m.prototype.create = function (a, b, d, f) {
+    var h = this,
+        c = this.s.fields,
+        g = 1;
+    if (this._tidy(function () {
+      h.create(a, b, d, f);
+    })) return this;
+    "number" === typeof a && (g = a, a = b, b = d);
+    this.s.editFields = {};
+
+    for (var p = 0; p < g; p++) {
+      this.s.editFields[p] = {
+        fields: this.s.fields
+      };
+    }
+
+    var n = this._crudArgs(a, b, d, f);
+
+    this.s.mode = "main";
+    this.s.action = "create";
+    this.s.modifier = null;
+    this.dom.form.style.display = "block";
+
+    this._actionClass();
+
+    this._displayReorder(this.fields());
+
+    e.each(c, function (r, q) {
+      q.multiReset();
+
+      for (r = 0; r < g; r++) {
+        q.multiSet(r, q.def());
+      }
+
+      q.set(q.def());
+    });
+
+    this._event("initCreate", null, function () {
+      h._assembleMain();
+
+      h._formOptions(n.opts);
+
+      n.maybeOpen();
+    });
+
+    return this;
+  };
+
+  m.prototype.undependent = function (a) {
+    if (Array.isArray(a)) {
+      for (var b = 0, d = a.length; b < d; b++) {
+        this.undependent(a[b]);
+      }
+
+      return this;
+    }
+
+    a = this.field(a);
+    e(a.node()).off(".edep");
+    return this;
+  };
+
+  m.prototype.dependent = function (a, b, d) {
+    if (Array.isArray(a)) {
+      for (var f = 0, h = a.length; f < h; f++) {
+        this.dependent(a[f], b, d);
+      }
+
+      return this;
+    }
+
+    var c = this,
+        g = this.field(a),
+        p = {
+      type: "POST",
+      dataType: "json"
+    };
+    d = e.extend({
+      event: "change",
+      data: null,
+      preUpdate: null,
+      postUpdate: null
+    }, d);
+
+    var n = function n(r) {
+      d.preUpdate && d.preUpdate(r);
+      e.each({
+        labels: "label",
+        options: "update",
+        values: "val",
+        messages: "message",
+        errors: "error"
+      }, function (q, k) {
+        r[q] && e.each(r[q], function (l, t) {
+          c.field(l)[k](t);
+        });
+      });
+      e.each(["hide", "show", "enable", "disable"], function (q, k) {
+        if (r[k]) c[k](r[k], r.animate);
+      });
+      d.postUpdate && d.postUpdate(r);
+      g.processing(!1);
+    };
+
+    e(g.node()).on(d.event + ".edep", function (r) {
+      if (0 !== e(g.node()).find(r.target).length) {
+        g.processing(!0);
+        r = {};
+        r.rows = c.s.editFields ? M(c.s.editFields, "data") : null;
+        r.row = r.rows ? r.rows[0] : null;
+        r.values = c.val();
+
+        if (d.data) {
+          var q = d.data(r);
+          q && (d.data = q);
+        }
+
+        "function" === typeof b ? (r = b.call(c, g.val(), r, n)) && ("object" === _typeof(r) && "function" === typeof r.then ? r.then(function (k) {
+          k && n(k);
+        }) : n(r)) : (e.isPlainObject(b) ? e.extend(p, b) : p.url = b, e.ajax(e.extend(p, {
+          url: b,
+          data: r,
+          success: n
+        })));
+      }
+    });
+    return this;
+  };
+
+  m.prototype.destroy = function () {
+    this.s.displayed && this.close();
+    this.clear();
+    this.s.template && e("body").append(this.s.template);
+    var a = this.s.displayController;
+    a.destroy && a.destroy(this);
+    e(z).off(".dte" + this.s.unique);
+    this.s = this.dom = null;
+  };
+
+  m.prototype.disable = function (a) {
+    var b = this;
+    e.each(this._fieldNames(a), function (d, f) {
+      b.field(f).disable();
+    });
+    return this;
+  };
+
+  m.prototype.display = function (a) {
+    return a === u ? this.s.displayed : this[a ? "open" : "close"]();
+  };
+
+  m.prototype.displayed = function () {
+    return e.map(this.s.fields, function (a, b) {
+      return a.displayed() ? b : null;
+    });
+  };
+
+  m.prototype.displayNode = function () {
+    return this.s.displayController.node(this);
+  };
+
+  m.prototype.edit = function (a, b, d, f, h) {
+    var c = this;
+    if (this._tidy(function () {
+      c.edit(a, b, d, f, h);
+    })) return this;
+
+    var g = this._crudArgs(b, d, f, h);
+
+    this._edit(a, this._dataSource("fields", a), "main", g.opts, function () {
+      c._assembleMain();
+
+      c._formOptions(g.opts);
+
+      g.maybeOpen();
+    });
+
+    return this;
+  };
+
+  m.prototype.enable = function (a) {
+    var b = this;
+    e.each(this._fieldNames(a), function (d, f) {
+      b.field(f).enable();
+    });
+    return this;
+  };
+
+  m.prototype.error = function (a, b) {
+    var d = e(this.dom.wrapper);
+    b === u ? (this._message(this.dom.formError, a, !0, function () {
+      d.toggleClass("inFormError", a !== u && "" !== a);
+    }), this.s.globalError = a) : this.field(a).error(b);
+    return this;
+  };
+
+  m.prototype.field = function (a) {
+    var b = this.s.fields;
+    if (!b[a]) throw "Unknown field name - " + a;
+    return b[a];
+  };
+
+  m.prototype.fields = function () {
+    return e.map(this.s.fields, function (a, b) {
+      return b;
+    });
+  };
+
+  m.prototype.file = R;
+  m.prototype.files = S;
+
+  m.prototype.get = function (a) {
+    var b = this;
+    a || (a = this.fields());
+
+    if (Array.isArray(a)) {
+      var d = {};
+      e.each(a, function (f, h) {
+        d[h] = b.field(h).get();
+      });
+      return d;
+    }
+
+    return this.field(a).get();
+  };
+
+  m.prototype.hide = function (a, b) {
+    var d = this;
+    e.each(this._fieldNames(a), function (f, h) {
+      d.field(h).hide(b);
+    });
+    return this;
+  };
+
+  m.prototype.ids = function (a) {
+    return e.map(this.s.editFields, function (b, d) {
+      return !0 === a ? "#" + d : d;
+    });
+  };
+
+  m.prototype.inError = function (a) {
+    e(this.dom.formError);
+    if (this.s.globalError) return !0;
+    a = this._fieldNames(a);
+
+    for (var b = 0, d = a.length; b < d; b++) {
+      if (this.field(a[b]).inError()) return !0;
+    }
+
+    return !1;
+  };
+
+  m.prototype.inline = function (a, b, d) {
+    var f = this;
+    e.isPlainObject(b) && (d = b, b = u);
+    d = e.extend({}, this.s.formOptions.inline, d);
+
+    var h = this._dataSource("individual", a, b),
+        c,
+        g,
+        p = 0,
+        n,
+        r = !1,
+        q = this.classes.inline;
+
+    e.each(h, function (k, l) {
+      if (0 < p) throw "Cannot edit more than one row inline at a time";
+      c = e(l.attach[0]);
+      n = 0;
+      e.each(l.displayFields, function (t, v) {
+        if (0 < n) throw "Cannot edit more than one field inline at a time";
+        g = v;
+        n++;
+      });
+      p++;
+    });
+    if (e("div.DTE_Field", c).length || this._tidy(function () {
+      f.inline(a, b, d);
+    })) return this;
+
+    this._edit(a, h, "inline", d, function () {
+      var k = f._formOptions(d);
+
+      if (!f._preopen("inline")) return f;
+      var l = c.contents().detach(),
+          t = -1 !== navigator.userAgent.indexOf("Edge/") ? 'style="width:' + c.width() + 'px"' : "";
+      c.append(e('<div class="' + q.wrapper + '"><div class="' + q.liner + '" ' + t + '><div class="DTE_Processing_Indicator"><span></span></div></div><div class="' + q.buttons + '"></div></div>'));
+      c.find("div." + q.liner.replace(/ /g, ".")).append(g.node()).append(f.dom.formError);
+      d.buttons && c.find("div." + q.buttons.replace(/ /g, ".")).append(f.dom.buttons);
+
+      f._closeReg(function (v, w) {
+        r = !0;
+        e(z).off("click" + k);
+        v && "edit" === w || (c.contents().detach(), c.append(l));
+
+        f._clearDynamicInfo();
+
+        return "inline";
+      });
+
+      setTimeout(function () {
+        if (!r) e(z).on("click" + k, function (v) {
+          var w = e.fn.addBack ? "addBack" : "andSelf";
+          g._typeFn("owns", v.target) || -1 !== e.inArray(c[0], e(v.target).parents()[w]()) || f.blur();
+        });
+      }, 0);
+
+      f._focus([g], d.focus);
+
+      f._postopen("inline", !0);
+    });
+
+    return this;
+  };
+
+  m.prototype.message = function (a, b) {
+    b === u ? this._message(this.dom.formInfo, a) : this.field(a).message(b);
+    return this;
+  };
+
+  m.prototype.mode = function (a) {
+    if (!a) return this.s.action;
+    if (!this.s.action) throw Error("Not currently in an editing mode");
+    if ("create" === this.s.action && "create" !== a) throw Error("Changing from create mode is not supported");
+    this.s.action = a;
+    return this;
+  };
+
+  m.prototype.modifier = function () {
+    return this.s.modifier;
+  };
+
+  m.prototype.multiGet = function (a) {
+    var b = this;
+    a === u && (a = this.fields());
+
+    if (Array.isArray(a)) {
+      var d = {};
+      e.each(a, function (f, h) {
+        d[h] = b.field(h).multiGet();
+      });
+      return d;
+    }
+
+    return this.field(a).multiGet();
+  };
+
+  m.prototype.multiSet = function (a, b) {
+    var d = this;
+    e.isPlainObject(a) && b === u ? e.each(a, function (f, h) {
+      d.field(f).multiSet(h);
+    }) : this.field(a).multiSet(b);
+    return this;
+  };
+
+  m.prototype.node = function (a) {
+    var b = this;
+    a || (a = this.order());
+    return Array.isArray(a) ? e.map(a, function (d) {
+      return b.field(d).node();
+    }) : this.field(a).node();
+  };
+
+  m.prototype.off = function (a, b) {
+    e(this).off(this._eventName(a), b);
+    return this;
+  };
+
+  m.prototype.on = function (a, b) {
+    e(this).on(this._eventName(a), b);
+    return this;
+  };
+
+  m.prototype.one = function (a, b) {
+    e(this).one(this._eventName(a), b);
+    return this;
+  };
+
+  m.prototype.open = function () {
+    var a = this;
+
+    this._displayReorder();
+
+    this._closeReg(function () {
+      a.s.displayController.close(a, function () {
+        a._clearDynamicInfo();
+
+        a._event("closed", ["main"]);
+      });
+    });
+
+    if (!this._preopen("main")) return this;
+    this.s.displayController.open(this, this.dom.wrapper, function () {
+      a._focus(e.map(a.s.order, function (b) {
+        return a.s.fields[b];
+      }), a.s.editOpts.focus);
+
+      a._event("opened", ["main", a.s.action]);
+    });
+
+    this._postopen("main", !1);
+
+    return this;
+  };
+
+  m.prototype.order = function (a) {
+    if (!a) return this.s.order;
+    arguments.length && !Array.isArray(a) && (a = Array.prototype.slice.call(arguments));
+    if (this.s.order.slice().sort().join("-") !== a.slice().sort().join("-")) throw "All fields, and no additional fields, must be provided for ordering.";
+    e.extend(this.s.order, a);
+
+    this._displayReorder();
+
+    return this;
+  };
+
+  m.prototype.remove = function (a, b, d, f, h) {
+    var c = this;
+    if (this._tidy(function () {
+      c.remove(a, b, d, f, h);
+    })) return this;
+    a.length === u && (a = [a]);
+
+    var g = this._crudArgs(b, d, f, h),
+        p = this._dataSource("fields", a);
+
+    this.s.action = "remove";
+    this.s.modifier = a;
+    this.s.editFields = p;
+    this.dom.form.style.display = "none";
+
+    this._actionClass();
+
+    this._event("initRemove", [M(p, "node"), M(p, "data"), a], function () {
+      c._event("initMultiRemove", [p, a], function () {
+        c._assembleMain();
+
+        c._formOptions(g.opts);
+
+        g.maybeOpen();
+        var n = c.s.editOpts;
+        null !== n.focus && e("button", c.dom.buttons).eq(n.focus).focus();
+      });
+    });
+
+    return this;
+  };
+
+  m.prototype.set = function (a, b) {
+    var d = this;
+
+    if (!e.isPlainObject(a)) {
+      var f = {};
+      f[a] = b;
+      a = f;
+    }
+
+    e.each(a, function (h, c) {
+      d.field(h).set(c);
+    });
+    return this;
+  };
+
+  m.prototype.show = function (a, b) {
+    var d = this;
+    e.each(this._fieldNames(a), function (f, h) {
+      d.field(h).show(b);
+    });
+    return this;
+  };
+
+  m.prototype.submit = function (a, b, d, f) {
+    var h = this,
+        c = this.s.fields,
+        g = [],
+        p = 0,
+        n = !1;
+    if (this.s.processing || !this.s.action) return this;
+
+    this._processing(!0);
+
+    var r = function r() {
+      g.length !== p || n || h._event("initSubmit", [h.s.action], function (q) {
+        !1 === q ? h._processing(!1) : (n = !0, h._submit(a, b, d, f));
+      });
+    };
+
+    this.error();
+    e.each(c, function (q, k) {
+      k.inError() && g.push(q);
+    });
+    e.each(g, function (q, k) {
+      c[k].error("", function () {
+        p++;
+        r();
+      });
+    });
+    r();
+    return this;
+  };
+
+  m.prototype.template = function (a) {
+    if (a === u) return this.s.template;
+    this.s.template = null === a ? null : e(a);
+    return this;
+  };
+
+  m.prototype.title = function (a) {
+    var b = e(this.dom.header).children("div." + this.classes.header.content);
+    if (a === u) return b.html();
+    "function" === typeof a && (a = a(this, new E.Api(this.s.table)));
+    b.html(a);
+    return this;
+  };
+
+  m.prototype.val = function (a, b) {
+    return b !== u || e.isPlainObject(a) ? this.set(a, b) : this.get(a);
+  };
+
+  var K = E.Api.register;
+  K("editor()", function () {
+    return C(this);
+  });
+  K("row.create()", function (a) {
+    var b = C(this);
+    b.create(H(b, a, "create"));
+    return this;
+  });
+  K("row().edit()", function (a) {
+    var b = C(this);
+    b.edit(this[0][0], H(b, a, "edit"));
+    return this;
+  });
+  K("rows().edit()", function (a) {
+    var b = C(this);
+    b.edit(this[0], H(b, a, "edit"));
+    return this;
+  });
+  K("row().delete()", function (a) {
+    var b = C(this);
+    b.remove(this[0][0], H(b, a, "remove", 1));
+    return this;
+  });
+  K("rows().delete()", function (a) {
+    var b = C(this);
+    b.remove(this[0], H(b, a, "remove", this[0].length));
+    return this;
+  });
+  K("cell().edit()", function (a, b) {
+    a ? e.isPlainObject(a) && (b = a, a = "inline") : a = "inline";
+    C(this)[a](this[0][0], b);
+    return this;
+  });
+  K("cells().edit()", function (a) {
+    C(this).bubble(this[0], a);
+    return this;
+  });
+  K("file()", R);
+  K("files()", S);
+  e(z).on("xhr.dt", function (a, b, d) {
+    "dt" === a.namespace && d && d.files && e.each(d.files, function (f, h) {
+      m.files[f] || (m.files[f] = {});
+      e.extend(m.files[f], h);
+    });
+  });
+
+  m.error = function (a, b) {
+    throw b ? a + " For more information, please refer to https://datatables.net/tn/" + b : a;
+  };
+
+  m.pairs = function (a, b, d) {
+    var f;
+    b = e.extend({
+      label: "label",
+      value: "value"
+    }, b);
+
+    if (Array.isArray(a)) {
+      var h = 0;
+
+      for (f = a.length; h < f; h++) {
+        var c = a[h];
+        e.isPlainObject(c) ? d(c[b.value] === u ? c[b.label] : c[b.value], c[b.label], h, c.attr) : d(c, c, h);
+      }
+    } else h = 0, e.each(a, function (g, p) {
+      d(p, g, h);
+      h++;
+    });
+  };
+
+  m.safeId = function (a) {
+    return a.replace(/\./g, "-");
+  };
+
+  m.upload = function (a, b, d, f, h) {
+    var c = new FileReader(),
+        g = 0,
+        p = [];
+    a.error(b.name, "");
+    "function" === typeof b.ajax ? b.ajax(d, function (n) {
+      h.call(a, n);
+    }) : (f(b, b.fileReadText || "<i>Uploading file</i>"), c.onload = function (n) {
+      var r = new FormData();
+      r.append("action", "upload");
+      r.append("uploadField", b.name);
+      r.append("upload", d[g]);
+      b.ajaxData && b.ajaxData(r, d[g], g);
+      if (b.ajax) var q = b.ajax;else e.isPlainObject(a.s.ajax) ? q = a.s.ajax.upload ? a.s.ajax.upload : a.s.ajax : "string" === typeof a.s.ajax && (q = a.s.ajax);
+      if (!q) throw Error("No Ajax option specified for upload plug-in");
+      "string" === typeof q && (q = {
+        url: q
+      });
+
+      if ("function" === typeof q.data) {
+        n = {};
+        var k = q.data(n);
+        k !== u && "string" !== typeof k && (n = k);
+        e.each(n, function (t, v) {
+          r.append(t, v);
+        });
+      } else if (e.isPlainObject(q.data)) throw Error("Upload feature cannot use `ajax.data` with an object. Please use it as a function instead.");
+
+      if (!1 === a._event("preUpload", [b.name, d[g], r])) g < d.length - 1 ? (g++, c.readAsDataURL(d[g])) : h.call(a, p);else {
+        var l = !1;
+        a.on("preSubmit.DTE_Upload", function () {
+          l = !0;
+          return !1;
+        });
+        e.ajax(e.extend({}, q, {
+          type: "post",
+          data: r,
+          dataType: "json",
+          contentType: !1,
+          processData: !1,
+          xhr: function xhr() {
+            var t = e.ajaxSettings.xhr();
+            t.upload && (t.upload.onprogress = function (v) {
+              v.lengthComputable && (v = (v.loaded / v.total * 100).toFixed(0) + "%", f(b, 1 === d.length ? v : g + ":" + d.length + " " + v));
+            }, t.upload.onloadend = function (v) {
+              f(b, b.processingText || "Processing");
+            });
+            return t;
+          },
+          success: function success(t) {
+            a.off("preSubmit.DTE_Upload");
+
+            a._event("uploadXhrSuccess", [b.name, t]);
+
+            if (t.fieldErrors && t.fieldErrors.length) {
+              t = t.fieldErrors;
+
+              for (var v = 0, w = t.length; v < w; v++) {
+                a.error(t[v].name, t[v].status);
+              }
+            } else t.error ? a.error(t.error) : t.upload && t.upload.id ? (t.files && e.each(t.files, function (A, x) {
+              m.files[A] || (m.files[A] = {});
+              e.extend(m.files[A], x);
+            }), p.push(t.upload.id), g < d.length - 1 ? (g++, c.readAsDataURL(d[g])) : (h.call(a, p), l && a.submit())) : a.error(b.name, "A server error occurred while uploading the file");
+
+            f(b);
+          },
+          error: function error(t) {
+            a.error(b.name, "A server error occurred while uploading the file");
+
+            a._event("uploadXhrError", [b.name, t]);
+
+            f(b);
+          }
+        }));
+      }
+    }, d = e.map(d, function (n) {
+      return n;
+    }), b._limitLeft !== u && d.splice(b._limitLeft, d.length), c.readAsDataURL(d[0]));
+  };
+
+  m.prototype._constructor = function (a) {
+    a = e.extend(!0, {}, m.defaults, a);
+    this.s = e.extend(!0, {}, m.models.settings, {
+      actionName: a.actionName,
+      table: a.domTable || a.table,
+      dbTable: a.dbTable || null,
+      ajaxUrl: a.ajaxUrl,
+      ajax: a.ajax,
+      idSrc: a.idSrc,
+      dataSource: a.domTable || a.table ? m.dataSources.dataTable : m.dataSources.html,
+      formOptions: a.formOptions,
+      legacyAjax: a.legacyAjax,
+      template: a.template ? e(a.template).detach() : null
+    });
+    this.classes = e.extend(!0, {}, m.classes);
+    this.i18n = a.i18n;
+    m.models.settings.unique++;
+    var b = this,
+        d = this.classes;
+    this.dom = {
+      wrapper: e('<div class="' + d.wrapper + '"><div data-dte-e="processing" class="' + d.processing.indicator + '"><span></span></div><div data-dte-e="body" class="' + d.body.wrapper + '"><div data-dte-e="body_content" class="' + d.body.content + '"></div></div><div data-dte-e="foot" class="' + d.footer.wrapper + '"><div class="' + d.footer.content + '"></div></div></div>')[0],
+      form: e('<form data-dte-e="form" class="' + d.form.tag + '"><div data-dte-e="form_content" class="' + d.form.content + '"></div></form>')[0],
+      formError: e('<div data-dte-e="form_error" class="' + d.form.error + '"></div>')[0],
+      formInfo: e('<div data-dte-e="form_info" class="' + d.form.info + '"></div>')[0],
+      header: e('<div data-dte-e="head" class="' + d.header.wrapper + '"><div class="' + d.header.content + '"></div></div>')[0],
+      buttons: e('<div data-dte-e="form_buttons" class="' + d.form.buttons + '"></div>')[0]
+    };
+
+    if (e.fn.dataTable.TableTools) {
+      var f = e.fn.dataTable.TableTools.BUTTONS,
+          h = this.i18n;
+      e.each(["create", "edit", "remove"], function (g, p) {
+        f["editor_" + p].sButtonText = h[p].button;
+      });
+    }
+
+    e.each(a.events, function (g, p) {
+      b.on(g, function () {
+        var n = Array.prototype.slice.call(arguments);
+        n.shift();
+        p.apply(b, n);
+      });
+    });
+    d = this.dom;
+    var c = d.wrapper;
+    d.formContent = G("form_content", d.form)[0];
+    d.footer = G("foot", c)[0];
+    d.body = G("body", c)[0];
+    d.bodyContent = G("body_content", c)[0];
+    d.processing = G("processing", c)[0];
+    a.fields && this.add(a.fields);
+    e(z).on("init.dt.dte" + this.s.unique, function (g, p, n) {
+      b.s.table && p.nTable === e(b.s.table).get(0) && (p._editor = b);
+    }).on("xhr.dt.dte" + this.s.unique, function (g, p, n) {
+      n && b.s.table && p.nTable === e(b.s.table).get(0) && b._optionsUpdate(n);
+    });
+
+    try {
+      this.s.displayController = m.display[a.display].init(this);
+    } catch (g) {
+      throw "Cannot find display controller " + a.display;
+    }
+
+    this._event("initComplete", []);
+
+    e(z).trigger("initEditor", [this]);
+  };
+
+  m.prototype._actionClass = function () {
+    var a = this.classes.actions,
+        b = this.s.action,
+        d = e(this.dom.wrapper);
+    d.removeClass([a.create, a.edit, a.remove].join(" "));
+    "create" === b ? d.addClass(a.create) : "edit" === b ? d.addClass(a.edit) : "remove" === b && d.addClass(a.remove);
+  };
+
+  m.prototype._ajax = function (a, b, d, f) {
+    var h = this.s.action,
+        c;
+    f = {
+      type: "POST",
+      dataType: "json",
+      data: null,
+      error: [function (q, k, l) {
+        c = l;
+      }],
+      success: [],
+      complete: [function (q, k) {
+        var l = null;
+        if (204 === q.status || "null" === q.responseText) l = {};else try {
+          l = q.responseJSON ? q.responseJSON : e.parseJSON(q.responseText);
+        } catch (t) {}
+        e.isPlainObject(l) || Array.isArray(l) ? b(l, 400 <= q.status, q) : d(q, k, c);
+      }]
+    };
+    var g = this.s.ajax || this.s.ajaxUrl,
+        p = "edit" === h || "remove" === h ? M(this.s.editFields, "idSrc") : null;
+    Array.isArray(p) && (p = p.join(","));
+    e.isPlainObject(g) && g[h] && (g = g[h]);
+
+    if ("function" === typeof g) {
+      var n = null;
+      f = null;
+
+      if (this.s.ajaxUrl) {
+        var r = this.s.ajaxUrl;
+        r.create && (n = r[h]);
+        -1 !== n.indexOf(" ") && (h = n.split(" "), f = h[0], n = h[1]);
+        n = n.replace(/_id_/, p);
+      }
+
+      g(f, n, a, b, d);
+    } else "string" === typeof g ? -1 !== g.indexOf(" ") ? (h = g.split(" "), f.type = h[0], f.url = h[1]) : f.url = g : (g = e.extend({}, g || {}), g.complete && (f.complete.unshift(g.complete), delete g.complete), g.error && (f.error.unshift(g.error), delete g.error), f = e.extend({}, f, g)), f.url = f.url.replace(/_id_/, p), f.data && (g = (p = "function" === typeof f.data) ? f.data(a) : f.data, a = p && g ? g : e.extend(!0, a, g)), f.data = a, "DELETE" !== f.type || f.deleteBody !== u && !0 !== f.deleteBody || (a = e.param(f.data), f.url += -1 === f.url.indexOf("?") ? "?" + a : "&" + a, delete f.data), e.ajax(f);
+  };
+
+  m.prototype._animate = function (a, b, d, f) {
+    e.fn.animate ? a.stop().animate(b, d, f) : (a.css(b), "function" === typeof d ? d.call(a) : f && f.call(a));
+  };
+
+  m.prototype._assembleMain = function () {
+    var a = this.dom;
+    e(a.wrapper).prepend(a.header);
+    e(a.footer).append(a.formError).append(a.buttons);
+    e(a.bodyContent).append(a.formInfo).append(a.form);
+  };
+
+  m.prototype._blur = function () {
+    var a = this.s.editOpts.onBlur;
+    !1 !== this._event("preBlur") && ("function" === typeof a ? a(this) : "submit" === a ? this.submit() : "close" === a && this._close());
+  };
+
+  m.prototype._clearDynamicInfo = function (a) {
+    if (this.s) {
+      var b = this.classes.field.error,
+          d = this.s.fields;
+      a === u && (a = !1);
+      e("div." + b, this.dom.wrapper).removeClass(b);
+      e.each(d, function (f, h) {
+        h.error("");
+        a || h.message("");
+      });
+      this.error("");
+      a || this.message("");
+    }
+  };
+
+  m.prototype._close = function (a, b) {
+    if (!1 !== this._event("preClose")) {
+      if (this.s.closeCb) {
+        var d = this.s.closeCb(a, b);
+        this.s.closeCb = null;
+      }
+
+      this.s.closeIcb && (this.s.closeIcb(), this.s.closeIcb = null);
+      e("body").off("focus.editor-focus");
+      this.s.displayed = !1;
+
+      this._event("close");
+
+      d && this._event("closed", [d]);
+    }
+  };
+
+  m.prototype._closeReg = function (a) {
+    this.s.closeCb = a;
+  };
+
+  m.prototype._crudArgs = function (a, b, d, f) {
+    var h = this;
+    if (!e.isPlainObject(a)) if ("boolean" === typeof a) {
+      var c = a;
+      a = b;
+    } else {
+      var g = a;
+      var p = b;
+      c = d;
+      a = f;
+    }
+    c === u && (c = !0);
+    g && h.title(g);
+    p && h.buttons(p);
+    return {
+      opts: e.extend({}, this.s.formOptions.main, a),
+      maybeOpen: function maybeOpen() {
+        c && h.open();
+      }
+    };
+  };
+
+  m.prototype._dataSource = function (a) {
+    var b = Array.prototype.slice.call(arguments);
+    b.shift();
+    var d = this.s.dataSource[a];
+    if (d) return d.apply(this, b);
+  };
+
+  m.prototype._displayReorder = function (a) {
+    var b = this,
+        d = e(this.dom.formContent),
+        f = this.s.fields,
+        h = this.s.order,
+        c = this.s.template,
+        g = this.s.mode || "main";
+    a ? this.s.includeFields = a : a = this.s.includeFields;
+    d.children().detach();
+    e.each(h, function (p, n) {
+      p = n instanceof m.Field ? n.name() : n;
+      -1 !== b._weakInArray(p, a) && (c && "main" === g ? (c.find('editor-field[name="' + p + '"]').after(f[p].node()), c.find('[data-editor-template="' + p + '"]').append(f[p].node())) : d.append(f[p].node()));
+    });
+    c && "main" === g && c.appendTo(d);
+
+    this._event("displayOrder", [this.s.displayed, this.s.action, d]);
+  };
+
+  m.prototype._edit = function (a, b, d, f, h) {
+    var c = this,
+        g = this.s.fields,
+        p = [],
+        n,
+        r = {};
+    this.s.editFields = b;
+    this.s.editData = r;
+    this.s.modifier = a;
+    this.s.action = "edit";
+    this.dom.form.style.display = "block";
+    this.s.mode = d;
+
+    this._actionClass();
+
+    e.each(g, function (k, l) {
+      l.multiReset();
+      n = !1;
+      r[k] = {};
+      e.each(b, function (t, v) {
+        if (v.fields[k]) {
+          var w = l.valFromData(v.data);
+          r[k][t] = null === w ? "" : Array.isArray(w) ? w.slice() : w;
+
+          if (!f || "row" === f.scope) {
+            if (l.multiSet(t, w !== u ? w : l.def()), !v.displayFields || v.displayFields[k]) n = !0;
+          } else if (!v.displayFields || v.displayFields[k]) l.multiSet(t, w !== u ? w : l.def()), n = !0;
+        }
+      });
+      0 !== l.multiIds().length && n && p.push(k);
+    });
+    g = this.order().slice();
+
+    for (var q = g.length - 1; 0 <= q; q--) {
+      -1 === e.inArray(g[q].toString(), p) && g.splice(q, 1);
+    }
+
+    this._displayReorder(g);
+
+    this._event("initEdit", [M(b, "node")[0], M(b, "data")[0], a, d], function () {
+      c._event("initMultiEdit", [b, a, d], function () {
+        h();
+      });
+    });
+  };
+
+  m.prototype._event = function (a, b, d) {
+    b || (b = []);
+
+    if (Array.isArray(a)) {
+      d = 0;
+
+      for (var f = a.length; d < f; d++) {
+        this._event(a[d], b);
+      }
+    } else return f = e.Event(a), e(this).triggerHandler(f, b), 0 === a.indexOf("pre") && !1 === f.result && e(this).triggerHandler(e.Event(a + "Cancelled"), b), d && (f.result && "object" === _typeof(f.result) && f.result.then ? f.result.then(d) : d(f.result)), f.result;
+  };
+
+  m.prototype._eventName = function (a) {
+    for (var b = a.split(" "), d = 0, f = b.length; d < f; d++) {
+      a = b[d];
+      var h = a.match(/^on([A-Z])/);
+      h && (a = h[1].toLowerCase() + a.substring(3));
+      b[d] = a;
+    }
+
+    return b.join(" ");
+  };
+
+  m.prototype._fieldFromNode = function (a) {
+    var b = null;
+    e.each(this.s.fields, function (d, f) {
+      e(f.node()).find(a).length && (b = f);
+    });
+    return b;
+  };
+
+  m.prototype._fieldNames = function (a) {
+    return a === u ? this.fields() : Array.isArray(a) ? a : [a];
+  };
+
+  m.prototype._focus = function (a, b) {
+    var d = this,
+        f;
+    a = e.map(a, function (h) {
+      return "string" === typeof h ? d.s.fields[h] : h;
+    });
+    "number" === typeof b ? f = a[b] : b ? f = 0 === b.indexOf("jq:") ? e("div.DTE " + b.replace(/^jq:/, "")) : this.s.fields[b] : z.activeElement.blur();
+    (this.s.setFocus = f) && f.focus();
+  };
+
+  m.prototype._formOptions = function (a) {
+    var b = this,
+        d = U++,
+        f = ".dteInline" + d;
+    a.closeOnComplete !== u && (a.onComplete = a.closeOnComplete ? "close" : "none");
+    a.submitOnBlur !== u && (a.onBlur = a.submitOnBlur ? "submit" : "close");
+    a.submitOnReturn !== u && (a.onReturn = a.submitOnReturn ? "submit" : "none");
+    a.blurOnBackground !== u && (a.onBackground = a.blurOnBackground ? "blur" : "none");
+    this.s.editOpts = a;
+    this.s.editCount = d;
+    if ("string" === typeof a.title || "function" === typeof a.title) this.title(a.title), a.title = !0;
+    if ("string" === typeof a.message || "function" === typeof a.message) this.message(a.message), a.message = !0;
+    "boolean" !== typeof a.buttons && (this.buttons(a.buttons), a.buttons = !0);
+    e(z).on("keydown" + f, function (h) {
+      if (13 === h.keyCode && b.s.displayed) {
+        var c = e(z.activeElement);
+
+        if (c) {
+          var g = b._fieldFromNode(c);
+
+          g && "function" === typeof g.canReturnSubmit && g.canReturnSubmit(c) && h.preventDefault();
+        }
+      }
+    });
+    e(z).on("keyup" + f, function (h) {
+      var c = e(z.activeElement);
+
+      if (13 === h.keyCode && b.s.displayed) {
+        var g = b._fieldFromNode(c);
+
+        g && "function" === typeof g.canReturnSubmit && g.canReturnSubmit(c) && ("submit" === a.onReturn ? (h.preventDefault(), b.submit()) : "function" === typeof a.onReturn && (h.preventDefault(), a.onReturn(b, h)));
+      } else if (27 === h.keyCode) {
+        if (h.preventDefault(), "function" === typeof a.onEsc) a.onEsc(b, h);else "blur" === a.onEsc ? b.blur() : "close" === a.onEsc ? b.close() : "submit" === a.onEsc && b.submit();
+      } else c.parents(".DTE_Form_Buttons").length && (37 === h.keyCode ? c.prev("button").focus() : 39 === h.keyCode && c.next("button").focus());
+    });
+
+    this.s.closeIcb = function () {
+      e(z).off("keydown" + f);
+      e(z).off("keyup" + f);
+    };
+
+    return f;
+  };
+
+  m.prototype._legacyAjax = function (a, b, d) {
+    if (this.s.legacyAjax && d) if ("send" === a) {
+      if ("create" === b || "edit" === b) {
+        var f;
+        e.each(d.data, function (h, c) {
+          if (f !== u) throw "Editor: Multi-row editing is not supported by the legacy Ajax data format";
+          f = h;
+        });
+        d.data = d.data[f];
+        "edit" === b && (d.id = f);
+      } else d.id = e.map(d.data, function (h, c) {
+        return c;
+      }), delete d.data;
+    } else !d.data && d.row ? d.data = [d.row] : d.data || (d.data = []);
+  };
+
+  m.prototype._optionsUpdate = function (a) {
+    var b = this;
+    a.options && e.each(this.s.fields, function (d, f) {
+      a.options[d] !== u && (f = b.field(d)) && f.update && f.update(a.options[d]);
+    });
+  };
+
+  m.prototype._message = function (a, b, d, f) {
+    var h = e.fn.animate ? !0 : !1;
+    d === u && (d = !1);
+    f || (f = function f() {});
+    "function" === typeof b && (b = b(this, new E.Api(this.s.table)));
+    a = e(a);
+    h && a.stop();
+    b ? (f(), this.s.displayed && h ? a.html(b).fadeIn() : a.html(b).css("display", "block"), d && a.attr("title", b)) : (this.s.displayed && h ? a.fadeOut(function () {
+      a.html("");
+      f();
+    }) : (a.html("").css("display", "none"), f()), d && a.removeAttr("title"));
+  };
+
+  m.prototype._multiInfo = function () {
+    var a = this.s.fields,
+        b = this.s.includeFields,
+        d = !0;
+    if (b) for (var f = 0, h = b.length; f < h; f++) {
+      var c = a[b[f]];
+      var g = c.multiEditable();
+      c.isMultiValue() && g && d ? (c = !0, d = !1) : c = c.isMultiValue() && !g ? !0 : !1;
+      a[b[f]].multiInfoShown(c);
+    }
+  };
+
+  m.prototype._postopen = function (a, b) {
+    var d = this,
+        f = this.s.displayController.captureFocus;
+    f === u && (f = !0);
+    e(this.dom.form).off("submit.editor-internal").on("submit.editor-internal", function (h) {
+      h.preventDefault();
+    });
+    if (f && ("main" === a || "bubble" === a)) e("body").on("focus.editor-focus", function () {
+      0 === e(z.activeElement).parents(".DTE").length && 0 === e(z.activeElement).parents(".DTED").length && d.s.setFocus && d.s.setFocus.focus();
+    });
+
+    this._multiInfo();
+
+    this._event("open", [a, this.s.action]);
+
+    b && this._event("opened", [a, this.s.action]);
+    return !0;
+  };
+
+  m.prototype._preopen = function (a) {
+    if (!1 === this._event("preOpen", [a, this.s.action])) return this._clearDynamicInfo(), this._event("cancelOpen", [a, this.s.action]), "inline" !== this.s.mode && "bubble" !== this.s.mode || !this.s.closeIcb || this.s.closeIcb(), this.s.closeIcb = null, !1;
+
+    this._clearDynamicInfo(!0);
+
+    this.s.displayed = a;
+    return !0;
+  };
+
+  m.prototype._processing = function (a) {
+    var b = this.classes.processing.active;
+    e(["div.DTE", this.dom.wrapper]).toggleClass(b, a);
+    this.s.processing = a;
+
+    this._event("processing", [a]);
+  };
+
+  m.prototype._noProcessing = function (a) {
+    var b = !1;
+    e.each(this.s.fields, function (d, f) {
+      f.processing() && (b = !0);
+    });
+    if (b) this.one("processing-field", function () {
+      !0 === this._noProcessing(a) && this._submit.apply(this, a);
+    });
+    return !b;
+  };
+
+  m.prototype._submit = function (a, b, d, f) {
+    var h = this,
+        c = !1,
+        g = {},
+        p = {},
+        n = E.ext.oApi._fnSetObjectDataFn,
+        r = this.s.fields,
+        q = this.s.editCount,
+        k = this.s.editFields,
+        l = this.s.editData,
+        t = this.s.editOpts,
+        v = t.submit;
+
+    if (!1 !== this._noProcessing(arguments)) {
+      var w = this.s.action,
+          A = {
+        data: {}
+      };
+      A[this.s.actionName] = w;
+      this.s.dbTable && (A.table = this.s.dbTable);
+      if ("create" === w || "edit" === w) {
+        if (e.each(k, function (B, D) {
+          var F = {},
+              J = {};
+          e.each(r, function (I, N) {
+            if (D.fields[I] && N.submittable()) {
+              var L = N.multiGet(),
+                  Q = n(I);
+              if (L[B] === u) I = N.valFromData(D.data), Q(F, I);else {
+                L = L[B];
+                var O = Array.isArray(L) && -1 !== I.indexOf("[]") ? n(I.replace(/\[.*$/, "") + "-many-count") : null;
+                Q(F, L);
+                O && O(F, L.length);
+                "edit" !== w || l[I] && N.compare(L, l[I][B]) || (Q(J, L), c = !0, O && O(J, L.length));
+              }
+            }
+          });
+          e.isEmptyObject(F) || (g[B] = F);
+          e.isEmptyObject(J) || (p[B] = J);
+        }), "create" === w || "all" === v || "allIfChanged" === v && c) A.data = g;else if ("changed" === v && c) A.data = p;else {
+          this.s.action = null;
+          if ("close" === t.onComplete && (f === u || f)) this._close(!1);else if ("function" === typeof t.onComplete) t.onComplete(this);
+          a && a.call(this);
+
+          this._processing(!1);
+
+          this._event("submitComplete");
+
+          return;
+        }
+      } else "remove" === w && e.each(k, function (B, D) {
+        A.data[B] = D.data;
+      });
+
+      this._legacyAjax("send", w, A);
+
+      var x = e.extend(!0, {}, A);
+      d && d(A);
+      !1 === this._event("preSubmit", [A, w]) ? this._processing(!1) : (this.s.ajax || this.s.ajaxUrl ? this._ajax : this._submitTable).call(this, A, function (B, D, F) {
+        h._submitSuccess(B, D, A, x, h.s.action, q, f, a, b, F);
+      }, function (B, D, F) {
+        h._submitError(B, D, F, b, A, h.s.action);
+      }, A);
+    }
+  };
+
+  m.prototype._submitTable = function (a, b, d, f) {
+    var h = a.action,
+        c = {
+      data: []
+    },
+        g = E.ext.oApi._fnGetObjectDataFn(this.s.idSrc),
+        p = E.ext.oApi._fnSetObjectDataFn(this.s.idSrc);
+
+    if ("remove" !== h) {
+      var n = "main" === this.s.mode ? this._dataSource("fields", this.modifier()) : this._dataSource("individual", this.modifier());
+      e.each(a.data, function (r, q) {
+        var k = e.fn.dataTableExt.oApi._fnExtend;
+
+        if ("edit" === h) {
+          var l = k({}, n[r].data, !0);
+          l = k(l, q, !0);
+        } else l = k({}, q, !0);
+
+        q = g(l);
+        "create" === h && q === u ? p(l, +new Date() + "" + r) : p(l, q);
+        c.data.push(l);
+      });
+    }
+
+    b(c);
+  };
+
+  m.prototype._submitSuccess = function (a, b, d, f, h, c, g, p, n, r) {
+    var q = this,
+        k = this.s.fields,
+        l = this.s.editOpts,
+        t = this.s.modifier;
+
+    this._legacyAjax("receive", h, a);
+
+    this._event("postSubmit", [a, d, h, r]);
+
+    a.error || (a.error = "");
+    a.fieldErrors || (a.fieldErrors = []);
+
+    if (b || a.error || a.fieldErrors.length) {
+      var v = [];
+      a.error && v.push(a.error);
+      e.each(a.fieldErrors, function (A, x) {
+        var B = k[x.name];
+        if (B) {
+          if (B.displayed()) {
+            if (B.error(x.status || "Error"), 0 === A) if ("focus" === l.onFieldError) q._animate(e(q.dom.bodyContent, q.s.wrapper), {
+              scrollTop: e(B.node()).position().top
+            }, 500), B.focus();else if ("function" === typeof l.onFieldError) l.onFieldError(q, x);
+          } else v.push(B.name() + ": " + (x.status || "Error"));
+        } else throw Error("Unknown field: " + x.name);
+      });
+      this.error(v.join("<br>"));
+
+      this._event("submitUnsuccessful", [a]);
+
+      n && n.call(q, a);
+    } else {
+      b = {};
+      if (!a.data || "create" !== h && "edit" !== h) "remove" === h && (this._dataSource("prep", h, t, f, a, b), this._event("preRemove", [a, this.ids()]), this._dataSource("remove", t, k, b), this._event(["remove", "postRemove"], [a, this.ids()]), this._dataSource("commit", h, t, a.data, b));else {
+        this._dataSource("prep", h, t, f, a, b);
+
+        for (f = 0; f < a.data.length; f++) {
+          var w = a.data[f];
+          d = this._dataSource("id", w);
+
+          this._event("setData", [a, w, h]);
+
+          "create" === h ? (this._event("preCreate", [a, w, d]), this._dataSource("create", k, w, b), this._event(["create", "postCreate"], [a, w, d])) : "edit" === h && (this._event("preEdit", [a, w, d]), this._dataSource("edit", t, k, w, b), this._event(["edit", "postEdit"], [a, w, d]));
+        }
+
+        this._dataSource("commit", h, t, a.data, b);
+      }
+      if (c === this.s.editCount) if (h = this.s.action, this.s.action = null, "close" === l.onComplete && (g === u || g)) this._close(a.data ? !0 : !1, h);else if ("function" === typeof l.onComplete) l.onComplete(this);
+      p && p.call(q, a);
+
+      this._event("submitSuccess", [a, w, h]);
+    }
+
+    this._processing(!1);
+
+    this._event("submitComplete", [a, w, h]);
+  };
+
+  m.prototype._submitError = function (a, b, d, f, h, c) {
+    this._event("postSubmit", [null, h, c, a]);
+
+    this.error(this.i18n.error.system);
+
+    this._processing(!1);
+
+    f && f.call(this, a, b, d);
+
+    this._event(["submitError", "submitComplete"], [a, b, d, h]);
+  };
+
+  m.prototype._tidy = function (a) {
+    var b = this,
+        d = this.s.table ? new e.fn.dataTable.Api(this.s.table) : null,
+        f = !1;
+    d && (f = d.settings()[0].oFeatures.bServerSide);
+    return this.s.processing ? (this.one("submitComplete", function () {
+      if (f) d.one("draw", a);else setTimeout(function () {
+        a();
+      }, 10);
+    }), !0) : "inline" === this.display() || "bubble" === this.display() ? (this.one("close", function () {
+      if (b.s.processing) b.one("submitComplete", function (h, c) {
+        if (f && c) d.one("draw", a);else setTimeout(function () {
+          b.s && a();
+        }, 10);
+      });else setTimeout(function () {
+        b.s && a();
+      }, 10);
+    }).blur(), !0) : !1;
+  };
+
+  m.prototype._weakInArray = function (a, b) {
+    for (var d = 0, f = b.length; d < f; d++) {
+      if (a == b[d]) return d;
+    }
+
+    return -1;
+  };
+
+  m.defaults = {
+    table: null,
+    ajaxUrl: null,
+    fields: [],
+    display: "lightbox",
+    ajax: null,
+    idSrc: "DT_RowId",
+    events: {},
+    i18n: {
+      close: "Close",
+      create: {
+        button: "New",
+        title: "Create new entry",
+        submit: "Create"
+      },
+      edit: {
+        button: "Edit",
+        title: "Edit entry",
+        submit: "Update"
+      },
+      remove: {
+        button: "Delete",
+        title: "Delete",
+        submit: "Delete",
+        confirm: {
+          _: "Are you sure you wish to delete %d rows?",
+          1: "Are you sure you wish to delete 1 row?"
+        }
+      },
+      error: {
+        system: 'A system error has occurred (<a target="_blank" href="//datatables.net/tn/12">More information</a>).'
+      },
+      multi: {
+        title: "Multiple values",
+        info: "The selected items contain different values for this input. To edit and set all items for this input to the same value, click or tap here, otherwise they will retain their individual values.",
+        restore: "Undo changes",
+        noMulti: "This input can be edited individually, but not part of a group."
+      },
+      datetime: {
+        previous: "Previous",
+        next: "Next",
+        months: "January February March April May June July August September October November December".split(" "),
+        weekdays: "Sun Mon Tue Wed Thu Fri Sat".split(" "),
+        amPm: ["am", "pm"],
+        hours: "Hour",
+        minutes: "Minute",
+        seconds: "Second",
+        unknown: "-"
+      }
+    },
+    formOptions: {
+      bubble: e.extend({}, m.models.formOptions, {
+        title: !1,
+        message: !1,
+        buttons: "_basic",
+        submit: "changed"
+      }),
+      inline: e.extend({}, m.models.formOptions, {
+        buttons: !1,
+        submit: "changed"
+      }),
+      main: e.extend({}, m.models.formOptions)
+    },
+    legacyAjax: !1,
+    actionName: "action"
+  };
+
+  (function () {
+    function a(k) {
+      var l = z;
+      if ("keyless" !== k && (l = e('[data-editor-id="' + k + '"]'), 0 === l.length && (l = "string" === typeof k ? e(q(k)) : e(k)), 0 === l.length)) throw "Could not find an element with `data-editor-id` or `id` of: " + k;
+      return l;
+    }
+
+    function b(k, l) {
+      k = a(k);
+      return e('[data-editor-field="' + l + '"]', k);
+    }
+
+    function d(k, l, t) {
+      e.each(l, function (v, w) {
+        v = w.valFromData(t);
+        v !== u && (w = b(k, w.dataSrc()), w.filter("[data-editor-value]").length ? w.attr("data-editor-value", v) : w.each(function () {
+          for (; this.childNodes.length;) {
+            this.removeChild(this.firstChild);
+          }
+        }).html(v));
+      });
+    }
+
+    var f = m.dataSources = {},
+        h = function h(k, l) {
+      return k.settings()[0].oFeatures.bServerSide && "none" !== l.s.editOpts.drawType;
+    },
+        c = function c(k) {
+      k = e(k);
+      setTimeout(function () {
+        k.addClass("highlight");
+        setTimeout(function () {
+          k.addClass("noHighlight").removeClass("highlight");
+          setTimeout(function () {
+            k.removeClass("noHighlight");
+          }, 550);
+        }, 500);
+      }, 20);
+    },
+        g = function g(k, l, t, v, w) {
+      l.rows(t).indexes().each(function (A) {
+        A = l.row(A);
+        var x = A.data(),
+            B = w(x);
+        B === u && m.error("Unable to find row identifier", 14);
+        k[B] = {
+          idSrc: B,
+          data: x,
+          node: A.node(),
+          fields: v,
+          type: "row"
+        };
+      });
+    },
+        p = function p(k, l, t) {
+      k = k.settings()[0].aoColumns[t];
+      var v = k.editField !== u ? k.editField : k.mData,
+          w = {};
+      e.each(l, function (A, x) {
+        if (Array.isArray(v)) for (A = 0; A < v.length; A++) {
+          var B = x,
+              D = v[A];
+          B.name() === D && (w[B.name()] = B);
+        } else x.name() === v && (w[x.name()] = x);
+      });
+      e.isEmptyObject(w) && m.error("Unable to automatically determine field from source. Please specify the field name.", 11);
+      return w;
+    },
+        n = function n(k, l, t, v, w, A) {
+      l.cells(t).indexes().each(function (x) {
+        var B = l.cell(x),
+            D = l.row(x.row).data();
+        D = w(D);
+        var F = A || p(l, v, x.column),
+            J = "object" === _typeof(t) && t.nodeName || t instanceof e;
+
+        if (k[D]) {
+          var I = k[D].attach;
+          var N = k[D].displayFields;
+        }
+
+        g(k, l, x.row, v, w);
+        k[D].attach = I || [];
+        k[D].attach.push(J ? e(t).get(0) : B.fixedNode ? B.fixedNode() : B.node());
+        k[D].displayFields = N || {};
+        e.extend(k[D].displayFields, F);
+      });
+    },
+        r = function r(k, l, t, v, w) {
+      l.cells(null, t).indexes().each(function (A) {
+        n(k, l, A, v, w);
+      });
+    },
+        q = function q(k) {
+      return "string" === typeof k ? "#" + k.replace(/(:|\.|\[|\]|,)/g, "\\$1") : "#" + k;
+    };
+
+    f.dataTable = {
+      id: function id(k) {
+        return E.ext.oApi._fnGetObjectDataFn(this.s.idSrc)(k);
+      },
+      individual: function individual(k, l) {
+        var t = E.ext.oApi._fnGetObjectDataFn(this.s.idSrc),
+            v = e(this.s.table).DataTable(),
+            w = this.s.fields,
+            A = {};
+
+        if (l) {
+          Array.isArray(l) || (l = [l]);
+          var x = {};
+          e.each(l, function (B, D) {
+            x[D] = w[D];
+          });
+        }
+
+        n(A, v, k, w, t, x);
+        return A;
+      },
+      fields: function fields(k) {
+        var l = E.ext.oApi._fnGetObjectDataFn(this.s.idSrc),
+            t = e(this.s.table).DataTable(),
+            v = this.s.fields,
+            w = {};
+
+        !e.isPlainObject(k) || k.rows === u && k.columns === u && k.cells === u ? g(w, t, k, v, l) : (k.rows !== u && g(w, t, k.rows, v, l), k.columns !== u && r(w, t, k.columns, v, l), k.cells !== u && n(w, t, k.cells, v, l));
+        return w;
+      },
+      create: function create(k, l) {
+        k = e(this.s.table).DataTable();
+        h(k, this) || (l = k.row.add(l), c(l.node()));
+      },
+      edit: function edit(k, l, t, v) {
+        var w = this;
+        k = e(this.s.table).DataTable();
+
+        if (!h(k, this) || "none" === this.s.editOpts.drawType) {
+          var A = f.dataTable.id.call(this, t);
+
+          try {
+            var x = k.row(q(A));
+          } catch (B) {
+            x = k;
+          }
+
+          x.any() || (x = k.row(function (B, D, F) {
+            return A == f.dataTable.id.call(w, D);
+          }));
+          x.any() ? (k = e.fn.dataTableExt.oApi._fnExtend, l = k({}, x.data(), !0), l = k(l, t, !0), x.data(l), t = e.inArray(A, v.rowIds), v.rowIds.splice(t, 1)) : x = k.row.add(t);
+          c(x.node());
+        }
+      },
+      remove: function remove(k, l, t) {
+        var v = this;
+        l = e(this.s.table).DataTable();
+        var w = t.cancelled;
+        if (0 === w.length) l.rows(k).remove();else {
+          var A = [];
+          l.rows(k).every(function () {
+            var x = f.dataTable.id.call(v, this.data());
+            -1 === e.inArray(x, w) && A.push(this.index());
+          });
+          l.rows(A).remove();
+        }
+      },
+      prep: function prep(k, l, t, v, w) {
+        if ("edit" === k) {
+          var A = v.cancelled || [];
+          w.rowIds = e.map(t.data, function (x, B) {
+            return e.isEmptyObject(t.data[B]) || -1 !== e.inArray(B, A) ? u : B;
+          });
+        } else "remove" === k && (w.cancelled = v.cancelled || []);
+      },
+      commit: function commit(k, l, t, v) {
+        var w = this;
+        l = e(this.s.table).DataTable();
+
+        if (!h(l, this) && "edit" === k && v.rowIds.length) {
+          k = v.rowIds;
+
+          v = function v(B) {
+            return function (D, F, J) {
+              return B == f.dataTable.id.call(w, F);
+            };
+          };
+
+          t = 0;
+
+          for (var A = k.length; t < A; t++) {
+            try {
+              var x = l.row(q(k[t]));
+            } catch (B) {
+              x = l;
+            }
+
+            x.any() || (x = l.row(v(k[t])));
+            x.any() && !l.settings()[0].oFeatures.bServerSide && x.remove();
+          }
+        }
+
+        x = this.s.editOpts.drawType;
+        "none" !== x && (l.draw(x), l.responsive && l.responsive.recalc(), "function" !== typeof l.searchPanes || l.settings()[0].oFeatures.bServerSide || l.searchPanes.rebuildPane(u, !0));
+      }
+    };
+    f.html = {
+      id: function id(k) {
+        return E.ext.oApi._fnGetObjectDataFn(this.s.idSrc)(k);
+      },
+      initField: function initField(k) {
+        var l = e('[data-editor-label="' + (k.data || k.name) + '"]');
+        !k.label && l.length && (k.label = l.html());
+      },
+      individual: function individual(k, l) {
+        if (k instanceof e || k.nodeName) {
+          var t = k;
+          l || (l = [e(k).attr("data-editor-field")]);
+          var v = e.fn.addBack ? "addBack" : "andSelf";
+          k = e(k).parents("[data-editor-id]")[v]().data("editor-id");
+        }
+
+        k || (k = "keyless");
+        l && !Array.isArray(l) && (l = [l]);
+        if (!l || 0 === l.length) throw "Cannot automatically determine field name from data source";
+        v = f.html.fields.call(this, k);
+        var w = this.s.fields,
+            A = {};
+        e.each(l, function (x, B) {
+          A[B] = w[B];
+        });
+        e.each(v, function (x, B) {
+          B.type = "cell";
+          if (t) x = e(t);else {
+            x = k;
+
+            for (var D = l, F = e(), J = 0, I = D.length; J < I; J++) {
+              F = F.add(b(x, D[J]));
+            }
+
+            x = F.toArray();
+          }
+          B.attach = x;
+          B.fields = w;
+          B.displayFields = A;
+        });
+        return v;
+      },
+      fields: function fields(k) {
+        var l = {},
+            t = f.html;
+
+        if (Array.isArray(k)) {
+          for (var v = 0, w = k.length; v < w; v++) {
+            var A = t.fields.call(this, k[v]);
+            l[k[v]] = A[k[v]];
+          }
+
+          return l;
+        }
+
+        var x = {};
+        t = this.s.fields;
+        k || (k = "keyless");
+        e.each(t, function (B, D) {
+          B = D.dataSrc();
+          B = b(k, B);
+          B = B.filter("[data-editor-value]").length ? B.attr("data-editor-value") : B.html();
+          D.valToData(x, null === B ? u : B);
+        });
+        l[k] = {
+          idSrc: k,
+          data: x,
+          node: z,
+          fields: t,
+          type: "row"
+        };
+        return l;
+      },
+      create: function create(k, l) {
+        if (l) {
+          var t = f.html.id.call(this, l);
+
+          try {
+            a(t).length && d(t, k, l);
+          } catch (v) {}
+        }
+      },
+      edit: function edit(k, l, t) {
+        k = f.html.id.call(this, t) || "keyless";
+        d(k, l, t);
+      },
+      remove: function remove(k, l) {
+        a(k).remove();
+      }
+    };
+  })();
+
+  m.classes = {
+    wrapper: "DTE",
+    processing: {
+      indicator: "DTE_Processing_Indicator",
+      active: "processing"
+    },
+    header: {
+      wrapper: "DTE_Header",
+      content: "DTE_Header_Content"
+    },
+    body: {
+      wrapper: "DTE_Body",
+      content: "DTE_Body_Content"
+    },
+    footer: {
+      wrapper: "DTE_Footer",
+      content: "DTE_Footer_Content"
+    },
+    form: {
+      wrapper: "DTE_Form",
+      content: "DTE_Form_Content",
+      tag: "",
+      info: "DTE_Form_Info",
+      error: "DTE_Form_Error",
+      buttons: "DTE_Form_Buttons",
+      button: "btn",
+      buttonInternal: "btn"
+    },
+    field: {
+      wrapper: "DTE_Field",
+      typePrefix: "DTE_Field_Type_",
+      namePrefix: "DTE_Field_Name_",
+      label: "DTE_Label",
+      input: "DTE_Field_Input",
+      inputControl: "DTE_Field_InputControl",
+      error: "DTE_Field_StateError",
+      "msg-label": "DTE_Label_Info",
+      "msg-error": "DTE_Field_Error",
+      "msg-message": "DTE_Field_Message",
+      "msg-info": "DTE_Field_Info",
+      multiValue: "multi-value",
+      multiInfo: "multi-info",
+      multiRestore: "multi-restore",
+      multiNoEdit: "multi-noEdit",
+      disabled: "disabled",
+      processing: "DTE_Processing_Indicator"
+    },
+    actions: {
+      create: "DTE_Action_Create",
+      edit: "DTE_Action_Edit",
+      remove: "DTE_Action_Remove"
+    },
+    inline: {
+      wrapper: "DTE DTE_Inline",
+      liner: "DTE_Inline_Field",
+      buttons: "DTE_Inline_Buttons"
+    },
+    bubble: {
+      wrapper: "DTE DTE_Bubble",
+      liner: "DTE_Bubble_Liner",
+      table: "DTE_Bubble_Table",
+      close: "icon close",
+      pointer: "DTE_Bubble_Triangle",
+      bg: "DTE_Bubble_Background"
+    }
+  };
+
+  (function () {
+    if (E.TableTools) {
+      var a = E.TableTools.BUTTONS,
+          b = {
+        sButtonText: null,
+        editor: null,
+        formTitle: null
+      };
+      a.editor_create = e.extend(!0, a.text, b, {
+        formButtons: [{
+          label: null,
+          fn: function fn(d) {
+            this.submit();
+          }
+        }],
+        fnClick: function fnClick(d, f) {
+          d = f.editor;
+          var h = d.i18n.create;
+          f = f.formButtons;
+          f[0].label || (f[0].label = h.submit);
+          d.create({
+            title: h.title,
+            buttons: f
+          });
+        }
+      });
+      a.editor_edit = e.extend(!0, a.select_single, b, {
+        formButtons: [{
+          label: null,
+          fn: function fn(d) {
+            this.submit();
+          }
+        }],
+        fnClick: function fnClick(d, f) {
+          d = this.fnGetSelectedIndexes();
+
+          if (1 === d.length) {
+            var h = f.editor,
+                c = h.i18n.edit;
+            f = f.formButtons;
+            f[0].label || (f[0].label = c.submit);
+            h.edit(d[0], {
+              title: c.title,
+              buttons: f
+            });
+          }
+        }
+      });
+      a.editor_remove = e.extend(!0, a.select, b, {
+        question: null,
+        formButtons: [{
+          label: null,
+          fn: function fn(d) {
+            var f = this;
+            this.submit(function (h) {
+              e.fn.dataTable.TableTools.fnGetInstance(e(f.s.table).DataTable().table().node()).fnSelectNone();
+            });
+          }
+        }],
+        fnClick: function fnClick(d, f) {
+          d = this.fnGetSelectedIndexes();
+
+          if (0 !== d.length) {
+            var h = f.editor,
+                c = h.i18n.remove;
+            f = f.formButtons;
+            var g = "string" === typeof c.confirm ? c.confirm : c.confirm[d.length] ? c.confirm[d.length] : c.confirm._;
+            f[0].label || (f[0].label = c.submit);
+            h.remove(d, {
+              message: g.replace(/%d/g, d.length),
+              title: c.title,
+              buttons: f
+            });
+          }
+        }
+      });
+    }
+
+    a = E.ext.buttons;
+    e.extend(a, {
+      create: {
+        text: function text(d, f, h) {
+          return d.i18n("buttons.create", h.editor.i18n.create.button);
+        },
+        className: "buttons-create",
+        editor: null,
+        formButtons: {
+          text: function text(d) {
+            return d.i18n.create.submit;
+          },
+          action: function action(d) {
+            this.submit();
+          }
+        },
+        formMessage: null,
+        formTitle: null,
+        action: function action(d, f, h, c) {
+          var g = this;
+          d = c.editor;
+          this.processing(!0);
+          d.one("preOpen", function () {
+            g.processing(!1);
+          }).create({
+            buttons: c.formButtons,
+            message: c.formMessage || d.i18n.create.message,
+            title: c.formTitle || d.i18n.create.title
+          });
+        }
+      },
+      edit: {
+        extend: "selected",
+        text: function text(d, f, h) {
+          return d.i18n("buttons.edit", h.editor.i18n.edit.button);
+        },
+        className: "buttons-edit",
+        editor: null,
+        formButtons: {
+          text: function text(d) {
+            return d.i18n.edit.submit;
+          },
+          action: function action(d) {
+            this.submit();
+          }
+        },
+        formMessage: null,
+        formTitle: null,
+        action: function action(d, f, h, c) {
+          var g = this;
+          d = c.editor;
+          h = f.rows({
+            selected: !0
+          }).indexes();
+          var p = f.columns({
+            selected: !0
+          }).indexes();
+          f = f.cells({
+            selected: !0
+          }).indexes();
+          f = p.length || f.length ? {
+            rows: h,
+            columns: p,
+            cells: f
+          } : h;
+          this.processing(!0);
+          d.one("preOpen", function () {
+            g.processing(!1);
+          }).edit(f, {
+            buttons: c.formButtons,
+            message: c.formMessage || d.i18n.edit.message,
+            title: c.formTitle || d.i18n.edit.title
+          });
+        }
+      },
+      remove: {
+        extend: "selected",
+        limitTo: ["rows"],
+        text: function text(d, f, h) {
+          return d.i18n("buttons.remove", h.editor.i18n.remove.button);
+        },
+        className: "buttons-remove",
+        editor: null,
+        formButtons: {
+          text: function text(d) {
+            return d.i18n.remove.submit;
+          },
+          action: function action(d) {
+            this.submit();
+          }
+        },
+        formMessage: function formMessage(d, f) {
+          f = f.rows({
+            selected: !0
+          }).indexes();
+          d = d.i18n.remove;
+          return ("string" === typeof d.confirm ? d.confirm : d.confirm[f.length] ? d.confirm[f.length] : d.confirm._).replace(/%d/g, f.length);
+        },
+        formTitle: null,
+        action: function action(d, f, h, c) {
+          var g = this;
+          d = c.editor;
+          this.processing(!0);
+          d.one("preOpen", function () {
+            g.processing(!1);
+          }).remove(f.rows({
+            selected: !0
+          }).indexes(), {
+            buttons: c.formButtons,
+            message: c.formMessage,
+            title: c.formTitle || d.i18n.remove.title
+          });
+        }
+      }
+    });
+    a.editSingle = e.extend({}, a.edit);
+    a.editSingle.extend = "selectedSingle";
+    a.removeSingle = e.extend({}, a.remove);
+    a.removeSingle.extend = "selectedSingle";
+  })();
+
+  m.fieldTypes = {};
+
+  m.DateTime = function (a, b) {
+    this.c = e.extend(!0, {}, m.DateTime.defaults, b);
+    b = this.c.classPrefix;
+    var d = this.c.i18n;
+    if (!y.moment && "YYYY-MM-DD" !== this.c.format) throw "Editor datetime: Without momentjs only the format 'YYYY-MM-DD' can be used";
+    d = e('<div class="' + b + '"><div class="' + b + '-date"><div class="' + b + '-title"><div class="' + b + '-iconLeft"><button>' + d.previous + '</button></div><div class="' + b + '-iconRight"><button>' + d.next + '</button></div><div class="' + b + '-label"><span></span><select class="' + b + '-month"></select></div><div class="' + b + '-label"><span></span><select class="' + b + '-year"></select></div></div><div class="' + b + '-calendar"></div></div><div class="' + b + '-time"><div class="' + b + '-hours"></div><div class="' + b + '-minutes"></div><div class="' + b + '-seconds"></div></div><div class="' + b + '-error"></div></div>');
+    this.dom = {
+      container: d,
+      date: d.find("." + b + "-date"),
+      title: d.find("." + b + "-title"),
+      calendar: d.find("." + b + "-calendar"),
+      time: d.find("." + b + "-time"),
+      error: d.find("." + b + "-error"),
+      input: e(a)
+    };
+    this.s = {
+      d: null,
+      display: null,
+      minutesRange: null,
+      secondsRange: null,
+      namespace: "editor-dateime-" + m.DateTime._instance++,
+      parts: {
+        date: null !== this.c.format.match(/[YMD]|L(?!T)|l/),
+        time: null !== this.c.format.match(/[Hhm]|LT|LTS/),
+        seconds: -1 !== this.c.format.indexOf("s"),
+        hours12: null !== this.c.format.match(/[haA]/)
+      }
+    };
+    this.dom.container.append(this.dom.date).append(this.dom.time).append(this.dom.error);
+    this.dom.date.append(this.dom.title).append(this.dom.calendar);
+
+    this._constructor();
+  };
+
+  e.extend(m.DateTime.prototype, {
+    destroy: function destroy() {
+      this._hide();
+
+      this.dom.container.off().empty();
+      this.dom.input.off(".editor-datetime");
+    },
+    errorMsg: function errorMsg(a) {
+      var b = this.dom.error;
+      a ? b.html(a) : b.empty();
+    },
+    hide: function hide() {
+      this._hide();
+    },
+    max: function max(a) {
+      this.c.maxDate = a;
+
+      this._optionsTitle();
+
+      this._setCalander();
+    },
+    min: function min(a) {
+      this.c.minDate = a;
+
+      this._optionsTitle();
+
+      this._setCalander();
+    },
+    owns: function owns(a) {
+      return 0 < e(a).parents().filter(this.dom.container).length;
+    },
+    val: function val(a, b) {
+      if (a === u) return this.s.d;
+      if (a instanceof Date) this.s.d = this._dateToUtc(a);else if (null === a || "" === a) this.s.d = null;else if ("--now" === a) this.s.d = new Date();else if ("string" === typeof a) if (y.moment) {
+        var d = y.moment.utc(a, this.c.format, this.c.momentLocale, this.c.momentStrict);
+        this.s.d = d.isValid() ? d.toDate() : null;
+      } else d = a.match(/(\d{4})\-(\d{2})\-(\d{2})/), this.s.d = d ? new Date(Date.UTC(d[1], d[2] - 1, d[3])) : null;
+      if (b || b === u) this.s.d ? this._writeOutput() : this.dom.input.val(a);
+      this.s.d || (this.s.d = this._dateToUtc(new Date()));
+      this.s.display = new Date(this.s.d.toString());
+      this.s.display.setUTCDate(1);
+
+      this._setTitle();
+
+      this._setCalander();
+
+      this._setTime();
+    },
+    _constructor: function _constructor() {
+      var a = this,
+          b = this.c.classPrefix,
+          d = function d() {
+        a.c.onChange.call(a, a.dom.input.val(), a.s.d, a.dom.input);
+      };
+
+      this.s.parts.date || this.dom.date.css("display", "none");
+      this.s.parts.time || this.dom.time.css("display", "none");
+      this.s.parts.seconds || (this.dom.time.children("div." + b + "-seconds").remove(), this.dom.time.children("span").eq(1).remove());
+
+      this._optionsTitle();
+
+      this.dom.input.attr("autocomplete", "off").on("focus.editor-datetime click.editor-datetime", function () {
+        a.dom.container.is(":visible") || a.dom.input.is(":disabled") || (a.val(a.dom.input.val(), !1), a._show());
+      }).on("keyup.editor-datetime", function () {
+        a.dom.container.is(":visible") && a.val(a.dom.input.val(), !1);
+      });
+      this.dom.container.on("change", "select", function () {
+        var f = e(this),
+            h = f.val();
+        f.hasClass(b + "-month") ? (a._correctMonth(a.s.display, h), a._setTitle(), a._setCalander()) : f.hasClass(b + "-year") ? (a.s.display.setUTCFullYear(h), a._setTitle(), a._setCalander()) : f.hasClass(b + "-hours") || f.hasClass(b + "-ampm") ? (a.s.parts.hours12 ? (f = 1 * e(a.dom.container).find("." + b + "-hours").val(), h = "pm" === e(a.dom.container).find("." + b + "-ampm").val(), a.s.d.setUTCHours(12 !== f || h ? h && 12 !== f ? f + 12 : f : 0)) : a.s.d.setUTCHours(h), a._setTime(), a._writeOutput(!0), d()) : f.hasClass(b + "-minutes") ? (a.s.d.setUTCMinutes(h), a._setTime(), a._writeOutput(!0), d()) : f.hasClass(b + "-seconds") && (a.s.d.setSeconds(h), a._setTime(), a._writeOutput(!0), d());
+        a.dom.input.focus();
+
+        a._position();
+      }).on("click", function (f) {
+        var h = a.s.d,
+            c = f.target.nodeName.toLowerCase(),
+            g = "span" === c ? f.target.parentNode : f.target;
+        c = g.nodeName.toLowerCase();
+        if ("select" !== c) if (f.stopPropagation(), "button" === c) {
+          if (g = e(g), f = g.parent(), f.hasClass("disabled") && !f.hasClass("range")) g.blur();else if (f.hasClass(b + "-iconLeft")) a.s.display.setUTCMonth(a.s.display.getUTCMonth() - 1), a._setTitle(), a._setCalander(), a.dom.input.focus();else if (f.hasClass(b + "-iconRight")) a._correctMonth(a.s.display, a.s.display.getUTCMonth() + 1), a._setTitle(), a._setCalander(), a.dom.input.focus();else {
+            if (g.parents("." + b + "-time").length) {
+              c = g.data("value");
+              g = g.data("unit");
+
+              if ("minutes" === g) {
+                if (f.hasClass("disabled") && f.hasClass("range")) {
+                  a.s.minutesRange = c;
+
+                  a._setTime();
+
+                  return;
+                }
+
+                a.s.minutesRange = null;
+              }
+
+              if ("seconds" === g) {
+                if (f.hasClass("disabled") && f.hasClass("range")) {
+                  a.s.secondsRange = c;
+
+                  a._setTime();
+
+                  return;
+                }
+
+                a.s.secondsRange = null;
+              }
+
+              if ("am" === c) {
+                if (12 <= h.getUTCHours()) c = h.getUTCHours() - 12;else return;
+              } else if ("pm" === c) if (12 > h.getUTCHours()) c = h.getUTCHours() + 12;else return;
+              h["hours" === g ? "setUTCHours" : "minutes" === g ? "setUTCMinutes" : "setSeconds"](c);
+
+              a._setTime();
+
+              a._writeOutput(!0);
+            } else h || (h = a._dateToUtc(new Date())), h.setUTCDate(1), h.setUTCFullYear(g.data("year")), h.setUTCMonth(g.data("month")), h.setUTCDate(g.data("day")), a._writeOutput(!0), a.s.parts.time ? a._setCalander() : setTimeout(function () {
+              a._hide();
+            }, 10);
+
+            d();
+          }
+        } else a.dom.input.focus();
+      });
+    },
+    _compareDates: function _compareDates(a, b) {
+      return this._dateToUtcString(a) === this._dateToUtcString(b);
+    },
+    _correctMonth: function _correctMonth(a, b) {
+      var d = this._daysInMonth(a.getUTCFullYear(), b),
+          f = a.getUTCDate() > d;
+
+      a.setUTCMonth(b);
+      f && (a.setUTCDate(d), a.setUTCMonth(b));
+    },
+    _daysInMonth: function _daysInMonth(a, b) {
+      return [31, 0 !== a % 4 || 0 === a % 100 && 0 !== a % 400 ? 28 : 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][b];
+    },
+    _dateToUtc: function _dateToUtc(a) {
+      return new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate(), a.getHours(), a.getMinutes(), a.getSeconds()));
+    },
+    _dateToUtcString: function _dateToUtcString(a) {
+      return a.getUTCFullYear() + "-" + this._pad(a.getUTCMonth() + 1) + "-" + this._pad(a.getUTCDate());
+    },
+    _hide: function _hide() {
+      var a = this.s.namespace;
+      this.dom.container.detach();
+      e(y).off("." + a);
+      e(z).off("keydown." + a);
+      e("div.dataTables_scrollBody").off("scroll." + a);
+      e("div.DTE_Body_Content").off("scroll." + a);
+      e("body").off("click." + a);
+    },
+    _hours24To12: function _hours24To12(a) {
+      return 0 === a ? 12 : 12 < a ? a - 12 : a;
+    },
+    _htmlDay: function _htmlDay(a) {
+      if (a.empty) return '<td class="empty"></td>';
+      var b = ["selectable"],
+          d = this.c.classPrefix;
+      a.disabled && b.push("disabled");
+      a.today && b.push("now");
+      a.selected && b.push("selected");
+      return '<td data-day="' + a.day + '" class="' + b.join(" ") + '"><button class="' + d + "-button " + d + '-day" type="button" data-year="' + a.year + '" data-month="' + a.month + '" data-day="' + a.day + '"><span>' + a.day + "</span></button></td>";
+    },
+    _htmlMonth: function _htmlMonth(a, b) {
+      var d = this._dateToUtc(new Date()),
+          f = this._daysInMonth(a, b),
+          h = new Date(Date.UTC(a, b, 1)).getUTCDay(),
+          c = [],
+          g = [];
+
+      0 < this.c.firstDay && (h -= this.c.firstDay, 0 > h && (h += 7));
+
+      for (var p = f + h, n = p; 7 < n;) {
+        n -= 7;
+      }
+
+      p += 7 - n;
+      var r = this.c.minDate;
+      n = this.c.maxDate;
+      r && (r.setUTCHours(0), r.setUTCMinutes(0), r.setSeconds(0));
+      n && (n.setUTCHours(23), n.setUTCMinutes(59), n.setSeconds(59));
+
+      for (var q = 0, k = 0; q < p; q++) {
+        var l = new Date(Date.UTC(a, b, 1 + (q - h))),
+            t = this.s.d ? this._compareDates(l, this.s.d) : !1,
+            v = this._compareDates(l, d),
+            w = q < h || q >= f + h,
+            A = r && l < r || n && l > n,
+            x = this.c.disableDays;
+
+        Array.isArray(x) && -1 !== e.inArray(l.getUTCDay(), x) ? A = !0 : "function" === typeof x && !0 === x(l) && (A = !0);
+        g.push(this._htmlDay({
+          day: 1 + (q - h),
+          month: b,
+          year: a,
+          selected: t,
+          today: v,
+          disabled: A,
+          empty: w
+        }));
+        7 === ++k && (this.c.showWeekNumber && g.unshift(this._htmlWeekOfYear(q - h, b, a)), c.push("<tr>" + g.join("") + "</tr>"), g = [], k = 0);
+      }
+
+      d = this.c.classPrefix;
+      f = d + "-table";
+      this.c.showWeekNumber && (f += " weekNumber");
+      r && (r = r >= new Date(Date.UTC(a, b, 1, 0, 0, 0)), this.dom.title.find("div." + d + "-iconLeft").css("display", r ? "none" : "block"));
+      n && (a = n < new Date(Date.UTC(a, b + 1, 1, 0, 0, 0)), this.dom.title.find("div." + d + "-iconRight").css("display", a ? "none" : "block"));
+      return '<table class="' + f + '"><thead>' + this._htmlMonthHead() + "</thead><tbody>" + c.join("") + "</tbody></table>";
+    },
+    _htmlMonthHead: function _htmlMonthHead() {
+      var a = [],
+          b = this.c.firstDay,
+          d = this.c.i18n,
+          f = function f(c) {
+        for (c += b; 7 <= c;) {
+          c -= 7;
+        }
+
+        return d.weekdays[c];
+      };
+
+      this.c.showWeekNumber && a.push("<th></th>");
+
+      for (var h = 0; 7 > h; h++) {
+        a.push("<th>" + f(h) + "</th>");
+      }
+
+      return a.join("");
+    },
+    _htmlWeekOfYear: function _htmlWeekOfYear(a, b, d) {
+      a = new Date(d, b, a, 0, 0, 0, 0);
+      a.setDate(a.getDate() + 4 - (a.getDay() || 7));
+      return '<td class="' + this.c.classPrefix + '-week">' + Math.ceil(((a - new Date(d, 0, 1)) / 864E5 + 1) / 7) + "</td>";
+    },
+    _options: function _options(a, b, d) {
+      d || (d = b);
+      a = this.dom.container.find("select." + this.c.classPrefix + "-" + a);
+      a.empty();
+
+      for (var f = 0, h = b.length; f < h; f++) {
+        a.append('<option value="' + b[f] + '">' + d[f] + "</option>");
+      }
+    },
+    _optionSet: function _optionSet(a, b) {
+      var d = this.dom.container.find("select." + this.c.classPrefix + "-" + a);
+      a = d.parent().children("span");
+      d.val(b);
+      b = d.find("option:selected");
+      a.html(0 !== b.length ? b.text() : this.c.i18n.unknown);
+    },
+    _optionsTime: function _optionsTime(a, b, d, f, h) {
+      var c = this.c.classPrefix,
+          g = this.dom.container.find("div." + c + "-" + a),
+          p = 12 === b ? function (v) {
+        return v;
+      } : this._pad;
+      c = this.c.classPrefix;
+      var n = c + "-table",
+          r = this.c.i18n;
+
+      if (g.length) {
+        var q = "";
+        var k = 10;
+
+        var l = function l(v, w, A) {
+          12 === b && "number" === typeof v && (12 <= d && (v += 12), 12 == v ? v = 0 : 24 == v && (v = 12));
+          var x = d === v || "am" === v && 12 > d || "pm" === v && 12 <= d ? "selected" : "";
+          f && -1 === e.inArray(v, f) && (x += " disabled");
+          A && (x += " " + A);
+          return '<td class="selectable ' + x + '"><button class="' + c + "-button " + c + '-day" type="button" data-unit="' + a + '" data-value="' + v + '"><span>' + w + "</span></button></td>";
+        };
+
+        if (12 === b) {
+          q += "<tr>";
+
+          for (h = 1; 6 >= h; h++) {
+            q += l(h, p(h));
+          }
+
+          q += l("am", r.amPm[0]);
+          q += "</tr><tr>";
+
+          for (h = 7; 12 >= h; h++) {
+            q += l(h, p(h));
+          }
+
+          q += l("pm", r.amPm[1]);
+          q += "</tr>";
+          k = 7;
+        } else {
+          if (24 === b) {
+            var t = 0;
+
+            for (k = 0; 4 > k; k++) {
+              q += "<tr>";
+
+              for (h = 0; 6 > h; h++) {
+                q += l(t, p(t)), t++;
+              }
+
+              q += "</tr>";
+            }
+          } else {
+            q += "<tr>";
+
+            for (k = 0; 60 > k; k += 10) {
+              q += l(k, p(k), "range");
+            }
+
+            h = null !== h ? h : 10 * Math.floor(d / 10);
+            q = q + '</tr></tbody></thead><table class="' + (n + " " + n + '-nospace"><tbody><tr>');
+
+            for (k = h + 1; k < h + 10; k++) {
+              q += l(k, p(k));
+            }
+
+            q += "</tr>";
+          }
+
+          k = 6;
+        }
+
+        g.empty().append('<table class="' + n + '"><thead><tr><th colspan="' + k + '">' + r[a] + "</th></tr></thead><tbody>" + q + "</tbody></table>");
+      }
+    },
+    _optionsTitle: function _optionsTitle() {
+      var a = this.c.i18n,
+          b = this.c.minDate,
+          d = this.c.maxDate;
+      b = b ? b.getFullYear() : null;
+      d = d ? d.getFullYear() : null;
+      b = null !== b ? b : new Date().getFullYear() - this.c.yearRange;
+      d = null !== d ? d : new Date().getFullYear() + this.c.yearRange;
+
+      this._options("month", this._range(0, 11), a.months);
+
+      this._options("year", this._range(b, d));
+    },
+    _pad: function _pad(a) {
+      return 10 > a ? "0" + a : a;
+    },
+    _position: function _position() {
+      var a = this.dom.input.offset(),
+          b = this.dom.container,
+          d = this.dom.input.outerHeight();
+      this.s.parts.date && this.s.parts.time && 550 < e(y).width() ? b.addClass("horizontal") : b.removeClass("horizontal");
+      b.css({
+        top: a.top + d,
+        left: a.left
+      }).appendTo("body");
+      var f = b.outerHeight(),
+          h = b.outerWidth(),
+          c = e(y).scrollTop();
+      a.top + d + f - c > e(y).height() && (d = a.top - f, b.css("top", 0 > d ? 0 : d));
+      h + a.left > e(y).width() && (a = e(y).width() - h, b.css("left", 0 > a ? 0 : a));
+    },
+    _range: function _range(a, b, d) {
+      var f = [];
+
+      for (d || (d = 1); a <= b; a += d) {
+        f.push(a);
+      }
+
+      return f;
+    },
+    _setCalander: function _setCalander() {
+      this.s.display && this.dom.calendar.empty().append(this._htmlMonth(this.s.display.getUTCFullYear(), this.s.display.getUTCMonth()));
+    },
+    _setTitle: function _setTitle() {
+      this._optionSet("month", this.s.display.getUTCMonth());
+
+      this._optionSet("year", this.s.display.getUTCFullYear());
+    },
+    _setTime: function _setTime() {
+      var a = this,
+          b = this.s.d,
+          d = b ? b.getUTCHours() : 0,
+          f = function f(h) {
+        return a.c[h + "Available"] ? a.c[h + "Available"] : a._range(0, 59, a.c[h + "Increment"]);
+      };
+
+      this._optionsTime("hours", this.s.parts.hours12 ? 12 : 24, d, this.c.hoursAvailable);
+
+      this._optionsTime("minutes", 60, b ? b.getUTCMinutes() : 0, f("minutes"), this.s.minutesRange);
+
+      this._optionsTime("seconds", 60, b ? b.getSeconds() : 0, f("seconds"), this.s.secondsRange);
+    },
+    _show: function _show() {
+      var a = this,
+          b = this.s.namespace;
+
+      this._position();
+
+      e(y).on("scroll." + b + " resize." + b, function () {
+        a._hide();
+      });
+      e("div.DTE_Body_Content").on("scroll." + b, function () {
+        a._hide();
+      });
+      e("div.dataTables_scrollBody").on("scroll." + b, function () {
+        a._hide();
+      });
+      e(z).on("keydown." + b, function (d) {
+        9 !== d.keyCode && 27 !== d.keyCode && 13 !== d.keyCode || a._hide();
+      });
+      setTimeout(function () {
+        e("body").on("click." + b, function (d) {
+          e(d.target).parents().filter(a.dom.container).length || d.target === a.dom.input[0] || a._hide();
+        });
+      }, 10);
+    },
+    _writeOutput: function _writeOutput(a) {
+      var b = this.s.d,
+          d = y.moment ? y.moment.utc(b, u, this.c.momentLocale, this.c.momentStrict).format(this.c.format) : b.getUTCFullYear() + "-" + this._pad(b.getUTCMonth() + 1) + "-" + this._pad(b.getUTCDate());
+      this.dom.input.val(d).trigger("change", {
+        write: b
+      });
+      a && this.dom.input.focus();
+    }
+  });
+  m.DateTime._instance = 0;
+  m.DateTime.defaults = {
+    classPrefix: "editor-datetime",
+    disableDays: null,
+    firstDay: 1,
+    format: "YYYY-MM-DD",
+    hoursAvailable: null,
+    i18n: m.defaults.i18n.datetime,
+    maxDate: null,
+    minDate: null,
+    minutesAvailable: null,
+    minutesIncrement: 1,
+    momentStrict: !0,
+    momentLocale: "en",
+    onChange: function onChange() {},
+    secondsAvailable: null,
+    secondsIncrement: 1,
+    showWeekNumber: !1,
+    yearRange: 25
+  };
+
+  (function () {
+    function a(c, g) {
+      if (null === g || g === u) g = c.uploadText || "Choose file...";
+
+      c._input.find("div.upload button").html(g);
+    }
+
+    function b(c, g, p, n) {
+      var r = c.classes.form.buttonInternal,
+          q = e('<div class="editor_upload"><div class="eu_table"><div class="row"><div class="cell upload limitHide"><button class="' + r + '"></button><input type="file" ' + (n ? "multiple" : "") + '></input></div><div class="cell clearValue"><button class="' + r + '"></button></div></div><div class="row second"><div class="cell limitHide"><div class="drop"><span></span></div></div><div class="cell"><div class="rendered"></div></div></div></div></div>');
+      g._input = q;
+      g._enabled = !0;
+      g.id && q.find("input[type=file]").attr("id", m.safeId(g.id));
+      g.attr && q.find("input[type=file]").attr(g.attr);
+      a(g);
+
+      if (y.FileReader && !1 !== g.dragDrop) {
+        q.find("div.drop span").text(g.dragDropText || "Drag and drop a file here to upload");
+        var k = q.find("div.drop");
+        k.on("drop", function (l) {
+          g._enabled && (m.upload(c, g, l.originalEvent.dataTransfer.files, a, p), k.removeClass("over"));
+          return !1;
+        }).on("dragleave dragexit", function (l) {
+          g._enabled && k.removeClass("over");
+          return !1;
+        }).on("dragover", function (l) {
+          g._enabled && k.addClass("over");
+          return !1;
+        });
+        c.on("open", function () {
+          e("body").on("dragover.DTE_Upload drop.DTE_Upload", function (l) {
+            return !1;
+          });
+        }).on("close", function () {
+          e("body").off("dragover.DTE_Upload drop.DTE_Upload");
+        });
+      } else q.addClass("noDrop"), q.append(q.find("div.rendered"));
+
+      q.find("div.clearValue button").on("click", function (l) {
+        l.preventDefault();
+        g._enabled && m.fieldTypes.upload.set.call(c, g, "");
+      });
+      q.find("input[type=file]").on("input", function () {
+        m.upload(c, g, this.files, a, function (l) {
+          p.call(c, l);
+          q.find("input[type=file]")[0].value = null;
+        });
+      });
+      return q;
+    }
+
+    function d(c) {
+      setTimeout(function () {
+        c.trigger("change", {
+          editor: !0,
+          editorSet: !0
+        });
+      }, 0);
+    }
+
+    var f = m.fieldTypes,
+        h = e.extend(!0, {}, m.models.fieldType, {
+      get: function get(c) {
+        return c._input.val();
+      },
+      set: function set(c, g) {
+        c._input.val(g);
+
+        d(c._input);
+      },
+      enable: function enable(c) {
+        c._input.prop("disabled", !1);
+      },
+      disable: function disable(c) {
+        c._input.prop("disabled", !0);
+      },
+      canReturnSubmit: function canReturnSubmit(c, g) {
+        return !0;
+      }
+    });
+    f.hidden = {
+      create: function create(c) {
+        c._val = c.value;
+        return null;
+      },
+      get: function get(c) {
+        return c._val;
+      },
+      set: function set(c, g) {
+        c._val = g;
+      }
+    };
+    f.readonly = e.extend(!0, {}, h, {
+      create: function create(c) {
+        c._input = e("<input/>").attr(e.extend({
+          id: m.safeId(c.id),
+          type: "text",
+          readonly: "readonly"
+        }, c.attr || {}));
+        return c._input[0];
+      }
+    });
+    f.text = e.extend(!0, {}, h, {
+      create: function create(c) {
+        c._input = e("<input/>").attr(e.extend({
+          id: m.safeId(c.id),
+          type: "text"
+        }, c.attr || {}));
+        return c._input[0];
+      }
+    });
+    f.password = e.extend(!0, {}, h, {
+      create: function create(c) {
+        c._input = e("<input/>").attr(e.extend({
+          id: m.safeId(c.id),
+          type: "password"
+        }, c.attr || {}));
+        return c._input[0];
+      }
+    });
+    f.textarea = e.extend(!0, {}, h, {
+      create: function create(c) {
+        c._input = e("<textarea></textarea>").attr(e.extend({
+          id: m.safeId(c.id)
+        }, c.attr || {}));
+        return c._input[0];
+      },
+      canReturnSubmit: function canReturnSubmit(c, g) {
+        return !1;
+      }
+    });
+    f.select = e.extend(!0, {}, h, {
+      _addOptions: function _addOptions(c, g, p) {
+        var n = c._input[0].options,
+            r = 0;
+        if (p) r = n.length;else if (n.length = 0, c.placeholder !== u) {
+          p = c.placeholderValue !== u ? c.placeholderValue : "";
+          r += 1;
+          n[0] = new Option(c.placeholder, p);
+          var q = c.placeholderDisabled !== u ? c.placeholderDisabled : !0;
+          n[0].hidden = q;
+          n[0].disabled = q;
+          n[0]._editor_val = p;
+        }
+        g && m.pairs(g, c.optionsPair, function (k, l, t, v) {
+          l = new Option(l, k);
+          l._editor_val = k;
+          v && e(l).attr(v);
+          n[t + r] = l;
+        });
+      },
+      create: function create(c) {
+        c._input = e("<select></select>").attr(e.extend({
+          id: m.safeId(c.id),
+          multiple: !0 === c.multiple
+        }, c.attr || {})).on("change.dte", function (g, p) {
+          p && p.editor || (c._lastSet = f.select.get(c));
+        });
+
+        f.select._addOptions(c, c.options || c.ipOpts);
+
+        return c._input[0];
+      },
+      update: function update(c, g, p) {
+        f.select._addOptions(c, g, p);
+
+        g = c._lastSet;
+        g !== u && f.select.set(c, g, !0);
+        d(c._input);
+      },
+      get: function get(c) {
+        var g = c._input.find("option:selected").map(function () {
+          return this._editor_val;
+        }).toArray();
+
+        return c.multiple ? c.separator ? g.join(c.separator) : g : g.length ? g[0] : null;
+      },
+      set: function set(c, g, p) {
+        p || (c._lastSet = g);
+        c.multiple && c.separator && !Array.isArray(g) ? g = "string" === typeof g ? g.split(c.separator) : [] : Array.isArray(g) || (g = [g]);
+
+        var n,
+            r = g.length,
+            q,
+            k = !1,
+            l = c._input.find("option");
+
+        c._input.find("option").each(function () {
+          q = !1;
+
+          for (n = 0; n < r; n++) {
+            if (this._editor_val == g[n]) {
+              k = q = !0;
+              break;
+            }
+          }
+
+          this.selected = q;
+        });
+
+        c.placeholder && !k && !c.multiple && l.length && (l[0].selected = !0);
+        p || d(c._input);
+        return k;
+      },
+      destroy: function destroy(c) {
+        c._input.off("change.dte");
+      }
+    });
+    f.checkbox = e.extend(!0, {}, h, {
+      _addOptions: function _addOptions(c, g, p) {
+        var n = c._input,
+            r = 0;
+        p ? r = e("input", n).length : n.empty();
+        g && m.pairs(g, c.optionsPair, function (q, k, l, t) {
+          n.append('<div><input id="' + m.safeId(c.id) + "_" + (l + r) + '" type="checkbox" /><label for="' + m.safeId(c.id) + "_" + (l + r) + '">' + k + "</label></div>");
+          e("input:last", n).attr("value", q)[0]._editor_val = q;
+          t && e("input:last", n).attr(t);
+        });
+      },
+      create: function create(c) {
+        c._input = e("<div></div>");
+
+        f.checkbox._addOptions(c, c.options || c.ipOpts);
+
+        return c._input[0];
+      },
+      get: function get(c) {
+        var g = [],
+            p = c._input.find("input:checked");
+
+        p.length ? p.each(function () {
+          g.push(this._editor_val);
+        }) : c.unselectedValue !== u && g.push(c.unselectedValue);
+        return c.separator === u || null === c.separator ? g : g.join(c.separator);
+      },
+      set: function set(c, g) {
+        var p = c._input.find("input");
+
+        Array.isArray(g) || "string" !== typeof g ? Array.isArray(g) || (g = [g]) : g = g.split(c.separator || "|");
+        var n,
+            r = g.length,
+            q;
+        p.each(function () {
+          q = !1;
+
+          for (n = 0; n < r; n++) {
+            if (this._editor_val == g[n]) {
+              q = !0;
+              break;
+            }
+          }
+
+          this.checked = q;
+        });
+        d(p);
+      },
+      enable: function enable(c) {
+        c._input.find("input").prop("disabled", !1);
+      },
+      disable: function disable(c) {
+        c._input.find("input").prop("disabled", !0);
+      },
+      update: function update(c, g, p) {
+        var n = f.checkbox,
+            r = n.get(c);
+
+        n._addOptions(c, g, p);
+
+        n.set(c, r);
+      }
+    });
+    f.radio = e.extend(!0, {}, h, {
+      _addOptions: function _addOptions(c, g, p) {
+        var n = c._input,
+            r = 0;
+        p ? r = e("input", n).length : n.empty();
+        g && m.pairs(g, c.optionsPair, function (q, k, l, t) {
+          n.append('<div><input id="' + m.safeId(c.id) + "_" + (l + r) + '" type="radio" name="' + c.name + '" /><label for="' + m.safeId(c.id) + "_" + (l + r) + '">' + k + "</label></div>");
+          e("input:last", n).attr("value", q)[0]._editor_val = q;
+          t && e("input:last", n).attr(t);
+        });
+      },
+      create: function create(c) {
+        c._input = e("<div />");
+
+        f.radio._addOptions(c, c.options || c.ipOpts);
+
+        this.on("open", function () {
+          c._input.find("input").each(function () {
+            this._preChecked && (this.checked = !0);
+          });
+        });
+        return c._input[0];
+      },
+      get: function get(c) {
+        c = c._input.find("input:checked");
+        return c.length ? c[0]._editor_val : u;
+      },
+      set: function set(c, g) {
+        c._input.find("input").each(function () {
+          this._preChecked = !1;
+          this._preChecked = this._editor_val == g ? this.checked = !0 : this.checked = !1;
+        });
+
+        d(c._input.find("input:checked"));
+      },
+      enable: function enable(c) {
+        c._input.find("input").prop("disabled", !1);
+      },
+      disable: function disable(c) {
+        c._input.find("input").prop("disabled", !0);
+      },
+      update: function update(c, g, p) {
+        var n = f.radio,
+            r = n.get(c);
+
+        n._addOptions(c, g, p);
+
+        g = c._input.find("input");
+        n.set(c, g.filter('[value="' + r + '"]').length ? r : g.eq(0).attr("value"));
+      }
+    });
+    f.date = e.extend(!0, {}, h, {
+      create: function create(c) {
+        c._input = e("<input />").attr(e.extend({
+          id: m.safeId(c.id),
+          type: "text"
+        }, c.attr));
+        e.datepicker ? (c._input.addClass("jqueryui"), c.dateFormat || (c.dateFormat = e.datepicker.RFC_2822), setTimeout(function () {
+          e(c._input).datepicker(e.extend({
+            dateFormat: c.dateFormat,
+            buttonImage: c.dateImage,
+            buttonImageOnly: !0,
+            onSelect: function onSelect() {
+              c._input.focus().click();
+            }
+          }, c.opts));
+          e("#ui-datepicker-div").css("display", "none");
+        }, 10)) : c._input.attr("type", "date");
+        return c._input[0];
+      },
+      set: function set(c, g) {
+        e.datepicker && c._input.hasClass("hasDatepicker") ? c._input.datepicker("setDate", g).change() : e(c._input).val(g);
+      },
+      enable: function enable(c) {
+        e.datepicker ? c._input.datepicker("enable") : e(c._input).prop("disabled", !1);
+      },
+      disable: function disable(c) {
+        e.datepicker ? c._input.datepicker("disable") : e(c._input).prop("disabled", !0);
+      },
+      owns: function owns(c, g) {
+        return e(g).parents("div.ui-datepicker").length || e(g).parents("div.ui-datepicker-header").length ? !0 : !1;
+      }
+    });
+    f.datetime = e.extend(!0, {}, h, {
+      create: function create(c) {
+        c._input = e("<input />").attr(e.extend(!0, {
+          id: m.safeId(c.id),
+          type: "text"
+        }, c.attr));
+        c._picker = new m.DateTime(c._input, e.extend({
+          format: c.displayFormat || c.format,
+          i18n: this.i18n.datetime
+        }, c.opts));
+
+        c._closeFn = function () {
+          c._picker.hide();
+        };
+
+        if (!1 === c.keyInput) c._input.on("keydown", function (g) {
+          g.preventDefault();
+        });
+        this.on("close", c._closeFn);
+        return c._input[0];
+      },
+      get: function get(c) {
+        var g = c._input.val(),
+            p = c._picker.c;
+
+        return g && c.wireFormat && moment ? moment(g, p.format, p.momentLocale, p.momentStrict).format(c.wireFormat) : g;
+      },
+      set: function set(c, g) {
+        var p = c._picker.c;
+
+        c._picker.val(g && c.wireFormat && moment ? moment(g, c.wireFormat, p.momentLocale, p.momentStrict).format(p.format) : g);
+
+        d(c._input);
+      },
+      owns: function owns(c, g) {
+        return c._picker.owns(g);
+      },
+      errorMessage: function errorMessage(c, g) {
+        c._picker.errorMsg(g);
+      },
+      destroy: function destroy(c) {
+        this.off("close", c._closeFn);
+
+        c._input.off("keydown");
+
+        c._picker.destroy();
+      },
+      minDate: function minDate(c, g) {
+        c._picker.min(g);
+      },
+      maxDate: function maxDate(c, g) {
+        c._picker.max(g);
+      }
+    });
+    f.upload = e.extend(!0, {}, h, {
+      create: function create(c) {
+        var g = this;
+        return b(g, c, function (p) {
+          m.fieldTypes.upload.set.call(g, c, p[0]);
+
+          g._event("postUpload", [c.name, p[0]]);
+        });
+      },
+      get: function get(c) {
+        return c._val;
+      },
+      set: function set(c, g) {
+        c._val = g;
+        var p = c._input;
+
+        if (c.display) {
+          var n = p.find("div.rendered");
+          c._val ? n.html(c.display(c._val)) : n.empty().append("<span>" + (c.noFileText || "No file") + "</span>");
+        }
+
+        n = p.find("div.clearValue button");
+        g && c.clearText ? (n.html(c.clearText), p.removeClass("noClear")) : p.addClass("noClear");
+
+        c._input.find("input").triggerHandler("upload.editor", [c._val]);
+      },
+      enable: function enable(c) {
+        c._input.find("input").prop("disabled", !1);
+
+        c._enabled = !0;
+      },
+      disable: function disable(c) {
+        c._input.find("input").prop("disabled", !0);
+
+        c._enabled = !1;
+      },
+      canReturnSubmit: function canReturnSubmit(c, g) {
+        return !1;
+      }
+    });
+    f.uploadMany = e.extend(!0, {}, h, {
+      _showHide: function _showHide(c) {
+        c.limit && (c._container.find("div.limitHide").css("display", c._val.length >= c.limit ? "none" : "block"), c._limitLeft = c.limit - c._val.length);
+      },
+      create: function create(c) {
+        var g = this,
+            p = b(g, c, function (n) {
+          c._val = c._val.concat(n);
+          m.fieldTypes.uploadMany.set.call(g, c, c._val);
+
+          g._event("postUpload", [c.name, c._val]);
+        }, !0);
+        p.addClass("multi").on("click", "button.remove", function (n) {
+          n.stopPropagation();
+          c._enabled && (n = e(this).data("idx"), c._val.splice(n, 1), m.fieldTypes.uploadMany.set.call(g, c, c._val));
+        });
+        return c._container = p;
+      },
+      get: function get(c) {
+        return c._val;
+      },
+      set: function set(c, g) {
+        g || (g = []);
+        if (!Array.isArray(g)) throw "Upload collections must have an array as a value";
+        c._val = g;
+        var p = this,
+            n = c._input;
+        if (c.display) if (n = n.find("div.rendered").empty(), g.length) {
+          var r = e("<ul></ul>").appendTo(n);
+          e.each(g, function (q, k) {
+            r.append("<li>" + c.display(k, q) + ' <button class="' + p.classes.form.button + ' remove" data-idx="' + q + '">&times;</button></li>');
+          });
+        } else n.append("<span>" + (c.noFileText || "No files") + "</span>");
+
+        m.fieldTypes.uploadMany._showHide(c);
+
+        c._input.find("input").triggerHandler("upload.editor", [c._val]);
+      },
+      enable: function enable(c) {
+        c._input.find("input").prop("disabled", !1);
+
+        c._enabled = !0;
+      },
+      disable: function disable(c) {
+        c._input.find("input").prop("disabled", !0);
+
+        c._enabled = !1;
+      },
+      canReturnSubmit: function canReturnSubmit(c, g) {
+        return !1;
+      }
+    });
+  })();
+
+  E.ext.editorFields && e.extend(m.fieldTypes, E.ext.editorFields);
+  E.ext.editorFields = m.fieldTypes;
+  m.files = {};
+  m.prototype.CLASS = "Editor";
+  m.version = "1.9.5";
+  return m;
+});
+
+/***/ }),
+
+/***/ "./resources/js/dataTables.checkboxes.min.js":
+/*!***************************************************!*\
+  !*** ./resources/js/dataTables.checkboxes.min.js ***!
+  \***************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*! jQuery DataTables Checkboxes v1.2.12 - www.gyrocode.com/projects/jquery-datatables-checkboxes/ - License: MIT - Author: Gyrocode LLC / www.gyrocode.com */
+!function (c) {
+   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (e) {
+    return c(e, window, document);
+  }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : 0;
+}(function (k, e, b) {
+  "use strict";
+
+  function x(e) {
+    if (!f.versionCheck || !f.versionCheck("1.10.8")) throw "DataTables Checkboxes requires DataTables 1.10.8 or newer";
+    this.s = {
+      dt: new f.Api(e),
+      columns: [],
+      data: [],
+      dataDisabled: [],
+      ignoreSelect: !1
+    }, this.s.ctx = this.s.dt.settings()[0], this.s.ctx.checkboxes || (e.checkboxes = this)._constructor();
+  }
+
+  var f = k.fn.dataTable;
+  x.prototype = {
+    _constructor: function _constructor() {
+      for (var e, t, c, s, o, l, a, n = this, d = n.s.dt, i = n.s.ctx, h = !1, u = !1, r = 0; r < i.aoColumns.length; r++) {
+        i.aoColumns[r].checkboxes && (e = k(d.column(r).header()), h = !0, k.isPlainObject(i.aoColumns[r].checkboxes) || (i.aoColumns[r].checkboxes = {}), i.aoColumns[r].checkboxes = k.extend({}, x.defaults, i.aoColumns[r].checkboxes), t = {
+          searchable: !1,
+          orderable: !1
+        }, "" === i.aoColumns[r].sClass ? t.className = "dt-checkboxes-cell" : t.className = i.aoColumns[r].sClass + " dt-checkboxes-cell", null === i.aoColumns[r].sWidthOrig && (t.width = "1%"), null === i.aoColumns[r].mRender && (t.render = function () {
+          return '<input type="checkbox" class="dt-checkboxes" autocomplete="off">';
+        }), f.ext.internal._fnColumnOptions(i, r, t), e.removeClass("sorting"), e.off(".dt"), null === i.sAjaxSource && ((c = d.cells("tr", r)).invalidate("data"), k(c.nodes()).addClass(t.className)), n.s.data[r] = {}, n.s.dataDisabled[r] = {}, n.s.columns.push(r), i.aoColumns[r].checkboxes.selectRow && (i._select ? u = !0 : i.aoColumns[r].checkboxes.selectRow = !1), i.aoColumns[r].checkboxes.selectAll && (e.data("html", e.html()), null !== i.aoColumns[r].checkboxes.selectAllRender && (s = "", k.isFunction(i.aoColumns[r].checkboxes.selectAllRender) ? s = i.aoColumns[r].checkboxes.selectAllRender() : "string" == typeof i.aoColumns[r].checkboxes.selectAllRender && (s = i.aoColumns[r].checkboxes.selectAllRender), e.html(s).addClass("dt-checkboxes-select-all").attr("data-col", r))));
+      }
+
+      h && (n.loadState(), o = k(d.table().node()), l = k(d.table().body()), a = k(d.table().container()), u && (o.addClass("dt-checkboxes-select"), o.on("user-select.dt.dtCheckboxes", function (e, t, c, s, o) {
+        n.onDataTablesUserSelect(e, t, c, s, o);
+      }), o.on("select.dt.dtCheckboxes deselect.dt.dtCheckboxes", function (e, t, c, s) {
+        n.onDataTablesSelectDeselect(e, c, s);
+      }), i._select.info && (d.select.info(!1), o.on("draw.dt.dtCheckboxes select.dt.dtCheckboxes deselect.dt.dtCheckboxes", function () {
+        n.showInfoSelected();
+      }))), o.on("draw.dt.dtCheckboxes", function (e) {
+        n.onDataTablesDraw(e);
+      }), l.on("click.dtCheckboxes", "input.dt-checkboxes", function (e) {
+        n.onClick(e, this);
+      }), a.on("click.dtCheckboxes", 'thead th.dt-checkboxes-select-all input[type="checkbox"]', function (e) {
+        n.onClickSelectAll(e, this);
+      }), a.on("click.dtCheckboxes", "thead th.dt-checkboxes-select-all", function () {
+        k('input[type="checkbox"]', this).not(":disabled").trigger("click");
+      }), u || a.on("click.dtCheckboxes", "tbody td.dt-checkboxes-cell", function () {
+        k('input[type="checkbox"]', this).not(":disabled").trigger("click");
+      }), a.on("click.dtCheckboxes", "thead th.dt-checkboxes-select-all label, tbody td.dt-checkboxes-cell label", function (e) {
+        e.preventDefault();
+      }), k(b).on("click.dtCheckboxes", '.fixedHeader-floating thead th.dt-checkboxes-select-all input[type="checkbox"]', function (e) {
+        i._fixedHeader && i._fixedHeader.dom.header.floating && n.onClickSelectAll(e, this);
+      }), k(b).on("click.dtCheckboxes", ".fixedHeader-floating thead th.dt-checkboxes-select-all", function () {
+        i._fixedHeader && i._fixedHeader.dom.header.floating && k('input[type="checkbox"]', this).trigger("click");
+      }), o.on("init.dt.dtCheckboxes", function () {
+        setTimeout(function () {
+          n.onDataTablesInit();
+        }, 0);
+      }), o.on("stateSaveParams.dt.dtCheckboxes", function (e, t, c) {
+        n.onDataTablesStateSave(e, t, c);
+      }), o.one("destroy.dt.dtCheckboxes", function (e, t) {
+        n.onDataTablesDestroy(e, t);
+      }));
+    },
+    onDataTablesInit: function onDataTablesInit() {
+      var o = this,
+          e = o.s.dt,
+          t = o.s.ctx;
+      t.oFeatures.bServerSide || (t.oFeatures.bStateSave && o.updateState(), k(e.table().node()).on("xhr.dt.dtCheckboxes", function (e, t, c, s) {
+        o.onDataTablesXhr(e.settings, c, s);
+      }));
+    },
+    onDataTablesUserSelect: function onDataTablesUserSelect(e, t, c, s) {
+      var o = s.index().row,
+          l = this.getSelectRowColIndex(),
+          a = t.cell({
+        row: o,
+        column: l
+      }).data();
+      this.isCellSelectable(l, a) || e.preventDefault();
+    },
+    onDataTablesSelectDeselect: function onDataTablesSelectDeselect(e, t, c) {
+      var s,
+          o,
+          l = this,
+          a = l.s.dt;
+      l.s.ignoreSelect || "row" !== t || null !== (s = l.getSelectRowColIndex()) && (o = a.cells(c, s), l.updateData(o, s, "select" === e.type), l.updateCheckbox(o, s, "select" === e.type), l.updateSelectAll(s));
+    },
+    onDataTablesStateSave: function onDataTablesStateSave(e, t, c) {
+      var s = this,
+          o = s.s.ctx;
+      c.checkboxes = [], k.each(s.s.columns, function (e, t) {
+        o.aoColumns[t].checkboxes.stateSave && (c.checkboxes[t] = s.s.data[t]);
+      });
+    },
+    onDataTablesDestroy: function onDataTablesDestroy() {
+      var e = this.s.dt,
+          t = k(e.table().node()),
+          c = k(e.table().body()),
+          s = k(e.table().container());
+      k(b).off("click.dtCheckboxes"), s.off(".dtCheckboxes"), c.off(".dtCheckboxes"), t.off(".dtCheckboxes"), this.s.data = {}, this.s.dataDisabled = {}, k(".dt-checkboxes-select-all", t).each(function (e, t) {
+        k(t).html(k(t).data("html")).removeClass("dt-checkboxes-select-all");
+      });
+    },
+    onDataTablesDraw: function onDataTablesDraw() {
+      var c = this,
+          e = c.s.ctx;
+      (e.oFeatures.bServerSide || e.oFeatures.bDeferRender) && c.updateStateCheckboxes({
+        page: "current",
+        search: "none"
+      }), k.each(c.s.columns, function (e, t) {
+        c.updateSelectAll(t);
+      });
+    },
+    onDataTablesXhr: function onDataTablesXhr() {
+      var c = this,
+          e = c.s.dt,
+          t = c.s.ctx,
+          s = k(e.table().node());
+      k.each(c.s.columns, function (e, t) {
+        c.s.data[t] = {}, c.s.dataDisabled[t] = {};
+      }), t.oFeatures.bStateSave && (c.loadState(), s.one("draw.dt.dtCheckboxes", function () {
+        c.updateState();
+      }));
+    },
+    updateData: function updateData(e, t, c) {
+      var s = this.s.dt,
+          o = this.s.ctx;
+      o.aoColumns[t].checkboxes && (e.data().each(function (e) {
+        c ? o.checkboxes.s.data[t][e] = 1 : delete o.checkboxes.s.data[t][e];
+      }), o.oFeatures.bStateSave && o.aoColumns[t].checkboxes.stateSave && s.state.save());
+    },
+    updateSelect: function updateSelect(e, t) {
+      var c = this.s.dt;
+      this.s.ctx._select && (this.s.ignoreSelect = !0, t ? c.rows(e).select() : c.rows(e).deselect(), this.s.ignoreSelect = !1);
+    },
+    updateCheckbox: function updateCheckbox(e, t, c) {
+      var s = this.s.ctx,
+          o = e.nodes();
+      o.length && (k("input.dt-checkboxes", o).not(":disabled").prop("checked", c), k.isFunction(s.aoColumns[t].checkboxes.selectCallback) && s.aoColumns[t].checkboxes.selectCallback(o, c));
+    },
+    updateState: function updateState() {
+      var c = this,
+          e = (c.s.dt, c.s.ctx);
+      c.updateStateCheckboxes({
+        page: "all",
+        search: "none"
+      }), e._oFixedColumns && setTimeout(function () {
+        k.each(c.s.columns, function (e, t) {
+          c.updateSelectAll(t);
+        });
+      }, 0);
+    },
+    updateStateCheckboxes: function updateStateCheckboxes(e) {
+      var o = this,
+          t = o.s.dt,
+          l = o.s.ctx;
+      t.cells("tr", o.s.columns, e).every(function (e, t) {
+        var c = this.data(),
+            s = o.isCellSelectable(t, c);
+        l.checkboxes.s.data[t].hasOwnProperty(c) && (o.updateCheckbox(this, t, !0), l.aoColumns[t].checkboxes.selectRow && s && o.updateSelect(e, !0)), s || k("input.dt-checkboxes", this.node()).prop("disabled", !0);
+      });
+    },
+    onClick: function onClick(e, c) {
+      var s = this,
+          t = s.s.dt,
+          o = s.s.ctx,
+          l = k(c).closest("td"),
+          a = l.parents(".DTFC_Cloned").length ? t.fixedColumns().cellIndex(l) : l,
+          n = t.cell(a),
+          d = n.index().column;
+      o.aoColumns[d].checkboxes.selectRow ? setTimeout(function () {
+        var e = n.data(),
+            t = s.s.data[d].hasOwnProperty(e);
+        t !== c.checked && (s.updateCheckbox(n, d, t), s.updateSelectAll(d));
+      }, 0) : (n.checkboxes.select(c.checked), e.stopPropagation());
+    },
+    onClickSelectAll: function onClickSelectAll(e, t) {
+      var c = this.s.dt,
+          s = this.s.ctx,
+          o = null,
+          l = k(t).closest("th");
+      o = l.parents(".DTFC_Cloned").length ? c.fixedColumns().cellIndex(l).column : c.column(l).index(), k(t).data("is-changed", !0), c.column(o, {
+        page: s.aoColumns[o].checkboxes && s.aoColumns[o].checkboxes.selectAllPages ? "all" : "current",
+        search: "applied"
+      }).checkboxes.select(t.checked), e.stopPropagation();
+    },
+    loadState: function loadState() {
+      var c,
+          s = this,
+          e = s.s.dt,
+          o = s.s.ctx;
+      o.oFeatures.bStateSave && (c = e.state.loaded(), k.each(s.s.columns, function (e, t) {
+        c && c.checkboxes && c.checkboxes.hasOwnProperty(t) && o.aoColumns[t].checkboxes.stateSave && (s.s.data[t] = c.checkboxes[t]);
+      }));
+    },
+    updateSelectAll: function updateSelectAll(c) {
+      var e,
+          t,
+          s,
+          o,
+          l,
+          a,
+          n,
+          d,
+          i,
+          h,
+          u,
+          r = this,
+          b = r.s.dt,
+          x = r.s.ctx;
+      x.aoColumns[c].checkboxes && x.aoColumns[c].checkboxes.selectAll && (e = b.cells("tr", c, {
+        page: x.aoColumns[c].checkboxes.selectAllPages ? "all" : "current",
+        search: "applied"
+      }), t = b.table().container(), s = k('.dt-checkboxes-select-all[data-col="' + c + '"] input[type="checkbox"]', t), l = o = 0, a = e.data(), k.each(a, function (e, t) {
+        r.isCellSelectable(c, t) ? r.s.data[c].hasOwnProperty(t) && o++ : l++;
+      }), x._fixedHeader && x._fixedHeader.dom.header.floating && (s = k('.fixedHeader-floating .dt-checkboxes-select-all[data-col="' + c + '"] input[type="checkbox"]')), d = 0 === o ? n = !1 : o + l === a.length ? !(n = !0) : n = !0, i = s.data("is-changed"), h = s.prop("checked"), u = s.prop("indeterminate"), !i && h === n && u === d || (s.data("is-changed", !1), s.prop({
+        checked: !d && n,
+        indeterminate: d
+      }), k.isFunction(x.aoColumns[c].checkboxes.selectAllCallback) && x.aoColumns[c].checkboxes.selectAllCallback(s.closest("th").get(0), n, d)));
+    },
+    showInfoSelected: function showInfoSelected() {
+      var n = this.s.dt,
+          e = this.s.ctx;
+
+      if (e.aanFeatures.i) {
+        var t = this.getSelectRowColIndex();
+
+        if (null !== t) {
+          var d = 0;
+
+          for (var c in e.checkboxes.s.data[t]) {
+            e.checkboxes.s.data[t].hasOwnProperty(c) && d++;
+          }
+
+          k.each(e.aanFeatures.i, function (e, t) {
+            var c,
+                s,
+                o = k(t),
+                l = k('<span class="select-info"/>');
+            c = "row", s = d, l.append(k('<span class="select-item"/>').append(n.i18n("select." + c + "s", {
+              _: "%d " + c + "s selected",
+              0: "",
+              1: "1 " + c + " selected"
+            }, s)));
+            var a = o.children("span.select-info");
+            a.length && a.remove(), "" !== l.text() && o.append(l);
+          });
+        }
+      }
+    },
+    isCellSelectable: function isCellSelectable(e, t) {
+      return !this.s.ctx.checkboxes.s.dataDisabled[e].hasOwnProperty(t);
+    },
+    getCellIndex: function getCellIndex(e) {
+      var t = this.s.dt;
+      return this.s.ctx._oFixedColumns ? t.fixedColumns().cellIndex(e) : t.cell(e).index();
+    },
+    getSelectRowColIndex: function getSelectRowColIndex() {
+      for (var e = this.s.ctx, t = null, c = 0; c < e.aoColumns.length; c++) {
+        if (e.aoColumns[c].checkboxes && e.aoColumns[c].checkboxes.selectRow) {
+          t = c;
+          break;
+        }
+      }
+
+      return t;
+    },
+    updateFixedColumn: function updateFixedColumn(e) {
+      var t,
+          c,
+          s = this,
+          o = s.s.dt,
+          l = s.s.ctx;
+      l._oFixedColumns && (t = l._oFixedColumns.s.iLeftColumns, c = l.aoColumns.length - l._oFixedColumns.s.iRightColumns - 1, (e < t || c < e) && (o.fixedColumns().update(), setTimeout(function () {
+        k.each(s.s.columns, function (e, t) {
+          s.updateSelectAll(t);
+        });
+      }, 0)));
+    }
+  }, x.defaults = {
+    stateSave: !0,
+    selectRow: !1,
+    selectAll: !0,
+    selectAllPages: !0,
+    selectCallback: null,
+    selectAllCallback: null,
+    selectAllRender: '<input type="checkbox" autocomplete="off">'
+  };
+  var t = k.fn.dataTable.Api;
+  return t.register("checkboxes()", function () {
+    return this;
+  }), t.registerPlural("columns().checkboxes.select()", "column().checkboxes.select()", function (i) {
+    return void 0 === i && (i = !0), this.iterator("column-rows", function (c, s, e, t, o) {
+      var l, a, n, d;
+      c.aoColumns[s].checkboxes && (d = [], k.each(o, function (e, t) {
+        d.push({
+          row: t,
+          column: s
+        });
+      }), a = (l = this.cells(d)).data(), n = [], d = [], k.each(a, function (e, t) {
+        c.checkboxes.isCellSelectable(s, t) && (d.push({
+          row: o[e],
+          column: s
+        }), n.push(o[e]));
+      }), l = this.cells(d), c.checkboxes.updateData(l, s, i), c.checkboxes.updateCheckbox(l, s, i), c.aoColumns[s].checkboxes.selectRow && c.checkboxes.updateSelect(n, i), c.checkboxes.updateSelectAll(s), c.checkboxes.updateFixedColumn(s));
+    }, 1);
+  }), t.registerPlural("cells().checkboxes.select()", "cell().checkboxes.select()", function (l) {
+    return void 0 === l && (l = !0), this.iterator("cell", function (e, t, c) {
+      var s, o;
+      e.aoColumns[c].checkboxes && (s = this.cells([{
+        row: t,
+        column: c
+      }]), o = this.cell({
+        row: t,
+        column: c
+      }).data(), e.checkboxes.isCellSelectable(c, o) && (e.checkboxes.updateData(s, c, l), e.checkboxes.updateCheckbox(s, c, l), e.aoColumns[c].checkboxes.selectRow && e.checkboxes.updateSelect(t, l), e.checkboxes.updateSelectAll(c), e.checkboxes.updateFixedColumn(c)));
+    }, 1);
+  }), t.registerPlural("cells().checkboxes.enable()", "cell().checkboxes.enable()", function (a) {
+    return void 0 === a && (a = !0), this.iterator("cell", function (e, t, c) {
+      var s, o, l;
+      e.aoColumns[c].checkboxes && (o = (s = this.cell({
+        row: t,
+        column: c
+      })).data(), a ? delete e.checkboxes.s.dataDisabled[c][o] : e.checkboxes.s.dataDisabled[c][o] = 1, (l = s.node()) && k("input.dt-checkboxes", l).prop("disabled", !a), e.aoColumns[c].checkboxes.selectRow && e.checkboxes.s.data[c].hasOwnProperty(o) && e.checkboxes.updateSelect(t, a));
+    }, 1);
+  }), t.registerPlural("cells().checkboxes.disable()", "cell().checkboxes.disable()", function (e) {
+    return void 0 === e && (e = !0), this.checkboxes.enable(!e);
+  }), t.registerPlural("columns().checkboxes.deselect()", "column().checkboxes.deselect()", function (e) {
+    return void 0 === e && (e = !0), this.checkboxes.select(!e);
+  }), t.registerPlural("cells().checkboxes.deselect()", "cell().checkboxes.deselect()", function (e) {
+    return void 0 === e && (e = !0), this.checkboxes.select(!e);
+  }), t.registerPlural("columns().checkboxes.deselectAll()", "column().checkboxes.deselectAll()", function () {
+    return this.iterator("column", function (e, t) {
+      e.aoColumns[t].checkboxes && (e.checkboxes.s.data[t] = {}, this.column(t).checkboxes.select(!1));
+    }, 1);
+  }), t.registerPlural("columns().checkboxes.selected()", "column().checkboxes.selected()", function () {
+    return this.iterator("column-rows", function (c, s, e, t, o) {
+      if (c.aoColumns[s].checkboxes) {
+        var l,
+            a,
+            n = [];
+        return c.oFeatures.bServerSide ? k.each(c.checkboxes.s.data[s], function (e) {
+          c.checkboxes.isCellSelectable(s, e) && n.push(e);
+        }) : (l = [], k.each(o, function (e, t) {
+          l.push({
+            row: t,
+            column: s
+          });
+        }), a = this.cells(l).data(), k.each(a, function (e, t) {
+          c.checkboxes.s.data[s].hasOwnProperty(t) && c.checkboxes.isCellSelectable(s, t) && n.push(t);
+        })), n;
+      }
+
+      return [];
+    }, 1);
+  }), x.version = "1.2.12", k.fn.DataTable.Checkboxes = x, k.fn.dataTable.Checkboxes = x, k(b).on("preInit.dt.dtCheckboxes", function (e, t) {
+    "dt" === e.namespace && new x(t);
+  }), x;
+});
+
+/***/ }),
+
 /***/ "./resources/js/index.js":
 /*!*******************************!*\
   !*** ./resources/js/index.js ***!
   \*******************************/
 /***/ (() => {
 
+var editor;
 $(document).ready(function () {
+  editor = new $.fn.DataTable.Editor({
+    ajax: {
+      url: "/vm/editvmreqdata",
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    },
+    table: "#requireTable",
+    idSrc: 'vmid',
+    fields: [{
+      label: "Region:",
+      name: "region"
+    }, {
+      label: "Billing model:",
+      name: "pricetype",
+      type: "select",
+      options: [{
+        label: "Pay-as-you-Go",
+        value: "Pay-as-you-Go"
+      }, {
+        label: "Azure Hybrid Use Benefit",
+        value: "Azure Hybrid Use Benefit"
+      }, {
+        label: "1 Year Reserved Instance",
+        value: "1 Year Reserved Instance"
+      }, {
+        label: "3 Year Reserved Instance",
+        value: "3 Year Reserved Instance"
+      }, {
+        label: "1 Year Reserved Instance with AHUB",
+        value: "1 Year Reserved Instance with AHUB"
+      }, {
+        label: "3 Year Reserved Instance with AHUB",
+        value: "3 Year Reserved Instance with AHUB"
+      }]
+    }, {
+      label: "Hours on per dag:",
+      name: "hourson"
+    }, {
+      label: "Burstable:",
+      name: "burstable",
+      type: "select",
+      options: [{
+        label: "Yes",
+        value: 1
+      }, {
+        label: "No",
+        value: 0
+      }]
+    }, {
+      label: "Latency Sensitive:",
+      name: "latency",
+      type: "select",
+      options: [{
+        label: "Yes",
+        value: 1
+      }, {
+        label: "No",
+        value: 0
+      }]
+    }, {
+      label: "Service Level Agreement:",
+      name: "SLA",
+      type: "select",
+      options: [{
+        label: "Yes",
+        value: 1
+      }, {
+        label: "No",
+        value: 0
+      }]
+    }, {
+      label: "Backup retention (months):",
+      name: "azbackup"
+    }, {
+      label: "Disaster Recovery:",
+      name: "dr",
+      type: "select",
+      options: [{
+        label: "Yes",
+        value: 1
+      }, {
+        label: "No",
+        value: 0
+      }]
+    }, {
+      label: "Temp storage need (GB):",
+      name: "tempstoragegb"
+    }]
+  });
+  $('#requireTable').on('click', 'tbody td:nth-child(n+10)', function (e) {
+    editor.inline(this, {
+      onBlur: 'submit'
+    });
+  });
   $('#requireTable').removeAttr('width').DataTable({
-    "paging": true,
+    dom: 'Bfrtip',
+    ajax: "/vm/getvmreqdata",
+    "paging": false,
     "searching": true,
-    "ordering": true,
+    // "ordering": true,
     "info": true,
     "autoWidth": false,
     "scrollY": 300,
     "scrollX": true,
-    scrollCollapse: true,
-    "stateSave": true,
-    fixedColumns: {
+    'scrollCollapse': true,
+    // "stateSave": true,
+    'fixedColumns': {
       leftColumns: 3
-    }
+    },
+    order: [[1, 'asc']],
+    'columns': [{
+      data: null
+    }, {
+      data: "vmname"
+    }, {
+      data: "hvclustername"
+    }, {
+      data: "vmoperatingsystem"
+    }, {
+      data: "vmniccount"
+    }, {
+      data: "vmproccount"
+    }, {
+      data: "vmdiskcount"
+    }, {
+      data: "vmtotaldisksizegb"
+    }, {
+      data: "region"
+    }, {
+      data: "pricetype"
+    }, {
+      data: "hourson"
+    }, {
+      data: "burstable",
+      "render": function render(val, type, row) {
+        return val == 1 ? "Yes" : "No";
+      }
+    }, {
+      data: "latency",
+      "render": function render(val, type, row) {
+        return val == 1 ? "Yes" : "No";
+      }
+    }, {
+      data: "SLA",
+      "render": function render(val, type, row) {
+        return val == 1 ? "Yes" : "No";
+      }
+    }, {
+      data: "azbackup"
+    }, {
+      data: "dr",
+      "render": function render(val, type, row) {
+        return val == 1 ? "Yes" : "No";
+      }
+    }, {
+      data: "tempstoragegb"
+    }],
+    'columnDefs': [{
+      'targets': 0,
+      'checkboxes': {
+        'selectRow': true
+      }
+    }],
+    'buttons': [{
+      text: 'Bulk Edit',
+      className: 'btn-info',
+      action: function action(e, dt, node, config) {
+        require_edit();
+      }
+    }]
   });
   $.getJSON("https://restcountries.eu/rest/v2/all", function (data) {
     var results = [];
@@ -5518,6 +10012,2157 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 
 
 return DataTable;
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/datatables.net-buttons/js/dataTables.buttons.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/datatables.net-buttons/js/dataTables.buttons.js ***!
+  \**********************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Buttons for DataTables 1.6.5
+ * ©2016-2020 SpryMedia Ltd - datatables.net/license
+ */
+
+(function( factory ){
+	if ( true ) {
+		// AMD
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ( $ ) {
+			return factory( $, window, document );
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	}
+	else {}
+}(function( $, window, document, undefined ) {
+'use strict';
+var DataTable = $.fn.dataTable;
+
+
+// Used for namespacing events added to the document by each instance, so they
+// can be removed on destroy
+var _instCounter = 0;
+
+// Button namespacing counter for namespacing events on individual buttons
+var _buttonCounter = 0;
+
+var _dtButtons = DataTable.ext.buttons;
+
+// Allow for jQuery slim
+function _fadeIn(el, duration, fn) {
+	if ($.fn.animate) {
+		el
+			.stop()
+			.fadeIn( duration, fn );
+	}
+	else {
+		el.css('display', 'block');
+
+		if (fn) {
+			fn.call(el);
+		}
+	}
+}
+
+function _fadeOut(el, duration, fn) {
+	if ($.fn.animate) {
+		el
+			.stop()
+			.fadeOut( duration, fn );
+	}
+	else {
+		el.css('display', 'none');
+		
+		if (fn) {
+			fn.call(el);
+		}
+	}
+}
+
+/**
+ * [Buttons description]
+ * @param {[type]}
+ * @param {[type]}
+ */
+var Buttons = function( dt, config )
+{
+	// If not created with a `new` keyword then we return a wrapper function that
+	// will take the settings object for a DT. This allows easy use of new instances
+	// with the `layout` option - e.g. `topLeft: $.fn.dataTable.Buttons( ... )`.
+	if ( !(this instanceof Buttons) ) {
+		return function (settings) {
+			return new Buttons( settings, dt ).container();
+		};
+	}
+
+	// If there is no config set it to an empty object
+	if ( typeof( config ) === 'undefined' ) {
+		config = {};	
+	}
+	
+	// Allow a boolean true for defaults
+	if ( config === true ) {
+		config = {};
+	}
+
+	// For easy configuration of buttons an array can be given
+	if ( Array.isArray( config ) ) {
+		config = { buttons: config };
+	}
+
+	this.c = $.extend( true, {}, Buttons.defaults, config );
+
+	// Don't want a deep copy for the buttons
+	if ( config.buttons ) {
+		this.c.buttons = config.buttons;
+	}
+
+	this.s = {
+		dt: new DataTable.Api( dt ),
+		buttons: [],
+		listenKeys: '',
+		namespace: 'dtb'+(_instCounter++)
+	};
+
+	this.dom = {
+		container: $('<'+this.c.dom.container.tag+'/>')
+			.addClass( this.c.dom.container.className )
+	};
+
+	this._constructor();
+};
+
+
+$.extend( Buttons.prototype, {
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Public methods
+	 */
+
+	/**
+	 * Get the action of a button
+	 * @param  {int|string} Button index
+	 * @return {function}
+	 *//**
+	 * Set the action of a button
+	 * @param  {node} node Button element
+	 * @param  {function} action Function to set
+	 * @return {Buttons} Self for chaining
+	 */
+	action: function ( node, action )
+	{
+		var button = this._nodeToButton( node );
+
+		if ( action === undefined ) {
+			return button.conf.action;
+		}
+
+		button.conf.action = action;
+
+		return this;
+	},
+
+	/**
+	 * Add an active class to the button to make to look active or get current
+	 * active state.
+	 * @param  {node} node Button element
+	 * @param  {boolean} [flag] Enable / disable flag
+	 * @return {Buttons} Self for chaining or boolean for getter
+	 */
+	active: function ( node, flag ) {
+		var button = this._nodeToButton( node );
+		var klass = this.c.dom.button.active;
+		var jqNode = $(button.node);
+
+		if ( flag === undefined ) {
+			return jqNode.hasClass( klass );
+		}
+
+		jqNode.toggleClass( klass, flag === undefined ? true : flag );
+
+		return this;
+	},
+
+	/**
+	 * Add a new button
+	 * @param {object} config Button configuration object, base string name or function
+	 * @param {int|string} [idx] Button index for where to insert the button
+	 * @return {Buttons} Self for chaining
+	 */
+	add: function ( config, idx )
+	{
+		var buttons = this.s.buttons;
+
+		if ( typeof idx === 'string' ) {
+			var split = idx.split('-');
+			var base = this.s;
+
+			for ( var i=0, ien=split.length-1 ; i<ien ; i++ ) {
+				base = base.buttons[ split[i]*1 ];
+			}
+
+			buttons = base.buttons;
+			idx = split[ split.length-1 ]*1;
+		}
+
+		this._expandButton( buttons, config, base !== undefined, idx );
+		this._draw();
+
+		return this;
+	},
+
+	/**
+	 * Get the container node for the buttons
+	 * @return {jQuery} Buttons node
+	 */
+	container: function ()
+	{
+		return this.dom.container;
+	},
+
+	/**
+	 * Disable a button
+	 * @param  {node} node Button node
+	 * @return {Buttons} Self for chaining
+	 */
+	disable: function ( node ) {
+		var button = this._nodeToButton( node );
+
+		$(button.node)
+			.addClass( this.c.dom.button.disabled )
+			.attr('disabled', true);
+
+		return this;
+	},
+
+	/**
+	 * Destroy the instance, cleaning up event handlers and removing DOM
+	 * elements
+	 * @return {Buttons} Self for chaining
+	 */
+	destroy: function ()
+	{
+		// Key event listener
+		$('body').off( 'keyup.'+this.s.namespace );
+
+		// Individual button destroy (so they can remove their own events if
+		// needed). Take a copy as the array is modified by `remove`
+		var buttons = this.s.buttons.slice();
+		var i, ien;
+		
+		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
+			this.remove( buttons[i].node );
+		}
+
+		// Container
+		this.dom.container.remove();
+
+		// Remove from the settings object collection
+		var buttonInsts = this.s.dt.settings()[0];
+
+		for ( i=0, ien=buttonInsts.length ; i<ien ; i++ ) {
+			if ( buttonInsts.inst === this ) {
+				buttonInsts.splice( i, 1 );
+				break;
+			}
+		}
+
+		return this;
+	},
+
+	/**
+	 * Enable / disable a button
+	 * @param  {node} node Button node
+	 * @param  {boolean} [flag=true] Enable / disable flag
+	 * @return {Buttons} Self for chaining
+	 */
+	enable: function ( node, flag )
+	{
+		if ( flag === false ) {
+			return this.disable( node );
+		}
+
+		var button = this._nodeToButton( node );
+		$(button.node)
+			.removeClass( this.c.dom.button.disabled )
+			.removeAttr('disabled');
+
+		return this;
+	},
+
+	/**
+	 * Get the instance name for the button set selector
+	 * @return {string} Instance name
+	 */
+	name: function ()
+	{
+		return this.c.name;
+	},
+
+	/**
+	 * Get a button's node of the buttons container if no button is given
+	 * @param  {node} [node] Button node
+	 * @return {jQuery} Button element, or container
+	 */
+	node: function ( node )
+	{
+		if ( ! node ) {
+			return this.dom.container;
+		}
+
+		var button = this._nodeToButton( node );
+		return $(button.node);
+	},
+
+	/**
+	 * Set / get a processing class on the selected button
+	 * @param {element} node Triggering button node
+	 * @param  {boolean} flag true to add, false to remove, undefined to get
+	 * @return {boolean|Buttons} Getter value or this if a setter.
+	 */
+	processing: function ( node, flag )
+	{
+		var dt = this.s.dt;
+		var button = this._nodeToButton( node );
+
+		if ( flag === undefined ) {
+			return $(button.node).hasClass( 'processing' );
+		}
+
+		$(button.node).toggleClass( 'processing', flag );
+
+		$(dt.table().node()).triggerHandler( 'buttons-processing.dt', [
+			flag, dt.button( node ), dt, $(node), button.conf
+		] );
+
+		return this;
+	},
+
+	/**
+	 * Remove a button.
+	 * @param  {node} node Button node
+	 * @return {Buttons} Self for chaining
+	 */
+	remove: function ( node )
+	{
+		var button = this._nodeToButton( node );
+		var host = this._nodeToHost( node );
+		var dt = this.s.dt;
+
+		// Remove any child buttons first
+		if ( button.buttons.length ) {
+			for ( var i=button.buttons.length-1 ; i>=0 ; i-- ) {
+				this.remove( button.buttons[i].node );
+			}
+		}
+
+		// Allow the button to remove event handlers, etc
+		if ( button.conf.destroy ) {
+			button.conf.destroy.call( dt.button(node), dt, $(node), button.conf );
+		}
+
+		this._removeKey( button.conf );
+
+		$(button.node).remove();
+
+		var idx = $.inArray( button, host );
+		host.splice( idx, 1 );
+
+		return this;
+	},
+
+	/**
+	 * Get the text for a button
+	 * @param  {int|string} node Button index
+	 * @return {string} Button text
+	 *//**
+	 * Set the text for a button
+	 * @param  {int|string|function} node Button index
+	 * @param  {string} label Text
+	 * @return {Buttons} Self for chaining
+	 */
+	text: function ( node, label )
+	{
+		var button = this._nodeToButton( node );
+		var buttonLiner = this.c.dom.collection.buttonLiner;
+		var linerTag = button.inCollection && buttonLiner && buttonLiner.tag ?
+			buttonLiner.tag :
+			this.c.dom.buttonLiner.tag;
+		var dt = this.s.dt;
+		var jqNode = $(button.node);
+		var text = function ( opt ) {
+			return typeof opt === 'function' ?
+				opt( dt, jqNode, button.conf ) :
+				opt;
+		};
+
+		if ( label === undefined ) {
+			return text( button.conf.text );
+		}
+
+		button.conf.text = label;
+
+		if ( linerTag ) {
+			jqNode.children( linerTag ).html( text(label) );
+		}
+		else {
+			jqNode.html( text(label) );
+		}
+
+		return this;
+	},
+
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Constructor
+	 */
+
+	/**
+	 * Buttons constructor
+	 * @private
+	 */
+	_constructor: function ()
+	{
+		var that = this;
+		var dt = this.s.dt;
+		var dtSettings = dt.settings()[0];
+		var buttons =  this.c.buttons;
+
+		if ( ! dtSettings._buttons ) {
+			dtSettings._buttons = [];
+		}
+
+		dtSettings._buttons.push( {
+			inst: this,
+			name: this.c.name
+		} );
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			this.add( buttons[i] );
+		}
+
+		dt.on( 'destroy', function ( e, settings ) {
+			if ( settings === dtSettings ) {
+				that.destroy();
+			}
+		} );
+
+		// Global key event binding to listen for button keys
+		$('body').on( 'keyup.'+this.s.namespace, function ( e ) {
+			if ( ! document.activeElement || document.activeElement === document.body ) {
+				// SUse a string of characters for fast lookup of if we need to
+				// handle this
+				var character = String.fromCharCode(e.keyCode).toLowerCase();
+
+				if ( that.s.listenKeys.toLowerCase().indexOf( character ) !== -1 ) {
+					that._keypress( character, e );
+				}
+			}
+		} );
+	},
+
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Private methods
+	 */
+
+	/**
+	 * Add a new button to the key press listener
+	 * @param {object} conf Resolved button configuration object
+	 * @private
+	 */
+	_addKey: function ( conf )
+	{
+		if ( conf.key ) {
+			this.s.listenKeys += $.isPlainObject( conf.key ) ?
+				conf.key.key :
+				conf.key;
+		}
+	},
+
+	/**
+	 * Insert the buttons into the container. Call without parameters!
+	 * @param  {node} [container] Recursive only - Insert point
+	 * @param  {array} [buttons] Recursive only - Buttons array
+	 * @private
+	 */
+	_draw: function ( container, buttons )
+	{
+		if ( ! container ) {
+			container = this.dom.container;
+			buttons = this.s.buttons;
+		}
+
+		container.children().detach();
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			container.append( buttons[i].inserter );
+			container.append( ' ' );
+
+			if ( buttons[i].buttons && buttons[i].buttons.length ) {
+				this._draw( buttons[i].collection, buttons[i].buttons );
+			}
+		}
+	},
+
+	/**
+	 * Create buttons from an array of buttons
+	 * @param  {array} attachTo Buttons array to attach to
+	 * @param  {object} button Button definition
+	 * @param  {boolean} inCollection true if the button is in a collection
+	 * @private
+	 */
+	_expandButton: function ( attachTo, button, inCollection, attachPoint )
+	{
+		var dt = this.s.dt;
+		var buttonCounter = 0;
+		var buttons = ! Array.isArray( button ) ?
+			[ button ] :
+			button;
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			var conf = this._resolveExtends( buttons[i] );
+
+			if ( ! conf ) {
+				continue;
+			}
+
+			// If the configuration is an array, then expand the buttons at this
+			// point
+			if ( Array.isArray( conf ) ) {
+				this._expandButton( attachTo, conf, inCollection, attachPoint );
+				continue;
+			}
+
+			var built = this._buildButton( conf, inCollection );
+			if ( ! built ) {
+				continue;
+			}
+
+			if ( attachPoint !== undefined && attachPoint !== null ) {
+				attachTo.splice( attachPoint, 0, built );
+				attachPoint++;
+			}
+			else {
+				attachTo.push( built );
+			}
+
+			if ( built.conf.buttons ) {
+				built.collection = $('<'+this.c.dom.collection.tag+'/>');
+
+				built.conf._collection = built.collection;
+
+				this._expandButton( built.buttons, built.conf.buttons, true, attachPoint );
+			}
+
+			// init call is made here, rather than buildButton as it needs to
+			// be selectable, and for that it needs to be in the buttons array
+			if ( conf.init ) {
+				conf.init.call( dt.button( built.node ), dt, $(built.node), conf );
+			}
+
+			buttonCounter++;
+		}
+	},
+
+	/**
+	 * Create an individual button
+	 * @param  {object} config            Resolved button configuration
+	 * @param  {boolean} inCollection `true` if a collection button
+	 * @return {jQuery} Created button node (jQuery)
+	 * @private
+	 */
+	_buildButton: function ( config, inCollection )
+	{
+		var buttonDom = this.c.dom.button;
+		var linerDom = this.c.dom.buttonLiner;
+		var collectionDom = this.c.dom.collection;
+		var dt = this.s.dt;
+		var text = function ( opt ) {
+			return typeof opt === 'function' ?
+				opt( dt, button, config ) :
+				opt;
+		};
+
+		if ( inCollection && collectionDom.button ) {
+			buttonDom = collectionDom.button;
+		}
+
+		if ( inCollection && collectionDom.buttonLiner ) {
+			linerDom = collectionDom.buttonLiner;
+		}
+
+		// Make sure that the button is available based on whatever requirements
+		// it has. For example, Flash buttons require Flash
+		if ( config.available && ! config.available( dt, config ) ) {
+			return false;
+		}
+
+		var action = function ( e, dt, button, config ) {
+			config.action.call( dt.button( button ), e, dt, button, config );
+
+			$(dt.table().node()).triggerHandler( 'buttons-action.dt', [
+				dt.button( button ), dt, button, config 
+			] );
+		};
+
+		var tag = config.tag || buttonDom.tag;
+		var clickBlurs = config.clickBlurs === undefined ? true : config.clickBlurs
+		var button = $('<'+tag+'/>')
+			.addClass( buttonDom.className )
+			.attr( 'tabindex', this.s.dt.settings()[0].iTabIndex )
+			.attr( 'aria-controls', this.s.dt.table().node().id )
+			.on( 'click.dtb', function (e) {
+				e.preventDefault();
+
+				if ( ! button.hasClass( buttonDom.disabled ) && config.action ) {
+					action( e, dt, button, config );
+				}
+				if( clickBlurs ) {
+					button.trigger('blur');
+				}
+			} )
+			.on( 'keyup.dtb', function (e) {
+				if ( e.keyCode === 13 ) {
+					if ( ! button.hasClass( buttonDom.disabled ) && config.action ) {
+						action( e, dt, button, config );
+					}
+				}
+			} );
+
+		// Make `a` tags act like a link
+		if ( tag.toLowerCase() === 'a' ) {
+			button.attr( 'href', '#' );
+		}
+
+		// Button tags should have `type=button` so they don't have any default behaviour
+		if ( tag.toLowerCase() === 'button' ) {
+			button.attr( 'type', 'button' );
+		}
+
+		if ( linerDom.tag ) {
+			var liner = $('<'+linerDom.tag+'/>')
+				.html( text( config.text ) )
+				.addClass( linerDom.className );
+
+			if ( linerDom.tag.toLowerCase() === 'a' ) {
+				liner.attr( 'href', '#' );
+			}
+
+			button.append( liner );
+		}
+		else {
+			button.html( text( config.text ) );
+		}
+
+		if ( config.enabled === false ) {
+			button.addClass( buttonDom.disabled );
+		}
+
+		if ( config.className ) {
+			button.addClass( config.className );
+		}
+
+		if ( config.titleAttr ) {
+			button.attr( 'title', text( config.titleAttr ) );
+		}
+
+		if ( config.attr ) {
+			button.attr( config.attr );
+		}
+
+		if ( ! config.namespace ) {
+			config.namespace = '.dt-button-'+(_buttonCounter++);
+		}
+
+		var buttonContainer = this.c.dom.buttonContainer;
+		var inserter;
+		if ( buttonContainer && buttonContainer.tag ) {
+			inserter = $('<'+buttonContainer.tag+'/>')
+				.addClass( buttonContainer.className )
+				.append( button );
+		}
+		else {
+			inserter = button;
+		}
+
+		this._addKey( config );
+
+		// Style integration callback for DOM manipulation
+		// Note that this is _not_ documented. It is currently
+		// for style integration only
+		if( this.c.buttonCreated ) {
+			inserter = this.c.buttonCreated( config, inserter );
+		}
+
+		return {
+			conf:         config,
+			node:         button.get(0),
+			inserter:     inserter,
+			buttons:      [],
+			inCollection: inCollection,
+			collection:   null
+		};
+	},
+
+	/**
+	 * Get the button object from a node (recursive)
+	 * @param  {node} node Button node
+	 * @param  {array} [buttons] Button array, uses base if not defined
+	 * @return {object} Button object
+	 * @private
+	 */
+	_nodeToButton: function ( node, buttons )
+	{
+		if ( ! buttons ) {
+			buttons = this.s.buttons;
+		}
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			if ( buttons[i].node === node ) {
+				return buttons[i];
+			}
+
+			if ( buttons[i].buttons.length ) {
+				var ret = this._nodeToButton( node, buttons[i].buttons );
+
+				if ( ret ) {
+					return ret;
+				}
+			}
+		}
+	},
+
+	/**
+	 * Get container array for a button from a button node (recursive)
+	 * @param  {node} node Button node
+	 * @param  {array} [buttons] Button array, uses base if not defined
+	 * @return {array} Button's host array
+	 * @private
+	 */
+	_nodeToHost: function ( node, buttons )
+	{
+		if ( ! buttons ) {
+			buttons = this.s.buttons;
+		}
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			if ( buttons[i].node === node ) {
+				return buttons;
+			}
+
+			if ( buttons[i].buttons.length ) {
+				var ret = this._nodeToHost( node, buttons[i].buttons );
+
+				if ( ret ) {
+					return ret;
+				}
+			}
+		}
+	},
+
+	/**
+	 * Handle a key press - determine if any button's key configured matches
+	 * what was typed and trigger the action if so.
+	 * @param  {string} character The character pressed
+	 * @param  {object} e Key event that triggered this call
+	 * @private
+	 */
+	_keypress: function ( character, e )
+	{
+		// Check if this button press already activated on another instance of Buttons
+		if ( e._buttonsHandled ) {
+			return;
+		}
+
+		var run = function ( conf, node ) {
+			if ( ! conf.key ) {
+				return;
+			}
+
+			if ( conf.key === character ) {
+				e._buttonsHandled = true;
+				$(node).click();
+			}
+			else if ( $.isPlainObject( conf.key ) ) {
+				if ( conf.key.key !== character ) {
+					return;
+				}
+
+				if ( conf.key.shiftKey && ! e.shiftKey ) {
+					return;
+				}
+
+				if ( conf.key.altKey && ! e.altKey ) {
+					return;
+				}
+
+				if ( conf.key.ctrlKey && ! e.ctrlKey ) {
+					return;
+				}
+
+				if ( conf.key.metaKey && ! e.metaKey ) {
+					return;
+				}
+
+				// Made it this far - it is good
+				e._buttonsHandled = true;
+				$(node).click();
+			}
+		};
+
+		var recurse = function ( a ) {
+			for ( var i=0, ien=a.length ; i<ien ; i++ ) {
+				run( a[i].conf, a[i].node );
+
+				if ( a[i].buttons.length ) {
+					recurse( a[i].buttons );
+				}
+			}
+		};
+
+		recurse( this.s.buttons );
+	},
+
+	/**
+	 * Remove a key from the key listener for this instance (to be used when a
+	 * button is removed)
+	 * @param  {object} conf Button configuration
+	 * @private
+	 */
+	_removeKey: function ( conf )
+	{
+		if ( conf.key ) {
+			var character = $.isPlainObject( conf.key ) ?
+				conf.key.key :
+				conf.key;
+
+			// Remove only one character, as multiple buttons could have the
+			// same listening key
+			var a = this.s.listenKeys.split('');
+			var idx = $.inArray( character, a );
+			a.splice( idx, 1 );
+			this.s.listenKeys = a.join('');
+		}
+	},
+
+	/**
+	 * Resolve a button configuration
+	 * @param  {string|function|object} conf Button config to resolve
+	 * @return {object} Button configuration
+	 * @private
+	 */
+	_resolveExtends: function ( conf )
+	{
+		var dt = this.s.dt;
+		var i, ien;
+		var toConfObject = function ( base ) {
+			var loop = 0;
+
+			// Loop until we have resolved to a button configuration, or an
+			// array of button configurations (which will be iterated
+			// separately)
+			while ( ! $.isPlainObject(base) && ! Array.isArray(base) ) {
+				if ( base === undefined ) {
+					return;
+				}
+
+				if ( typeof base === 'function' ) {
+					base = base( dt, conf );
+
+					if ( ! base ) {
+						return false;
+					}
+				}
+				else if ( typeof base === 'string' ) {
+					if ( ! _dtButtons[ base ] ) {
+						throw 'Unknown button type: '+base;
+					}
+
+					base = _dtButtons[ base ];
+				}
+
+				loop++;
+				if ( loop > 30 ) {
+					// Protect against misconfiguration killing the browser
+					throw 'Buttons: Too many iterations';
+				}
+			}
+
+			return Array.isArray( base ) ?
+				base :
+				$.extend( {}, base );
+		};
+
+		conf = toConfObject( conf );
+
+		while ( conf && conf.extend ) {
+			// Use `toConfObject` in case the button definition being extended
+			// is itself a string or a function
+			if ( ! _dtButtons[ conf.extend ] ) {
+				throw 'Cannot extend unknown button type: '+conf.extend;
+			}
+
+			var objArray = toConfObject( _dtButtons[ conf.extend ] );
+			if ( Array.isArray( objArray ) ) {
+				return objArray;
+			}
+			else if ( ! objArray ) {
+				// This is a little brutal as it might be possible to have a
+				// valid button without the extend, but if there is no extend
+				// then the host button would be acting in an undefined state
+				return false;
+			}
+
+			// Stash the current class name
+			var originalClassName = objArray.className;
+
+			conf = $.extend( {}, objArray, conf );
+
+			// The extend will have overwritten the original class name if the
+			// `conf` object also assigned a class, but we want to concatenate
+			// them so they are list that is combined from all extended buttons
+			if ( originalClassName && conf.className !== originalClassName ) {
+				conf.className = originalClassName+' '+conf.className;
+			}
+
+			// Buttons to be added to a collection  -gives the ability to define
+			// if buttons should be added to the start or end of a collection
+			var postfixButtons = conf.postfixButtons;
+			if ( postfixButtons ) {
+				if ( ! conf.buttons ) {
+					conf.buttons = [];
+				}
+
+				for ( i=0, ien=postfixButtons.length ; i<ien ; i++ ) {
+					conf.buttons.push( postfixButtons[i] );
+				}
+
+				conf.postfixButtons = null;
+			}
+
+			var prefixButtons = conf.prefixButtons;
+			if ( prefixButtons ) {
+				if ( ! conf.buttons ) {
+					conf.buttons = [];
+				}
+
+				for ( i=0, ien=prefixButtons.length ; i<ien ; i++ ) {
+					conf.buttons.splice( i, 0, prefixButtons[i] );
+				}
+
+				conf.prefixButtons = null;
+			}
+
+			// Although we want the `conf` object to overwrite almost all of
+			// the properties of the object being extended, the `extend`
+			// property should come from the object being extended
+			conf.extend = objArray.extend;
+		}
+
+		return conf;
+	},
+
+	/**
+	 * Display (and replace if there is an existing one) a popover attached to a button
+	 * @param {string|node} content Content to show
+	 * @param {DataTable.Api} hostButton DT API instance of the button
+	 * @param {object} inOpts Options (see object below for all options)
+	 */
+	_popover: function ( content, hostButton, inOpts ) {
+		var dt = hostButton;
+		var buttonsSettings = this.c;
+		var options = $.extend( {
+			align: 'button-left', // button-right, dt-container
+			autoClose: false,
+			background: true,
+			backgroundClassName: 'dt-button-background',
+			contentClassName: buttonsSettings.dom.collection.className,
+			collectionLayout: '',
+			collectionTitle: '',
+			dropup: false,
+			fade: 400,
+			rightAlignClassName: 'dt-button-right',
+			tag: buttonsSettings.dom.collection.tag
+		}, inOpts );
+		var hostNode = hostButton.node();
+
+		var close = function () {
+			_fadeOut(
+				$('.dt-button-collection'),
+				options.fade,
+				function () {
+					$(this).detach();
+				}
+			);
+
+			$(dt.buttons( '[aria-haspopup="true"][aria-expanded="true"]' ).nodes())
+				.attr('aria-expanded', 'false');
+
+			$('div.dt-button-background').off( 'click.dtb-collection' );
+			Buttons.background( false, options.backgroundClassName, options.fade, hostNode );
+
+			$('body').off( '.dtb-collection' );
+			dt.off( 'buttons-action.b-internal' );
+		};
+
+		if (content === false) {
+			close();
+		}
+
+		var existingExpanded = $(dt.buttons( '[aria-haspopup="true"][aria-expanded="true"]' ).nodes());
+		if ( existingExpanded.length ) {
+			hostNode = existingExpanded.eq(0);
+
+			close();
+		}
+
+		var display = $('<div/>')
+			.addClass('dt-button-collection')
+			.addClass(options.collectionLayout)
+			.css('display', 'none');
+
+		content = $(content)
+			.addClass(options.contentClassName)
+			.attr('role', 'menu')
+			.appendTo(display);
+
+		hostNode.attr( 'aria-expanded', 'true' );
+
+		if ( hostNode.parents('body')[0] !== document.body ) {
+			hostNode = document.body.lastChild;
+		}
+
+		if ( options.collectionTitle ) {
+			display.prepend('<div class="dt-button-collection-title">'+options.collectionTitle+'</div>');
+		}
+
+		_fadeIn( display.insertAfter( hostNode ), options.fade );
+
+		var tableContainer = $( hostButton.table().container() );
+		var position = display.css( 'position' );
+
+		if ( options.align === 'dt-container' ) {
+			hostNode = hostNode.parent();
+			display.css('width', tableContainer.width());
+		}
+
+		// Align the popover relative to the DataTables container
+		// Useful for wide popovers such as SearchPanes
+		if (
+			position === 'absolute' &&
+			(
+				display.hasClass( options.rightAlignClassName ) ||
+				display.hasClass( options.leftAlignClassName ) ||
+				options.align === 'dt-container'
+			)
+		) {
+
+			var hostPosition = hostNode.position();
+
+			display.css( {
+				top: hostPosition.top + hostNode.outerHeight(),
+				left: hostPosition.left
+			} );
+
+			// calculate overflow when positioned beneath
+			var collectionHeight = display.outerHeight();
+			var tableBottom = tableContainer.offset().top + tableContainer.height();
+			var listBottom = hostPosition.top + hostNode.outerHeight() + collectionHeight;
+			var bottomOverflow = listBottom - tableBottom;
+
+			// calculate overflow when positioned above
+			var listTop = hostPosition.top - collectionHeight;
+			var tableTop = tableContainer.offset().top;
+			var topOverflow = tableTop - listTop;
+
+			// if bottom overflow is larger, move to the top because it fits better, or if dropup is requested
+			var moveTop = hostPosition.top - collectionHeight - 5;
+			if ( (bottomOverflow > topOverflow || options.dropup) && -moveTop < tableTop ) {
+				display.css( 'top', moveTop);
+			}
+
+			// Get the size of the container (left and width - and thus also right)
+			var tableLeft = tableContainer.offset().left;
+			var tableWidth = tableContainer.width();
+			var tableRight = tableLeft + tableWidth;
+
+			// Get the size of the popover (left and width - and ...)
+			var popoverLeft = display.offset().left;
+			var popoverWidth = display.width();
+			var popoverRight = popoverLeft + popoverWidth;
+
+			// Get the size of the host buttons (left and width - and ...)
+			var buttonsLeft = hostNode.offset().left;
+			var buttonsWidth = hostNode.outerWidth()
+			var buttonsRight = buttonsLeft + buttonsWidth;
+			
+			// You've then got all the numbers you need to do some calculations and if statements,
+			//  so we can do some quick JS maths and apply it only once
+			// If it has the right align class OR the buttons are right aligned OR the button container is floated right,
+			//  then calculate left position for the popover to align the popover to the right hand
+			//  side of the button - check to see if the left of the popover is inside the table container.
+			// If not, move the popover so it is, but not more than it means that the popover is to the right of the table container
+			var popoverShuffle = 0;
+			if ( display.hasClass( options.rightAlignClassName )) {
+				popoverShuffle = buttonsRight - popoverRight;
+				if(tableLeft > (popoverLeft + popoverShuffle)){
+					var leftGap = tableLeft - (popoverLeft + popoverShuffle);
+					var rightGap = tableRight - (popoverRight + popoverShuffle);
+	
+					if(leftGap > rightGap){
+						popoverShuffle += rightGap; 
+					}
+					else {
+						popoverShuffle += leftGap;
+					}
+				}
+			}
+			// else attempt to left align the popover to the button. Similar to above, if the popover's right goes past the table container's right,
+			//  then move it back, but not so much that it goes past the left of the table container
+			else {
+				popoverShuffle = tableLeft - popoverLeft;
+
+				if(tableRight < (popoverRight + popoverShuffle)){
+					var leftGap = tableLeft - (popoverLeft + popoverShuffle);
+					var rightGap = tableRight - (popoverRight + popoverShuffle);
+
+					if(leftGap > rightGap ){
+						popoverShuffle += rightGap;
+					}
+					else {
+						popoverShuffle += leftGap;
+					}
+
+				}
+			}
+
+			display.css('left', display.position().left + popoverShuffle);
+			
+		}
+		else if (position === 'absolute') {
+			// Align relative to the host button
+			var hostPosition = hostNode.position();
+
+			display.css( {
+				top: hostPosition.top + hostNode.outerHeight(),
+				left: hostPosition.left
+			} );
+
+			// calculate overflow when positioned beneath
+			var collectionHeight = display.outerHeight();
+			var top = hostNode.offset().top
+			var popoverShuffle = 0;
+
+			// Get the size of the host buttons (left and width - and ...)
+			var buttonsLeft = hostNode.offset().left;
+			var buttonsWidth = hostNode.outerWidth()
+			var buttonsRight = buttonsLeft + buttonsWidth;
+
+			// Get the size of the popover (left and width - and ...)
+			var popoverLeft = display.offset().left;
+			var popoverWidth = content.width();
+			var popoverRight = popoverLeft + popoverWidth;
+
+			var moveTop = hostPosition.top - collectionHeight - 5;
+			var tableBottom = tableContainer.offset().top + tableContainer.height();
+			var listBottom = hostPosition.top + hostNode.outerHeight() + collectionHeight;
+			var bottomOverflow = listBottom - tableBottom;
+
+			// calculate overflow when positioned above
+			var listTop = hostPosition.top - collectionHeight;
+			var tableTop = tableContainer.offset().top;
+			var topOverflow = tableTop - listTop;
+
+			if ( (bottomOverflow > topOverflow || options.dropup) && -moveTop < tableTop ) {
+				display.css( 'top', moveTop);
+			}
+
+			popoverShuffle = options.align === 'button-right'
+				? buttonsRight - popoverRight
+				: buttonsLeft - popoverLeft;
+
+			display.css('left', display.position().left + popoverShuffle);
+		}
+		else {
+			// Fix position - centre on screen
+			var top = display.height() / 2;
+			if ( top > $(window).height() / 2 ) {
+				top = $(window).height() / 2;
+			}
+
+			display.css( 'marginTop', top*-1 );
+		}
+
+		if ( options.background ) {
+			Buttons.background( true, options.backgroundClassName, options.fade, hostNode );
+		}
+
+		// This is bonkers, but if we don't have a click listener on the
+		// background element, iOS Safari will ignore the body click
+		// listener below. An empty function here is all that is
+		// required to make it work...
+		$('div.dt-button-background').on( 'click.dtb-collection', function () {} );
+
+		$('body')
+			.on( 'click.dtb-collection', function (e) {
+				// andSelf is deprecated in jQ1.8, but we want 1.7 compat
+				var back = $.fn.addBack ? 'addBack' : 'andSelf';
+				var parent = $(e.target).parent()[0];
+
+				if (( ! $(e.target).parents()[back]().filter( content ).length  && !$(parent).hasClass('dt-buttons')) || $(e.target).hasClass('dt-button-background')) {
+					close();
+				}
+			} )
+			.on( 'keyup.dtb-collection', function (e) {
+				if ( e.keyCode === 27 ) {
+					close();
+				}
+			} );
+
+		if ( options.autoClose ) {
+			setTimeout( function () {
+				dt.on( 'buttons-action.b-internal', function (e, btn, dt, node) {
+					if ( node[0] === hostNode[0] ) {
+						return;
+					}
+					close();
+				} );
+			}, 0);
+		}
+
+		$(display).trigger('buttons-popover.dt');
+	}
+} );
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Statics
+ */
+
+/**
+ * Show / hide a background layer behind a collection
+ * @param  {boolean} Flag to indicate if the background should be shown or
+ *   hidden 
+ * @param  {string} Class to assign to the background
+ * @static
+ */
+Buttons.background = function ( show, className, fade, insertPoint ) {
+	if ( fade === undefined ) {
+		fade = 400;
+	}
+	if ( ! insertPoint ) {
+		insertPoint = document.body;
+	}
+
+	if ( show ) {
+		_fadeIn(
+			$('<div/>')
+				.addClass( className )
+				.css( 'display', 'none' )
+				.insertAfter( insertPoint ),
+			fade
+		);
+	}
+	else {
+		_fadeOut(
+			$('div.'+className),
+			fade,
+			function () {
+				$(this)
+					.removeClass( className )
+					.remove();
+			}
+		);
+	}
+};
+
+/**
+ * Instance selector - select Buttons instances based on an instance selector
+ * value from the buttons assigned to a DataTable. This is only useful if
+ * multiple instances are attached to a DataTable.
+ * @param  {string|int|array} Instance selector - see `instance-selector`
+ *   documentation on the DataTables site
+ * @param  {array} Button instance array that was attached to the DataTables
+ *   settings object
+ * @return {array} Buttons instances
+ * @static
+ */
+Buttons.instanceSelector = function ( group, buttons )
+{
+	if ( group === undefined || group === null ) {
+		return $.map( buttons, function ( v ) {
+			return v.inst;
+		} );
+	}
+
+	var ret = [];
+	var names = $.map( buttons, function ( v ) {
+		return v.name;
+	} );
+
+	// Flatten the group selector into an array of single options
+	var process = function ( input ) {
+		if ( Array.isArray( input ) ) {
+			for ( var i=0, ien=input.length ; i<ien ; i++ ) {
+				process( input[i] );
+			}
+			return;
+		}
+
+		if ( typeof input === 'string' ) {
+			if ( input.indexOf( ',' ) !== -1 ) {
+				// String selector, list of names
+				process( input.split(',') );
+			}
+			else {
+				// String selector individual name
+				var idx = $.inArray( input.trim(), names );
+
+				if ( idx !== -1 ) {
+					ret.push( buttons[ idx ].inst );
+				}
+			}
+		}
+		else if ( typeof input === 'number' ) {
+			// Index selector
+			ret.push( buttons[ input ].inst );
+		}
+	};
+	
+	process( group );
+
+	return ret;
+};
+
+/**
+ * Button selector - select one or more buttons from a selector input so some
+ * operation can be performed on them.
+ * @param  {array} Button instances array that the selector should operate on
+ * @param  {string|int|node|jQuery|array} Button selector - see
+ *   `button-selector` documentation on the DataTables site
+ * @return {array} Array of objects containing `inst` and `idx` properties of
+ *   the selected buttons so you know which instance each button belongs to.
+ * @static
+ */
+Buttons.buttonSelector = function ( insts, selector )
+{
+	var ret = [];
+	var nodeBuilder = function ( a, buttons, baseIdx ) {
+		var button;
+		var idx;
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			button = buttons[i];
+
+			if ( button ) {
+				idx = baseIdx !== undefined ?
+					baseIdx+i :
+					i+'';
+
+				a.push( {
+					node: button.node,
+					name: button.conf.name,
+					idx:  idx
+				} );
+
+				if ( button.buttons ) {
+					nodeBuilder( a, button.buttons, idx+'-' );
+				}
+			}
+		}
+	};
+
+	var run = function ( selector, inst ) {
+		var i, ien;
+		var buttons = [];
+		nodeBuilder( buttons, inst.s.buttons );
+
+		var nodes = $.map( buttons, function (v) {
+			return v.node;
+		} );
+
+		if ( Array.isArray( selector ) || selector instanceof $ ) {
+			for ( i=0, ien=selector.length ; i<ien ; i++ ) {
+				run( selector[i], inst );
+			}
+			return;
+		}
+
+		if ( selector === null || selector === undefined || selector === '*' ) {
+			// Select all
+			for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
+				ret.push( {
+					inst: inst,
+					node: buttons[i].node
+				} );
+			}
+		}
+		else if ( typeof selector === 'number' ) {
+			// Main button index selector
+			ret.push( {
+				inst: inst,
+				node: inst.s.buttons[ selector ].node
+			} );
+		}
+		else if ( typeof selector === 'string' ) {
+			if ( selector.indexOf( ',' ) !== -1 ) {
+				// Split
+				var a = selector.split(',');
+
+				for ( i=0, ien=a.length ; i<ien ; i++ ) {
+					run( a[i].trim(), inst );
+				}
+			}
+			else if ( selector.match( /^\d+(\-\d+)*$/ ) ) {
+				// Sub-button index selector
+				var indexes = $.map( buttons, function (v) {
+					return v.idx;
+				} );
+
+				ret.push( {
+					inst: inst,
+					node: buttons[ $.inArray( selector, indexes ) ].node
+				} );
+			}
+			else if ( selector.indexOf( ':name' ) !== -1 ) {
+				// Button name selector
+				var name = selector.replace( ':name', '' );
+
+				for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
+					if ( buttons[i].name === name ) {
+						ret.push( {
+							inst: inst,
+							node: buttons[i].node
+						} );
+					}
+				}
+			}
+			else {
+				// jQuery selector on the nodes
+				$( nodes ).filter( selector ).each( function () {
+					ret.push( {
+						inst: inst,
+						node: this
+					} );
+				} );
+			}
+		}
+		else if ( typeof selector === 'object' && selector.nodeName ) {
+			// Node selector
+			var idx = $.inArray( selector, nodes );
+
+			if ( idx !== -1 ) {
+				ret.push( {
+					inst: inst,
+					node: nodes[ idx ]
+				} );
+			}
+		}
+	};
+
+
+	for ( var i=0, ien=insts.length ; i<ien ; i++ ) {
+		var inst = insts[i];
+
+		run( selector, inst );
+	}
+
+	return ret;
+};
+
+
+/**
+ * Buttons defaults. For full documentation, please refer to the docs/option
+ * directory or the DataTables site.
+ * @type {Object}
+ * @static
+ */
+Buttons.defaults = {
+	buttons: [ 'copy', 'excel', 'csv', 'pdf', 'print' ],
+	name: 'main',
+	tabIndex: 0,
+	dom: {
+		container: {
+			tag: 'div',
+			className: 'dt-buttons'
+		},
+		collection: {
+			tag: 'div',
+			className: ''
+		},
+		button: {
+			// Flash buttons will not work with `<button>` in IE - it has to be `<a>`
+			tag: 'ActiveXObject' in window ?
+				'a' :
+				'button',
+			className: 'dt-button',
+			active: 'active',
+			disabled: 'disabled'
+		},
+		buttonLiner: {
+			tag: 'span',
+			className: ''
+		}
+	}
+};
+
+/**
+ * Version information
+ * @type {string}
+ * @static
+ */
+Buttons.version = '1.6.5';
+
+
+$.extend( _dtButtons, {
+	collection: {
+		text: function ( dt ) {
+			return dt.i18n( 'buttons.collection', 'Collection' );
+		},
+		className: 'buttons-collection',
+		init: function ( dt, button, config ) {
+			button.attr( 'aria-expanded', false );
+		},
+		action: function ( e, dt, button, config ) {
+			e.stopPropagation();
+
+			if ( config._collection.parents('body').length ) {
+				this.popover(false, config);
+			}
+			else {
+				this.popover(config._collection, config);
+			}
+		},
+		attr: {
+			'aria-haspopup': true
+		}
+		// Also the popover options, defined in Buttons.popover
+	},
+	copy: function ( dt, conf ) {
+		if ( _dtButtons.copyHtml5 ) {
+			return 'copyHtml5';
+		}
+		if ( _dtButtons.copyFlash && _dtButtons.copyFlash.available( dt, conf ) ) {
+			return 'copyFlash';
+		}
+	},
+	csv: function ( dt, conf ) {
+		// Common option that will use the HTML5 or Flash export buttons
+		if ( _dtButtons.csvHtml5 && _dtButtons.csvHtml5.available( dt, conf ) ) {
+			return 'csvHtml5';
+		}
+		if ( _dtButtons.csvFlash && _dtButtons.csvFlash.available( dt, conf ) ) {
+			return 'csvFlash';
+		}
+	},
+	excel: function ( dt, conf ) {
+		// Common option that will use the HTML5 or Flash export buttons
+		if ( _dtButtons.excelHtml5 && _dtButtons.excelHtml5.available( dt, conf ) ) {
+			return 'excelHtml5';
+		}
+		if ( _dtButtons.excelFlash && _dtButtons.excelFlash.available( dt, conf ) ) {
+			return 'excelFlash';
+		}
+	},
+	pdf: function ( dt, conf ) {
+		// Common option that will use the HTML5 or Flash export buttons
+		if ( _dtButtons.pdfHtml5 && _dtButtons.pdfHtml5.available( dt, conf ) ) {
+			return 'pdfHtml5';
+		}
+		if ( _dtButtons.pdfFlash && _dtButtons.pdfFlash.available( dt, conf ) ) {
+			return 'pdfFlash';
+		}
+	},
+	pageLength: function ( dt ) {
+		var lengthMenu = dt.settings()[0].aLengthMenu;
+		var vals = Array.isArray( lengthMenu[0] ) ? lengthMenu[0] : lengthMenu;
+		var lang = Array.isArray( lengthMenu[0] ) ? lengthMenu[1] : lengthMenu;
+		var text = function ( dt ) {
+			return dt.i18n( 'buttons.pageLength', {
+				"-1": 'Show all rows',
+				_:    'Show %d rows'
+			}, dt.page.len() );
+		};
+
+		return {
+			extend: 'collection',
+			text: text,
+			className: 'buttons-page-length',
+			autoClose: true,
+			buttons: $.map( vals, function ( val, i ) {
+				return {
+					text: lang[i],
+					className: 'button-page-length',
+					action: function ( e, dt ) {
+						dt.page.len( val ).draw();
+					},
+					init: function ( dt, node, conf ) {
+						var that = this;
+						var fn = function () {
+							that.active( dt.page.len() === val );
+						};
+
+						dt.on( 'length.dt'+conf.namespace, fn );
+						fn();
+					},
+					destroy: function ( dt, node, conf ) {
+						dt.off( 'length.dt'+conf.namespace );
+					}
+				};
+			} ),
+			init: function ( dt, node, conf ) {
+				var that = this;
+				dt.on( 'length.dt'+conf.namespace, function () {
+					that.text( conf.text );
+				} );
+			},
+			destroy: function ( dt, node, conf ) {
+				dt.off( 'length.dt'+conf.namespace );
+			}
+		};
+	}
+} );
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables API
+ *
+ * For complete documentation, please refer to the docs/api directory or the
+ * DataTables site
+ */
+
+// Buttons group and individual button selector
+DataTable.Api.register( 'buttons()', function ( group, selector ) {
+	// Argument shifting
+	if ( selector === undefined ) {
+		selector = group;
+		group = undefined;
+	}
+
+	this.selector.buttonGroup = group;
+
+	var res = this.iterator( true, 'table', function ( ctx ) {
+		if ( ctx._buttons ) {
+			return Buttons.buttonSelector(
+				Buttons.instanceSelector( group, ctx._buttons ),
+				selector
+			);
+		}
+	}, true );
+
+	res._groupSelector = group;
+	return res;
+} );
+
+// Individual button selector
+DataTable.Api.register( 'button()', function ( group, selector ) {
+	// just run buttons() and truncate
+	var buttons = this.buttons( group, selector );
+
+	if ( buttons.length > 1 ) {
+		buttons.splice( 1, buttons.length );
+	}
+
+	return buttons;
+} );
+
+// Active buttons
+DataTable.Api.registerPlural( 'buttons().active()', 'button().active()', function ( flag ) {
+	if ( flag === undefined ) {
+		return this.map( function ( set ) {
+			return set.inst.active( set.node );
+		} );
+	}
+
+	return this.each( function ( set ) {
+		set.inst.active( set.node, flag );
+	} );
+} );
+
+// Get / set button action
+DataTable.Api.registerPlural( 'buttons().action()', 'button().action()', function ( action ) {
+	if ( action === undefined ) {
+		return this.map( function ( set ) {
+			return set.inst.action( set.node );
+		} );
+	}
+
+	return this.each( function ( set ) {
+		set.inst.action( set.node, action );
+	} );
+} );
+
+// Enable / disable buttons
+DataTable.Api.register( ['buttons().enable()', 'button().enable()'], function ( flag ) {
+	return this.each( function ( set ) {
+		set.inst.enable( set.node, flag );
+	} );
+} );
+
+// Disable buttons
+DataTable.Api.register( ['buttons().disable()', 'button().disable()'], function () {
+	return this.each( function ( set ) {
+		set.inst.disable( set.node );
+	} );
+} );
+
+// Get button nodes
+DataTable.Api.registerPlural( 'buttons().nodes()', 'button().node()', function () {
+	var jq = $();
+
+	// jQuery will automatically reduce duplicates to a single entry
+	$( this.each( function ( set ) {
+		jq = jq.add( set.inst.node( set.node ) );
+	} ) );
+
+	return jq;
+} );
+
+// Get / set button processing state
+DataTable.Api.registerPlural( 'buttons().processing()', 'button().processing()', function ( flag ) {
+	if ( flag === undefined ) {
+		return this.map( function ( set ) {
+			return set.inst.processing( set.node );
+		} );
+	}
+
+	return this.each( function ( set ) {
+		set.inst.processing( set.node, flag );
+	} );
+} );
+
+// Get / set button text (i.e. the button labels)
+DataTable.Api.registerPlural( 'buttons().text()', 'button().text()', function ( label ) {
+	if ( label === undefined ) {
+		return this.map( function ( set ) {
+			return set.inst.text( set.node );
+		} );
+	}
+
+	return this.each( function ( set ) {
+		set.inst.text( set.node, label );
+	} );
+} );
+
+// Trigger a button's action
+DataTable.Api.registerPlural( 'buttons().trigger()', 'button().trigger()', function () {
+	return this.each( function ( set ) {
+		set.inst.node( set.node ).trigger( 'click' );
+	} );
+} );
+
+// Button resolver to the popover
+DataTable.Api.register( 'button().popover()', function (content, options) {
+	return this.map( function ( set ) {
+		return set.inst._popover( content, this.button(this[0].node), options );
+	} );
+} );
+
+// Get the container elements
+DataTable.Api.register( 'buttons().containers()', function () {
+	var jq = $();
+	var groupSelector = this._groupSelector;
+
+	// We need to use the group selector directly, since if there are no buttons
+	// the result set will be empty
+	this.iterator( true, 'table', function ( ctx ) {
+		if ( ctx._buttons ) {
+			var insts = Buttons.instanceSelector( groupSelector, ctx._buttons );
+
+			for ( var i=0, ien=insts.length ; i<ien ; i++ ) {
+				jq = jq.add( insts[i].container() );
+			}
+		}
+	} );
+
+	return jq;
+} );
+
+DataTable.Api.register( 'buttons().container()', function () {
+	// API level of nesting is `buttons()` so we can zip into the containers method
+	return this.containers().eq(0);
+} );
+
+// Add a new button
+DataTable.Api.register( 'button().add()', function ( idx, conf ) {
+	var ctx = this.context;
+
+	// Don't use `this` as it could be empty - select the instances directly
+	if ( ctx.length ) {
+		var inst = Buttons.instanceSelector( this._groupSelector, ctx[0]._buttons );
+
+		if ( inst.length ) {
+			inst[0].add( conf, idx );
+		}
+	}
+
+	return this.button( this._groupSelector, idx );
+} );
+
+// Destroy the button sets selected
+DataTable.Api.register( 'buttons().destroy()', function () {
+	this.pluck( 'inst' ).unique().each( function ( inst ) {
+		inst.destroy();
+	} );
+
+	return this;
+} );
+
+// Remove a button
+DataTable.Api.registerPlural( 'buttons().remove()', 'buttons().remove()', function () {
+	this.each( function ( set ) {
+		set.inst.remove( set.node );
+	} );
+
+	return this;
+} );
+
+// Information box that can be used by buttons
+var _infoTimer;
+DataTable.Api.register( 'buttons.info()', function ( title, message, time ) {
+	var that = this;
+
+	if ( title === false ) {
+		this.off('destroy.btn-info');
+		_fadeOut(
+			$('#datatables_buttons_info'),
+			400,
+			function () {
+				$(this).remove();
+			}
+		);
+		clearTimeout( _infoTimer );
+		_infoTimer = null;
+
+		return this;
+	}
+
+	if ( _infoTimer ) {
+		clearTimeout( _infoTimer );
+	}
+
+	if ( $('#datatables_buttons_info').length ) {
+		$('#datatables_buttons_info').remove();
+	}
+
+	title = title ? '<h2>'+title+'</h2>' : '';
+
+	_fadeIn(
+		$('<div id="datatables_buttons_info" class="dt-button-info"/>')
+			.html( title )
+			.append( $('<div/>')[ typeof message === 'string' ? 'html' : 'append' ]( message ) )
+			.css( 'display', 'none' )
+			.appendTo( 'body' )
+	);
+
+	if ( time !== undefined && time !== 0 ) {
+		_infoTimer = setTimeout( function () {
+			that.buttons.info( false );
+		}, time );
+	}
+
+	this.on('destroy.btn-info', function () {
+		that.buttons.info(false);
+	});
+
+	return this;
+} );
+
+// Get data from the table for export - this is common to a number of plug-in
+// buttons so it is included in the Buttons core library
+DataTable.Api.register( 'buttons.exportData()', function ( options ) {
+	if ( this.context.length ) {
+		return _exportData( new DataTable.Api( this.context[0] ), options );
+	}
+} );
+
+// Get information about the export that is common to many of the export data
+// types (DRY)
+DataTable.Api.register( 'buttons.exportInfo()', function ( conf ) {
+	if ( ! conf ) {
+		conf = {};
+	}
+
+	return {
+		filename: _filename( conf ),
+		title: _title( conf ),
+		messageTop: _message(this, conf.message || conf.messageTop, 'top'),
+		messageBottom: _message(this, conf.messageBottom, 'bottom')
+	};
+} );
+
+
+
+/**
+ * Get the file name for an exported file.
+ *
+ * @param {object}	config Button configuration
+ * @param {boolean} incExtension Include the file name extension
+ */
+var _filename = function ( config )
+{
+	// Backwards compatibility
+	var filename = config.filename === '*' && config.title !== '*' && config.title !== undefined && config.title !== null && config.title !== '' ?
+		config.title :
+		config.filename;
+
+	if ( typeof filename === 'function' ) {
+		filename = filename();
+	}
+
+	if ( filename === undefined || filename === null ) {
+		return null;
+	}
+
+	if ( filename.indexOf( '*' ) !== -1 ) {
+		filename = filename.replace( '*', $('head > title').text() ).trim();
+	}
+
+	// Strip characters which the OS will object to
+	filename = filename.replace(/[^a-zA-Z0-9_\u00A1-\uFFFF\.,\-_ !\(\)]/g, "");
+
+	var extension = _stringOrFunction( config.extension );
+	if ( ! extension ) {
+		extension = '';
+	}
+
+	return filename + extension;
+};
+
+/**
+ * Simply utility method to allow parameters to be given as a function
+ *
+ * @param {undefined|string|function} option Option
+ * @return {null|string} Resolved value
+ */
+var _stringOrFunction = function ( option )
+{
+	if ( option === null || option === undefined ) {
+		return null;
+	}
+	else if ( typeof option === 'function' ) {
+		return option();
+	}
+	return option;
+};
+
+/**
+ * Get the title for an exported file.
+ *
+ * @param {object} config	Button configuration
+ */
+var _title = function ( config )
+{
+	var title = _stringOrFunction( config.title );
+
+	return title === null ?
+		null : title.indexOf( '*' ) !== -1 ?
+			title.replace( '*', $('head > title').text() || 'Exported data' ) :
+			title;
+};
+
+var _message = function ( dt, option, position )
+{
+	var message = _stringOrFunction( option );
+	if ( message === null ) {
+		return null;
+	}
+
+	var caption = $('caption', dt.table().container()).eq(0);
+	if ( message === '*' ) {
+		var side = caption.css( 'caption-side' );
+		if ( side !== position ) {
+			return null;
+		}
+
+		return caption.length ?
+			caption.text() :
+			'';
+	}
+
+	return message;
+};
+
+
+
+
+
+
+
+var _exportTextarea = $('<textarea/>')[0];
+var _exportData = function ( dt, inOpts )
+{
+	var config = $.extend( true, {}, {
+		rows:           null,
+		columns:        '',
+		modifier:       {
+			search: 'applied',
+			order:  'applied'
+		},
+		orthogonal:     'display',
+		stripHtml:      true,
+		stripNewlines:  true,
+		decodeEntities: true,
+		trim:           true,
+		format:         {
+			header: function ( d ) {
+				return strip( d );
+			},
+			footer: function ( d ) {
+				return strip( d );
+			},
+			body: function ( d ) {
+				return strip( d );
+			}
+		},
+		customizeData: null
+	}, inOpts );
+
+	var strip = function ( str ) {
+		if ( typeof str !== 'string' ) {
+			return str;
+		}
+
+		// Always remove script tags
+		str = str.replace( /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '' );
+
+		// Always remove comments
+		str = str.replace( /<!\-\-.*?\-\->/g, '' );
+
+		if ( config.stripHtml ) {
+			str = str.replace( /<([^>'"]*('[^']*'|"[^"]*")?)*>/g, '' );
+		}
+
+		if ( config.trim ) {
+			str = str.replace( /^\s+|\s+$/g, '' );
+		}
+
+		if ( config.stripNewlines ) {
+			str = str.replace( /\n/g, ' ' );
+		}
+
+		if ( config.decodeEntities ) {
+			_exportTextarea.innerHTML = str;
+			str = _exportTextarea.value;
+		}
+
+		return str;
+	};
+
+
+	var header = dt.columns( config.columns ).indexes().map( function (idx) {
+		var el = dt.column( idx ).header();
+		return config.format.header( el.innerHTML, idx, el );
+	} ).toArray();
+
+	var footer = dt.table().footer() ?
+		dt.columns( config.columns ).indexes().map( function (idx) {
+			var el = dt.column( idx ).footer();
+			return config.format.footer( el ? el.innerHTML : '', idx, el );
+		} ).toArray() :
+		null;
+	
+	// If Select is available on this table, and any rows are selected, limit the export
+	// to the selected rows. If no rows are selected, all rows will be exported. Specify
+	// a `selected` modifier to control directly.
+	var modifier = $.extend( {}, config.modifier );
+	if ( dt.select && typeof dt.select.info === 'function' && modifier.selected === undefined ) {
+		if ( dt.rows( config.rows, $.extend( { selected: true }, modifier ) ).any() ) {
+			$.extend( modifier, { selected: true } )
+		}
+	}
+
+	var rowIndexes = dt.rows( config.rows, modifier ).indexes().toArray();
+	var selectedCells = dt.cells( rowIndexes, config.columns );
+	var cells = selectedCells
+		.render( config.orthogonal )
+		.toArray();
+	var cellNodes = selectedCells
+		.nodes()
+		.toArray();
+
+	var columns = header.length;
+	var rows = columns > 0 ? cells.length / columns : 0;
+	var body = [];
+	var cellCounter = 0;
+
+	for ( var i=0, ien=rows ; i<ien ; i++ ) {
+		var row = [ columns ];
+
+		for ( var j=0 ; j<columns ; j++ ) {
+			row[j] = config.format.body( cells[ cellCounter ], i, j, cellNodes[ cellCounter ] );
+			cellCounter++;
+		}
+
+		body[i] = row;
+	}
+
+	var data = {
+		header: header,
+		footer: footer,
+		body:   body
+	};
+
+	if ( config.customizeData ) {
+		config.customizeData( data );
+	}
+
+	return data;
+};
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables interface
+ */
+
+// Attach to DataTables objects for global access
+$.fn.dataTable.Buttons = Buttons;
+$.fn.DataTable.Buttons = Buttons;
+
+
+
+// DataTables creation - check if the buttons have been defined for this table,
+// they will have been if the `B` option was used in `dom`, otherwise we should
+// create the buttons instance here so they can be inserted into the document
+// using the API. Listen for `init` for compatibility with pre 1.10.10, but to
+// be removed in future.
+$(document).on( 'init.dt plugin-init.dt', function (e, settings) {
+	if ( e.namespace !== 'dt' ) {
+		return;
+	}
+
+	var opts = settings.oInit.buttons || DataTable.defaults.buttons;
+
+	if ( opts && ! settings._buttons ) {
+		new Buttons( settings, opts ).container();
+	}
+} );
+
+function _init ( settings, options ) {
+	var api = new DataTable.Api( settings );
+	var opts = options
+		? options
+		: api.init().buttons || DataTable.defaults.buttons;
+
+	return new Buttons( api, opts ).container();
+}
+
+// DataTables `dom` feature option
+DataTable.ext.feature.push( {
+	fnInit: _init,
+	cFeature: "B"
+} );
+
+// DataTables 2 layout feature
+if ( DataTable.ext.features ) {
+	DataTable.ext.features.register( 'buttons', _init );
+}
+
+
+return Buttons;
 }));
 
 

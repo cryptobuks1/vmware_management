@@ -68,7 +68,34 @@ class VmController extends Controller
             ->select('customer_vms.*', 'customer_vmreq.*')
             ->get();
     }
+    public function getvmreqdata(Request $request)
+    {
+        $vmdata = DB::table('customer_vms')
+            ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+            ->select('customer_vms.*', 'customer_vmreq.*')
+            ->get();
+        $retData = array('data' => $vmdata);
+        return json_encode($retData);
+    }
+    public function editvmreqdata(Request $request)
+    {
+        $data = $request->data;
 
+        foreach($data as $key=>$row){
+//            $data = array();
+//            if(isset($data['price_type'])){
+////                $
+//            }
+            Machinerequire::where('vmid', $key)->update($row);
+        }
+
+        $vmdata = DB::table('customer_vms')
+            ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+            ->select('customer_vms.*', 'customer_vmreq.*')
+            ->get();
+        $retData = array('data' => $vmdata);
+        return json_encode($retData);
+    }
     public function getvmdata(Request $request)
     {
         $vmid = $request->id;

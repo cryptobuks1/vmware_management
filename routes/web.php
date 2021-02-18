@@ -23,6 +23,8 @@ Route::post('/users/delete', [App\Http\Controllers\Admin\UserController::class, 
 
 Route::get('/vm/requirement_classify', [App\Http\Controllers\VmController::class, 'index'])->name('vm.requirement_classify');
 Route::get('/vm/getvmdata', [App\Http\Controllers\VmController::class, 'getvmdata'])->name('vm.getvmdata');
+Route::get('/vm/getvmreqdata', [App\Http\Controllers\VmController::class, 'getvmreqdata'])->name('vm.getvmreqdata');
+Route::post('/vm/editvmreqdata', [App\Http\Controllers\VmController::class, 'editvmreqdata'])->name('vm.editvmreqdata');
 Route::post('/vmreq/edit', [App\Http\Controllers\VmController::class, 'editreq'])->name('vmreq.edit');
 
 Auth::routes();
