@@ -27973,42 +27973,26 @@ a.text-muted:hover {
   white-space: nowrap;
 }
 
-.modal.left .modal-dialog,
-.modal.right .modal-dialog {
+.editpanel {
+  height: 100%;
+  width: 0;
   position: fixed;
-  margin: auto;
-  width: 320px;
-  height: 100%;
-  transform: translate3d(0%, 0, 0);
-}
-
-.modal.left .modal-content,
-.modal.right .modal-content {
-  height: 100%;
-  overflow-y: auto;
-}
-
-.modal.left .modal-body,
-.modal.right .modal-body {
-  padding: 15px 15px 80px;
-}
-
-/*Left*/
-.modal.left.fade .modal-dialog {
-  left: -320px;
-  transition: opacity 0.3s linear, left 0.3s ease-out;
-}
-
-.modal.left.fade.in .modal-dialog {
-  left: 0;
-}
-
-/*Right*/
-.modal.right.fade .modal-dialog {
-  right: -320px;
-  transition: opacity 0.3s linear, right 0.3s ease-out;
-}
-
-.modal.right.fade.in .modal-dialog {
+  z-index: 1;
+  top: 40px;
+  bottom: 40px;
   right: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: 0.5s;
+  padding-top: 60px;
+  border: solid 2px #c1c1c1;
+}
+
+.editpanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
 }

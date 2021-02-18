@@ -1,4 +1,103 @@
 var editor;
+var requireTable;
+var regions = [
+    {value: 'asia-pacific-east', label: 'eastasia'},
+    {value: 'asia-pacific - southeast', label: 'southeastasia'},
+    {value: 'australia-central', label: 'australiacentral'},
+    {value: 'australia-central - 2', label: 'australiacentral2'},
+    {value: 'australia-east', label: 'australiaeast'},
+    {value: 'australia-southeast', label: 'australiasoutheast'},
+    {value: 'brazil-south', label: 'brazilsouth'},
+    {value: 'brazil-southeast', label: 'brazilsoutheast'},
+    {value: 'canada-central', label: 'canadacentral'},
+    {value: 'canada-east', label: 'canadaeast'},
+    {value: 'central-india', label: 'centralindia'},
+    {value: 'south-india', label: 'southindia'},
+    {value: 'west-india', label: 'westindia'},
+    {value: 'europe-north', label: 'northeurope'},
+    {value: 'europe-west', label: 'westeurope'},
+    {value: 'france-central', label: 'francecentral'},
+    {value: 'france-south', label: 'francesouth'},
+    {value: 'germany-central', label: 'germanycentral'},
+    {value: 'germany-north', label: 'germanynorth'},
+    {value: 'germany-northeast', label: 'germanynortheast'},
+    {value: 'germany-west-central', label: 'germanywestcentral'},
+    {value: 'japan-east', label: 'japaneast'},
+    {value: 'japan-west', label: 'japanwest'},
+    {value: 'korea-central', label: 'koreacentral'},
+    {value: 'korea-south', label: 'koreasouth'},
+    {value: 'norway-east', label: 'norwayeast'},
+    {value: 'norway-west', label: 'norwaywest'},
+    {value: 'south-africa - north', label: 'southafricanorth'},
+    {value: 'south-africa - west', label: 'southafricawest'},
+    {value: 'switzerland-north', label: 'switzerlandnorth'},
+    {value: 'switzerland-west', label: 'switzerlandwest'},
+    {value: 'uae-central', label: 'uaecentral'},
+    {value: 'uae-north', label: 'uaenorth'},
+    {value: 'united-kingdom - south', label: 'uksouth'},
+    {value: 'united-kingdom - west', label: 'ukwest'},
+    {value: 'us-central', label: 'centralus'},
+    {value: 'us-east', label: 'eastus'},
+    {value: 'us-east - 2', label: 'eastus2'},
+    {value: 'us-north - central', label: 'northcentralus'},
+    {value: 'us-south - central', label: 'southcentralus'},
+    {value: 'us-west - central', label: 'westcentralus'},
+    {value: 'us-west', label: 'westus'},
+    {value: 'us-west - 2', label: 'westus2'},
+    {value: 'usgov-arizona', label: 'usgov-arizona'},
+    {value: 'usgov-texas', label: 'usgov-texas'},
+    {value: 'usgov-virginia', label: 'usgov-virginia'},
+    {value: 'global', label: 'global'}
+]
+var regionAry = {
+    'asia-pacific - southeast': "southeastasia",
+    'asia-pacific-east': "eastasia",
+    'australia-central': "australiacentral",
+    'australia-central - 2': "australiacentral2",
+    'australia-east': "australiaeast",
+    'australia-southeast': "australiasoutheast",
+    'brazil-south': "brazilsouth",
+    'brazil-southeast': "brazilsoutheast",
+    'canada-central': "canadacentral",
+    'canada-east': "canadaeast",
+    'central-india': "centralindia",
+    'europe-north': "northeurope",
+    'europe-west': "westeurope",
+    'france-central': "francecentral",
+    'france-south': "francesouth",
+    'germany-central': "germanycentral",
+    'germany-north': "germanynorth",
+    'germany-northeast': "germanynortheast",
+    'germany-west-central': "germanywestcentral",
+    'global': "global",
+    'japan-east': "japaneast",
+    'japan-west': "japanwest",
+    'korea-central': "koreacentral",
+    'korea-south': "koreasouth",
+    'norway-east': "norwayeast",
+    'norway-west': "norwaywest",
+    'south-africa - north': "southafricanorth",
+    'south-africa - west': "southafricawest",
+    'south-india': "southindia",
+    'switzerland-north': "switzerlandnorth",
+    'switzerland-west': "switzerlandwest",
+    'uae-central': "uaecentral",
+    'uae-north': "uaenorth",
+    'united-kingdom - south': "uksouth",
+    'united-kingdom - west': "ukwest",
+    'us-central': "centralus",
+    'us-east': "eastus",
+    'us-east - 2': "eastus2",
+    'us-north - central': "northcentralus",
+    'us-south - central': "southcentralus",
+    'us-west': "westus",
+    'us-west - 2': "westus2",
+    'us-west - central': "westcentralus",
+    'usgov-arizona': "usgov-arizona",
+    'usgov-texas': "usgov-texas",
+    'usgov-virginia': "usgov-virginia",
+    'west-india': "westindia"
+};
 $(document).ready(function () {
     editor = new $.fn.DataTable.Editor({
         ajax: {
@@ -11,7 +110,9 @@ $(document).ready(function () {
         idSrc: 'vmid',
         fields: [{
             label: "Region:",
-            name: "region"
+            name: "region",
+            type: "select",
+            options: regions
         }, {
             label: "Billing model:",
             name: "pricetype",
@@ -69,30 +170,29 @@ $(document).ready(function () {
         ]
     });
 
-    $('#requireTable').on('click', 'tbody td:nth-child(n+10)', function (e) {
+    $('#requireTable').on('click', 'tbody td:nth-child(n+9)', function (e) {
         editor.inline(this, {
             onBlur: 'submit'
         });
     });
-    $('#requireTable').removeAttr('width').DataTable({
+    requireTable = $('#requireTable').removeAttr('width').DataTable({
         dom: 'Bfrtip',
         ajax: "/vm/getvmreqdata",
+        // deferRender: true,
         "paging": false,
         "searching": true,
-        // "ordering": true,
         "info": true,
         "autoWidth": false,
-        "scrollY": 300,
+        "scrollY": $(window).height() - 310,
         "scrollX": true,
         'scrollCollapse': true,
-        // "stateSave": true,
         'fixedColumns': {
             leftColumns: 3
         },
-        order: [[ 1, 'asc' ]],
+        order: [[1, 'asc']],
         'columns': [
             {
-                data: null,
+                data: "vmid",
             },
             {data: "vmname"},
             {data: "hvclustername"},
@@ -101,7 +201,12 @@ $(document).ready(function () {
             {data: "vmproccount"},
             {data: "vmdiskcount"},
             {data: "vmtotaldisksizegb"},
-            {data: "region"},
+            {
+                data: "region",
+                "render": function (val, type, row) {
+                    return val == null ? '' : regionAry[val];
+                }
+            },
             {data: "pricetype"},
             {data: "hourson"},
             {
@@ -139,32 +244,50 @@ $(document).ready(function () {
                 }
             }
         ],
+        'select': {
+            'style': 'multi'
+        },
         'buttons': [
             {
                 text: 'Bulk Edit',
-                className:'btn-info',
-                action: function ( e, dt, node, config ) {
+                className: 'btn-info',
+                action: function (e, dt, node, config) {
                     require_edit();
                 }
             }
         ]
     });
 
-    $.getJSON("https://restcountries.eu/rest/v2/all", function (data) {
-        var results = [];
-        data.forEach(function (country) {
-            results.push({
-                text: country.name,
-                id: country.name
-            });
-        });
-        $('#regionSelect').select2({
-            data: results
-        });
+    var options = [];
+    for (var i in regions) {
+        options.push({
+            id: regions[i].value,
+            text: regions[i].label
+        })
+    }
+    $('#regionSelect').select2({
+        data: options
     });
     $("input[data-bootstrap-switch]").each(function () {
         $(this).bootstrapSwitch('state', $(this).prop('checked'));
     });
+    $('#bulkSaveBtn').click(function () {
+        var selectedIds = requireTable.columns().checkboxes.selected()[0];
+        if(selectedIds.length == 0){
+            alert('Please Check VMs for bulk Edit');
+            return;
+        }
+        $.each(selectedIds, function(index, rowId){
+            // Create a hidden element
+            $('#builEditForm').append(
+                $('<input>')
+                    .attr('type', 'hidden')
+                    .attr('name', 'vmids[]')
+                    .val(rowId)
+            );
+        });
+        $('#builEditForm').submit();
+    })
 
 })
 
