@@ -72,6 +72,7 @@
                 <div class="form-group row col-12">
                     <label for="pricetype">Billing model</label>
                     <select class="form-control" id="pricetype" style="width: 100%;" name="pricetype">
+                        <option></option>
                         <option>Pay-as-you-Go</option>
                         <option>Azure Hybrid Use Benefit</option>
                         <option>1 Year Reserved Instance</option>
@@ -86,18 +87,27 @@
                 </div>
                 <div class="form-group row col-12">
                     <label for="burstable" class="mr-1">Burstable</label>
-                    <input type="checkbox" name="burstable" id="burstable" data-on-text="Yes"
-                           data-off-text="No" checked data-bootstrap-switch>
+                    <select class="form-control" id="burstable" name="burstable">
+                        <option></option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
                 <div class="form-group row col-12">
                     <label for="latency" class="mr-1">Latency Sensitive</label>
-                    <input type="checkbox" name="latency" id="latency" data-on-text="Yes"
-                           data-off-text="No" checked data-bootstrap-switch>
+                    <select class="form-control" id="latency" name="latency">
+                        <option></option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
                 <div class="form-group row col-12">
-                    <label for="latency" class="mr-1">Service Level Agreement</label>
-                    <input type="checkbox" name="SLA" id="SLA" data-on-text="Yes" data-off-text="No"
-                           checked data-bootstrap-switch>
+                    <label for="SLA" class="mr-1">Service Level Agreement</label>
+                    <select class="form-control" id="SLA" name="SLA">
+                        <option></option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
                 <div class="form-group row col-12">
                     <label for="azbackup">Backup retention (months)</label>
@@ -105,15 +115,18 @@
                 </div>
                 <div class="form-group row col-12">
                     <label for="dr" class="mr-1">Disaster Recovery</label>
-                    <input type="checkbox" name="dr" id="dr" data-on-text="Yes" data-off-text="No"
-                           checked data-bootstrap-switch>
+                    <select class="form-control" id="dr" name="dr">
+                        <option></option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
                 <div class="form-group row col-12">
                     <label for="tempstoragegb">Temp storage need (GB)</label>
                     <input type="number" class="form-control" id="tempstoragegb" name="tempstoragegb">
                 </div>
                 <div class="row justify-content-between" style="margin-bottom:50px;">
-                    <button type="button" class="btn btn-default ml-2">Close</button>
+                    <button type="button" class="btn btn-default ml-2" onclick="closeNav();">Close</button>
                     <button type="button" class="btn btn-primary mr-2" id="bulkSaveBtn">Save changes</button>
                 </div>
             </form>

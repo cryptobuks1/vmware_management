@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
@@ -27,4 +29,6 @@ Route::get('/vm/getvmreqdata', [App\Http\Controllers\VmController::class, 'getvm
 Route::post('/vm/editvmreqdata', [App\Http\Controllers\VmController::class, 'editvmreqdata'])->name('vm.editvmreqdata');
 Route::post('/vmreq/edit', [App\Http\Controllers\VmController::class, 'editreq'])->name('vmreq.edit');
 
-Auth::routes();
+Route::get('/vm/sizing', [App\Http\Controllers\VmController::class, 'sizing'])->name('vm.sizing');
+
+Route::get('/vm/change_proposal', [App\Http\Controllers\VmController::class, 'change_proposal'])->name('vm.change_proposal');

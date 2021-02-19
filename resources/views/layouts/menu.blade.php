@@ -27,7 +27,9 @@
 </li>
 <li
     @if(request()->path() == 'vm/requirement_classify') class="nav-item has-treeview menu-open"
-    @else  class="nav-item has-treeview" @endif
+    @elseif(request()->path() == 'vm/sizing') class="nav-item has-treeview menu-open"
+    @elseif(request()->path() == 'vm/change_proposal') class="nav-item has-treeview menu-open"
+    @else class="nav-item has-treeview" @endif
 >
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-server"></i>
@@ -44,5 +46,19 @@
                 <p>Requirement Classify</p>
             </a>
         </li>
+{{--        <li class="nav-item">--}}
+{{--            <a href="{{route('vm.sizing')}}" @if(request()->path() == 'vm/sizing') class="nav-link active"--}}
+{{--               @else  class="nav-link" @endif>--}}
+{{--                <i class="fas fa-hat-cowboy-side nav-icon"></i>--}}
+{{--                <p>Sizing</p>--}}
+{{--            </a>--}}
+{{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a href="{{route('vm.change_proposal')}}" @if(request()->path() == 'vm/change_proposal') class="nav-link active"--}}
+{{--               @else  class="nav-link" @endif>--}}
+{{--                <i class="fas fa-hat-cowboy-side nav-icon"></i>--}}
+{{--                <p>Config Change Proposal</p>--}}
+{{--            </a>--}}
+{{--        </li>--}}
     </ul>
 </li>

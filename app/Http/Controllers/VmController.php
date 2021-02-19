@@ -30,8 +30,7 @@ class VmController extends Controller
      */
     public function index()
     {
-        $vms = $this->getRequireData();
-        return view('vm\requirement_classify', compact('vms'));
+        return view('vm\requirement_classify');
     }
 
     public function save(Request $request)
@@ -109,42 +108,44 @@ class VmController extends Controller
     public function editreq(Request $request)
     {
         $vmIds = $request->vmids;
-        $reqData = array(
-            'azbackup' => $request->azbackup,
-            'tempstoragegb' => $request->tempstoragegb,
-        );
-        if ($request->exists('region')) {
+        $reqData = [];
+        if ($request->region != '') {
             $reqData['region'] = $request->region;
-        } else {
-            $reqData['region'] = '';
         }
-        if ($request->exists('pricetype')) {
+        if ($request->pricetype != '') {
             $reqData['pricetype'] = $request->pricetype;
         }
-        if ($request->exists('burstable')) {
-            $reqData['burstable'] = 1;
-        } else {
-            $reqData['burstable'] = 0;
+        if ($request->burstable != '') {
+            $reqData['burstable'] = $request->burstable;
         }
-        if ($request->exists('latency')) {
-            $reqData['latency'] = 1;
-        } else {
-            $reqData['latency'] = 0;
+        if ($request->latency != '') {
+            $reqData['latency'] = $request->latency;
         }
-        if ($request->exists('SLA')) {
-            $reqData['SLA'] = 1;
-        } else {
-            $reqData['SLA'] = 0;
+        if ($request->SLA != '') {
+            $reqData['SLA'] = $request->SLA;
         }
-        if ($request->exists('dr')) {
-            $reqData['dr'] = 1;
-        } else {
-            $reqData['dr'] = 0;
+        if ($request->dr != '') {
+            $reqData['dr'] = $request->dr;
+        }
+        if ($request->azbackup != '') {
+            $reqData['azbackup'] = $request->azbackup;
+        }
+        if ($request->tempstoragegb != '') {
+            $reqData['tempstoragegb'] = $request->tempstoragegb;
         }
         foreach ($vmIds as $vmid) {
             Machinerequire::where('vmid', $vmid)->update($reqData);
         }
         $notification = array('message' => 'Requirement Updated Successfully', 'alert-type' => 'success');
         return back()->with($notification);
+    }
+    public function sizing(){
+        $vms = Virtualmachine::getSizingData();
+        return view('vm\sizing', compact('vms'));
+    }
+
+    public function change_proposal(){
+        $vms = Virtualmachine::getProposalData();
+        return view('vm\proposal', compact('vms'));
     }
 }

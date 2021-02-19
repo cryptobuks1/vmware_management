@@ -1,5 +1,7 @@
 var editor;
 var requireTable;
+var sizingTable;
+var proposalTable;
 var regions = [
     {value: 'asia-pacific-east', label: 'eastasia'},
     {value: 'asia-pacific - southeast', label: 'southeastasia'},
@@ -258,7 +260,7 @@ $(document).ready(function () {
         ]
     });
 
-    var options = [];
+    var options = [{id: '', text: ''}];
     for (var i in regions) {
         options.push({
             id: regions[i].value,
@@ -268,16 +270,13 @@ $(document).ready(function () {
     $('#regionSelect').select2({
         data: options
     });
-    $("input[data-bootstrap-switch]").each(function () {
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    });
     $('#bulkSaveBtn').click(function () {
         var selectedIds = requireTable.columns().checkboxes.selected()[0];
-        if(selectedIds.length == 0){
+        if (selectedIds.length == 0) {
             alert('Please Check VMs for bulk Edit');
             return;
         }
-        $.each(selectedIds, function(index, rowId){
+        $.each(selectedIds, function (index, rowId) {
             // Create a hidden element
             $('#builEditForm').append(
                 $('<input>')
@@ -288,6 +287,27 @@ $(document).ready(function () {
         });
         $('#builEditForm').submit();
     })
+    //For sizing Page
+
+
+    sizingTable = $('#sizingTable').DataTable({
+        "paging": false,
+        "searching": true,
+        "info": true,
+        "autoWidth": false,
+        "scrollY": $(window).height() - 320,
+        'scrollCollapse': true,
+        order: [[0, 'asc']]
+    });
+    proposalTable = $('#proposalTable').DataTable({
+        "paging": false,
+        "searching": true,
+        "info": true,
+        "autoWidth": false,
+        "scrollY": $(window).height() - 320,
+        'scrollCollapse': true,
+        order: [[0, 'asc']]
+    });
 
 })
 

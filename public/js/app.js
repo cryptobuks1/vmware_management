@@ -4421,6 +4421,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof
 
 var editor;
 var requireTable;
+var sizingTable;
+var proposalTable;
 var regions = [{
   value: 'asia-pacific-east',
   label: 'eastasia'
@@ -4792,7 +4794,10 @@ $(document).ready(function () {
       }
     }]
   });
-  var options = [];
+  var options = [{
+    id: '',
+    text: ''
+  }];
 
   for (var i in regions) {
     options.push({
@@ -4803,9 +4808,6 @@ $(document).ready(function () {
 
   $('#regionSelect').select2({
     data: options
-  });
-  $("input[data-bootstrap-switch]").each(function () {
-    $(this).bootstrapSwitch('state', $(this).prop('checked'));
   });
   $('#bulkSaveBtn').click(function () {
     var selectedIds = requireTable.columns().checkboxes.selected()[0];
@@ -4820,6 +4822,25 @@ $(document).ready(function () {
       $('#builEditForm').append($('<input>').attr('type', 'hidden').attr('name', 'vmids[]').val(rowId));
     });
     $('#builEditForm').submit();
+  }); //For sizing Page
+
+  sizingTable = $('#sizingTable').DataTable({
+    "paging": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "scrollY": $(window).height() - 320,
+    'scrollCollapse': true,
+    order: [[0, 'asc']]
+  });
+  proposalTable = $('#proposalTable').DataTable({
+    "paging": false,
+    "searching": true,
+    "info": true,
+    "autoWidth": false,
+    "scrollY": $(window).height() - 320,
+    'scrollCollapse': true,
+    order: [[0, 'asc']]
   });
 });
 
