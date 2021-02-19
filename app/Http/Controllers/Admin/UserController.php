@@ -37,12 +37,21 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        User::create([
-            'id' => mt_rand(1, 10000),
-            'name' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+//        User::create([
+//            'id' => mt_rand(1, 10000),
+//            'name' => $request->username,
+//            'email' => $request->email,
+//            'password' => Hash::make($request->password),
+//        ]);
+
+        $email = $request->get('email');
+        $data = ([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+//            'username' => $request->get('name'),
         ]);
+        Mail::to($email)->send(new WelcomeMail($data));
+
         $notification =  array('message' => 'User Add Successfully', 'alert-type' => 'success');
 
         return back()->with($notification);
