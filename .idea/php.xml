@@ -111,6 +111,8 @@
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
+      <path value="$PROJECT_DIR$/vendor/rootinc/laravel-azure-middleware" />
+      <path value="$PROJECT_DIR$/vendor/microsoft/microsoft-graph" />
     </include_path>
   </component>
   <component name="PhpUnit">

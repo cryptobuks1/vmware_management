@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/login/azure', '\RootInc\LaravelAzureMiddleware\Azure@azure')->name('login.azure');
+Route::get('/login/azurecallback', '\RootInc\LaravelAzureMiddleware\Azure@azurecallback');
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
