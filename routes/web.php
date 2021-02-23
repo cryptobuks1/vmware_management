@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Route::get('/login', function () { return view('auth/login'); });
+Route::post('/login', [App\Http\Controllers\Auth\AuthController::class, 'login'])->name('login.submit');
+Route::get('/sign-in/{user}', [App\Http\Controllers\Auth\AuthController::class, 'signIn'])->name('sign-in');
+Route::get('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 
 Route::get('/login/azure', '\App\Http\Middleware\AppAzure@azure');
 Route::get('/login/azurecallback', '\App\Http\Middleware\AppAzure@azurecallback');

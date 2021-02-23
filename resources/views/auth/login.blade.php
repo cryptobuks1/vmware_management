@@ -43,35 +43,12 @@
                     <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
-
-                <div class="input-group mb-3">
-                    <input type="password"
-                           name="password"
-                           placeholder="Password"
-                           class="form-control @error('password') is-invalid @enderror">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                    @error('password')
-                    <span class="error invalid-feedback">{{ $message }}</span>
-                    @enderror
-
-                </div>
-
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">Remember Me</label>
-                        </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-envelope-open-text mr-2"></i>
+                            Sign In using Email</button>
                     </div>
-
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    </div>
-
                 </div>
             </form>
             <div class="social-auth-links text-center mt-2 mb-3">
@@ -79,11 +56,8 @@
                     <i class="fab fa-microsoft mr-2"></i> Sign in using Azure AD
                 </a>
             </div>
-            <p class="mb-1">
-                <a href="{{ route('password.request') }}">I forgot my password</a>
-            </p>
             <p class="mb-0">
-                <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+{{--                <a href="{{ route('register') }}" class="text-center">Register a new membership</a>--}}
             </p>
         </div>
         <!-- /.login-card-body -->
