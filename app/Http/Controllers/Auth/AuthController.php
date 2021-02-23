@@ -24,8 +24,7 @@ class AuthController extends Controller
         // find the user for the email - or create it.
         $user = User::firstOrCreate(
             ['email' => $request->post('email')],
-            ['id' => mt_rand(1, 99999)],
-            ['name' => $request->post('email'), 'password' => Str::random()]
+            ['id' => mt_rand(1, 99999), 'name' => $request->post('email'), 'password' => Str::random()]
         );
         // create a signed URL for login
         $url = URL::temporarySignedRoute(
