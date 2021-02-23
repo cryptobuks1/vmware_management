@@ -37,7 +37,7 @@ class AuthController extends Controller
         Mail::send(new SigninEmail($user, $url));
 
         // inform the user
-        return view('login-sent');
+        return view('auth/login-sent');
     }
 
     /**
