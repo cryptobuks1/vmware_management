@@ -17,6 +17,9 @@ class Virtualmachine extends Model
     protected $table = 'customer_vms';
     protected $guarded = ['vmid'];
 
+    const CREATED_AT = 'createddatetime';
+    const UPDATED_AT = 'modifieddatetime';
+
     /**
      * The attributes that should be hidden for arrays.
      *

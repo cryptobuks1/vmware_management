@@ -4707,7 +4707,7 @@ $(document).ready(function () {
       name: "tempstoragegb"
     }]
   });
-  $('#requireTable').on('click', 'tbody td:nth-child(n+9)', function (e) {
+  $('#requireTable').on('click', 'tbody td:nth-child(n+9):nth-child(-n+17)', function (e) {
     editor.inline(this, {
       onBlur: 'submit'
     });
@@ -4715,7 +4715,6 @@ $(document).ready(function () {
   requireTable = $('#requireTable').removeAttr('width').DataTable({
     dom: 'Bfrtip',
     ajax: "/vm/getvmreqdata",
-    // deferRender: true,
     "paging": false,
     "searching": true,
     "info": true,
@@ -4776,6 +4775,15 @@ $(document).ready(function () {
       }
     }, {
       data: "tempstoragegb"
+    }, {
+      data: null,
+      render: function render(row) {
+        if (row.donotmigrate == 0) {
+          return '<button class="btn btn-secondary" onclick="donot_migrate(\'' + row.vmid + '\')">Don\'t migrate </button>';
+        } else {
+          return '';
+        }
+      }
     }],
     'columnDefs': [{
       'targets': 0,
@@ -4834,14 +4842,52 @@ $(document).ready(function () {
     order: [[0, 'asc']]
   });
   proposalTable = $('#proposalTable').DataTable({
+    ajax: "/vm/get_proposal",
     "paging": false,
     "searching": true,
     "info": true,
     "autoWidth": false,
     "scrollY": $(window).height() - 320,
     'scrollCollapse': true,
-    order: [[0, 'asc']]
+    order: [[0, 'asc']],
+    'columns': [{
+      data: null
+    }, {
+      data: "vmname"
+    }, {
+      data: "vmniccount"
+    }, {
+      data: "vmproccount"
+    }, {
+      data: "pvmproccount"
+    }, {
+      data: "vmdiskcount"
+    }, {
+      data: "pvmdiskcount"
+    }, {
+      data: null,
+      render: function render(row) {
+        if (row.pnewsize != 0) {
+          return '<button class="btn btn-primary btn-sm" onclick="accept_proposal(\'' + row.vmid + '\')">Accept </button> | ' + '<button class="btn btn-secondary btn-sm" onclick="deny_proposal(\'' + row.vmid + '\')">Deny </button>';
+        } else {
+          return 'Denied';
+        }
+      }
+    }],
+    "columnDefs": [{
+      "searchable": false,
+      "orderable": false,
+      "targets": 0
+    }]
   });
+  proposalTable.on('order.dt search.dt', function () {
+    proposalTable.column(0, {
+      search: 'applied',
+      order: 'applied'
+    }).nodes().each(function (cell, i) {
+      cell.innerHTML = i + 1;
+    });
+  }).draw();
 });
 
 /***/ }),

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Mail\WelcomeMail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -33,26 +31,19 @@ class UserController extends Controller
     }
 
     public function save(Request $request){
+
         $request->validate([
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-//        User::create([
-//            'id' => mt_rand(1, 10000),
-//            'name' => $request->username,
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password),
-//        ]);
-
-        $email = $request->get('email');
-        $data = ([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-//            'username' => $request->get('name'),
+        User::create([
+            'id' => mt_rand(1, 10000),
+            'name' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
-        Mail::to($email)->send(new WelcomeMail($data));
 
         $notification =  array('message' => 'User Add Successfully', 'alert-type' => 'success');
 

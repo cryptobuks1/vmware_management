@@ -11,10 +11,34 @@
     @endif
     <script>
         function accept_proposal(vmid) {
-            alert(vmid);
+            if(!confirm('Do you want to set this proposal accept?'))
+                return;
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/vm/accept_proposal',
+                data: {vmid : vmid},
+                success: function () {
+                    $('#proposalTable').DataTable().ajax.reload();
+                }
+            });
         }
         function deny_proposal(vmid){
-            alert(vmid);
+            if(!confirm('Do you want to set this proposal deny?'))
+                return;
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/vm/deny_proposal',
+                data: {vmid : vmid},
+                success: function () {
+                    $('#proposalTable').DataTable().ajax.reload();
+                }
+            });
         }
     </script>
     <div class="container-fluid" id="main">
@@ -38,26 +62,9 @@
                                 <th>Proposed CPU Count</th>
                                 <th>VM Disk Count</th>
                                 <th>Proposed Disk Count</th>
-                                <th>Action</th>
+                                <th width="120px;">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            @foreach($vms as $key=>$vm)
-                                <tr>
-                                    <td>{{$key+1}}</td>
-                                    <td>{{$vm->vmname}}</td>
-                                    <td>{{$vm->vmniccount}}</td>
-                                    <td>{{$vm->vmproccount}}</td>
-                                    <td>{{$vm->pvmproccount}}</td>
-                                    <td>{{$vm->vmdiskcount}}</td>
-                                    <td>{{$vm->pvmdiskcount}}</td>
-                                    <td style="width: 150px;">
-                                        <button class="btn-primary" onclick="accept_proposal('{{$vm->vmid}}')">Accept</button> |
-                                        <button class="btn-warning" onclick="deny_proposal('{{$vm->vmid}}')">Deny</button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->

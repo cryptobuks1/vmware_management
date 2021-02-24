@@ -78,6 +78,13 @@ class VmController extends Controller
         return json_encode($retData);
     }
 
+    public function donotmigrate(Request $request)
+    {
+        $vmid = $request->post('vmid');
+        Machinerequire::where('vmid', $vmid)->update(['donotmigrate' => 1]);
+        return $vmid;
+    }
+
     public function editvmreqdata(Request $request)
     {
         $data = $request->data;
@@ -139,13 +146,49 @@ class VmController extends Controller
         $notification = array('message' => 'Requirement Updated Successfully', 'alert-type' => 'success');
         return back()->with($notification);
     }
-    public function sizing(){
+
+    public function sizing()
+    {
         $vms = Virtualmachine::getSizingData();
         return view('vm\sizing', compact('vms'));
     }
 
-    public function change_proposal(){
+    public function change_proposal()
+    {
         $vms = Virtualmachine::getProposalData();
         return view('vm\proposal', compact('vms'));
+    }
+
+    public function get_proposal()
+    {
+        $vms = Virtualmachine::getProposalData();
+
+        return json_encode(array('data' => $vms));
+    }
+
+    public function accept_proposal(Request $request)
+    {
+        $vmid = $request->post('vmid');
+
+        $proposal = Machinerequire::where('vmid', $vmid)->first();
+        if ($proposal->pvmdiskcount && $proposal->pvmproccount) {
+            Virtualmachine::where('vmid', $vmid)->update([
+                'vmdiskcount' => $proposal->pvmdiskcount,
+                'vmproccount' => $proposal->pvmproccount,
+            ]);
+        }
+        return $vmid;
+
+    }
+
+    public function deny_proposal(Request $request)
+    {
+        $vmid = $request->post('vmid');
+
+        Machinerequire::where('vmid', $vmid)->update([
+            'pnewsize' => 0
+        ]);
+
+        return $vmid;
     }
 }

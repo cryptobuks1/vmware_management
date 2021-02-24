@@ -16,6 +16,21 @@
         function closeNav(){
             document.getElementById("bulkEditDiv").style.width = "0";
         }
+        function donot_migrate(vmid) {
+            if(!confirm('Do you want to set this vm do not migrate?'))
+                return;
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/vm/donot_migrate',
+                data: {vmid : vmid},
+                success: function () {
+                    $('#requireTable').DataTable().ajax.reload();
+                }
+            });
+        }
     </script>
     <div class="container-fluid" id="main">
         <div class="row">
@@ -48,6 +63,7 @@
                                 <th>Backup retension(months)</th>
                                 <th>Disaster Recovery</th>
                                 <th>Temp storage need(GB)</th>
+                                <th>Don't migrate</th>
                             </tr>
                             </thead>
                         </table>

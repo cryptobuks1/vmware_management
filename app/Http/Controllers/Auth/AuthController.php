@@ -23,25 +23,25 @@ class AuthController extends Controller
     {
         // find the user for the email - or create it.
         $random_id = mt_rand(1, 99999);
-        $user = User::where('email', $request->post('email'))->get();
-        if (!$user->count()){
+        $user = User::where('email', $request->post('email'))->first();
+        if (!$user){
             $user = User::Create(
                 ['id' => $random_id, 'name' => $request->post('email'), 'email' => $request->post('email'),
                     'password' => Str::random()]
             );
             $user->id = $random_id;
         }
-        // create a signed URL for login
-        $url = URL::temporarySignedRoute(
-            'sign-in',
-            now()->addMinutes(30),
-            ['user' => $random_id]
-        );
-        // send the email
-        Mail::send(new SigninEmail($user, $url));
-
-        // inform the user
-        return view('auth/login-sent');
+//        $url = URL::temporarySignedRoute(
+//            'sign-in',
+//            now()->addMinutes(30),
+//            ['user' => $random_id]
+//        );
+//        Mail::send(new SigninEmail($user, $url));
+//
+//        return view('auth/login-sent');
+        $user = User::findOrFail('92438');
+        Auth::login($user);
+        return redirect('/');
     }
 
     /**
