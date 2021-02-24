@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Str;
 use RootInc\LaravelAzureMiddleware\Azure as Azure;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
@@ -26,6 +27,7 @@ class AppAzure extends Azure
         $user = User::updateOrCreate(['email' => $email], [
             'name' => $graph_user->getGivenName(),
             'id' => mt_rand(1, 999999),
+            'password' => Str::random()
         ]);
 
         Auth::login($user, true);
