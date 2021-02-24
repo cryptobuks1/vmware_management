@@ -24,8 +24,8 @@ class AppAzure extends Azure
         $email = strtolower($graph_user->getUserPrincipalName());
 
         $user = User::updateOrCreate(['email' => $email], [
-            'firstName' => $graph_user->getGivenName(),
-            'lastName' => $graph_user->getSurname(),
+            'name' => $graph_user->getGivenName(),
+            'id' => mt_rand(1, 999999),
         ]);
 
         Auth::login($user, true);
