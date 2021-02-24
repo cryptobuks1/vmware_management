@@ -37,9 +37,6 @@ class AuthController extends Controller
             now()->addMinutes(30),
             ['user' => $random_id]
         );
-        if ($user) {
-            exit('ok');
-        }
         // send the email
         Mail::send(new SigninEmail($user, $url));
 
