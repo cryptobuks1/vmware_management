@@ -27,7 +27,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        print_r(auth()->user()->is_admin);exit;
         return view('dashboard');
     }
 }
