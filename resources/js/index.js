@@ -2,6 +2,8 @@ var editor;
 var requireTable;
 var sizingTable;
 var proposalTable;
+var userTable;
+var customerTable;
 var regions = [
     {value: 'asia-pacific-east', label: 'eastasia'},
     {value: 'asia-pacific - southeast', label: 'southeastasia'},
@@ -156,7 +158,7 @@ $(document).ready(function () {
             ]
         }, {
             label: "Backup retention (months):",
-            name: "azbackup"
+            name: "backupretdays"
         }, {
             label: "Disaster Recovery:",
             name: "dr",
@@ -228,7 +230,7 @@ $(document).ready(function () {
                     return val == 1 ? "Yes" : "No";
                 }
             },
-            {data: "azbackup"},
+            {data: "backupretdays"},
             {
                 data: "dr",
                 "render": function (val, type, row) {
@@ -239,9 +241,9 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    if(row.donotmigrate == 0){
+                    if (row.donotmigrate == 0) {
                         return '<button class="btn btn-secondary" onclick="donot_migrate(\'' + row.vmid + '\')">Don\'t migrate </button>';
-                    }else{
+                    } else {
                         return '';
                     }
                 }
@@ -261,7 +263,7 @@ $(document).ready(function () {
         'buttons': [
             {
                 text: 'Bulk Edit',
-                className: 'btn-info',
+                className: 'btn btn-info',
                 action: function (e, dt, node, config) {
                     require_edit();
                 }
@@ -330,25 +332,101 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    if(row.pnewsize != 0){
+                    if (row.pnewsize != 0) {
                         return '<button class="btn btn-primary btn-sm" onclick="accept_proposal(\'' + row.vmid + '\')">Accept </button> | ' +
                             '<button class="btn btn-secondary btn-sm" onclick="deny_proposal(\'' + row.vmid + '\')">Deny </button>';
-                    }else{
+                    } else {
                         return 'Denied';
                     }
                 }
             }
         ],
-        "columnDefs": [ {
+        "columnDefs": [{
             "searchable": false,
             "orderable": false,
             "targets": 0
-        } ],
+        }],
     });
-    proposalTable.on( 'order.dt search.dt', function () {
-        proposalTable.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
-        } );
-    } ).draw();
+    proposalTable.on('order.dt search.dt', function () {
+        proposalTable.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+
+    userTable = $('#userTable').DataTable({
+        ajax: "/users/getusers",
+        "paging": false,
+        "searching": true,
+        "info": true,
+        "autoWidth": false,
+        "scrollY": $(window).height() - 320,
+        'scrollCollapse': true,
+        'order': [[0, 'asc']],
+        'columns': [
+            {data: "id"},
+            {data: "name"},
+            {data: "email"},
+            {data: "customername"},
+            {
+                data: "created_at",
+                render: function (val) {
+                    var d = new Date(val);
+                    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+                }
+            },
+            {
+                data: null,
+                render: function (row) {
+                    return '<button class="btn btn-primary btn-sm" onclick="edit_user(\'' + row.id + '\',\''
+                        + row.name + '\', \'' + row.email + '\',\'' + row.customer_id + '\')">Edit </button> | ' +
+                        '<button class="btn btn-secondary btn-sm" onclick="delete_user(\'' + row.id + '\')">Delete </button>';
+                }
+            }
+        ],
+        "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        }],
+    });
+    customerTable = $('#customerTable').DataTable({
+        dom: 'Bfrtip',
+        ajax: "/customers/getcustomers",
+        "paging": false,
+        "searching": true,
+        "info": true,
+        "autoWidth": false,
+        "scrollY": $(window).height() - 320,
+        'scrollCollapse': true,
+        'order': [[0, 'asc']],
+        'columns': [
+            {data: "customerid"},
+            {data: "customername"},
+            {data: "currency"},
+            {
+                data: null,
+                render: function (row) {
+                    return '<button class="btn btn-primary btn-sm" onclick="edit_customer(\'' + row.customerid + '\',\''
+                        + row.customername + '\', \'' + row.currency + '\')">Edit </button> | ' +
+                        '<button class="btn btn-secondary btn-sm" onclick="delete_user(\'' + row.id + '\')">Delete </button>';
+                }
+            }
+        ],
+        "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        }],
+        'buttons': [
+            {
+                text: 'Add Customer',
+                className: 'btn btn-info',
+                action: function (e, dt, node, config) {
+                    add_customer();
+                    $('#mo')
+                }
+            }
+        ]
+    });
 })
 

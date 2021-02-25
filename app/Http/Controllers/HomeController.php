@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Customer;
+use App\Models\Virtualmachine;
+use App\Models\Machinerequire;
 
 class HomeController extends Controller
 {

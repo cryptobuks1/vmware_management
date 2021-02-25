@@ -126,8 +126,8 @@
                     </select>
                 </div>
                 <div class="form-group row col-12">
-                    <label for="azbackup">Backup retention (months)</label>
-                    <input type="number" class="form-control" id="azbackup" name="azbackup">
+                    <label for="backupretdays">Backup retention (months)</label>
+                    <input type="number" class="form-control" id="backupretdays" name="backupretdays">
                 </div>
                 <div class="form-group row col-12">
                     <label for="dr" class="mr-1">Disaster Recovery</label>

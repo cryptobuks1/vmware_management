@@ -10,33 +10,32 @@
             </ul>
         </div>
     @endif
-    <div class="container-fluid">
+    <script>
+        function add_customer() {
+            $('#customer_id').val('');
+            $('#customername').val('');
+            $('#currency').val('');
+            $('#modal-lg').modal('show');
+        }
+        function edit_customer(customer_id, customer_name, currency){
+            $('#customer_id').val(customer_id);
+            $('#customername').val(customer_name);
+            $('#currency').val(currency);
+            $('#modal-lg').modal('show');
+        }
+    </script>
+    <div class="container-fluid" id="main">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <h3 class="card-title col">Customer List</h3>
-                            <div class="card-tools col-8">
-                                <div class="input-group input-group-sm" style="width: 200px;">
-                                    <input type="text" name="table_search" class="form-control float-right"
-                                           placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-tools col">
-                                <button type="button" style="width: 200px;" class="btn btn-block btn-info btn-sm"
-                                        data-toggle="modal" data-target="#modal-lg">Add Customer
-                                </button>
-                            </div>
+                    <div class="card-header row">
+                        <div class="col-10">
+                            <h3 class="card-title">Customer Management</h3>
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0" style="height: 300px;">
-                        <table class="table table-head-fixed text-nowrap">
+                    <div class="card-body" style="max-height: 80%;">
+                        <table id="customerTable" class="table table-bordered table-striped" width="100%">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -45,22 +44,6 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            @foreach($customers as $customer)
-                                <tr>
-                                    <td>{{$customer->customerid}}</td>
-                                    <td>{{$customer->customername}}</td>
-                                    <td>{{$customer->currency}}</td>
-                                    <td>
-                                        <form role="form" method="post" action="{{route('customers.delete')}}">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{$customer->customerid}}"/>
-                                            <button type="submit" class="btn btn-block btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -70,8 +53,9 @@
         </div>
     </div>
     <div class="modal fade" id="modal-lg" aria-hidden="true">
-        <form role="form" name="addUserForm" method="post" action="{{route('customers.save')}}" novalidate="novalidate">
+        <form role="form" name="addCustomerForm" method="post" action="{{route('customers.save')}}" novalidate="novalidate">
             @csrf
+            <input type="hidden" id="customer_id" name="customer_id" value=""/>
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -84,11 +68,11 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="username">Customer Name</label>
-                                <input type="text" class="form-control" name="customername" placeholder="Enter Full Name">
+                                <input type="text" class="form-control" name="customername" id="customername" placeholder="Enter Full Name">
                             </div>
                             <div class="form-group">
                                 <label for="email">Currency</label>
-                                <input type="text" class="form-control" name="currency" placeholder="Enter Currency">
+                                <input type="text" class="form-control" name="currency" id="currency" placeholder="Enter Currency">
                             </div>
                         </div>
                     </div>

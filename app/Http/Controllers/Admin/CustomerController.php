@@ -17,7 +17,7 @@ class CustomerController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'is_admin']);
     }
 
     /**
@@ -30,21 +30,31 @@ class CustomerController extends Controller
         $customers = Customer::all();
         return view('admin\customer_manage', compact('customers'));
     }
-
+    public function getcustomers()
+    {
+        $users = Customer::all();
+        return json_encode(['data'=>$users]);
+    }
     public function save(Request $request){
 
         $request->validate([
             'customername' => ['required', 'string', 'max:255'],
             'currency' => ['required', 'string', 'max:255'],
         ]);
+        if($request->customer_id){
+            Customer::where('customerid', $request->customer_id)->update([
+                'customername' => $request->customername,
+                'currency' => $request->currency
+            ]);
+        }else{
+            Customer::create([
+                'customerid' => mt_rand(1, 999999),
+                'customername' => $request->customername,
+                'currency' => $request->currency
+            ]);
+        }
 
-        Customer::create([
-            'customerid' => mt_rand(1, 999999),
-            'customername' => $request->customername,
-            'currency' => $request->currency
-        ]);
-
-        $notification =  array('message' => 'Customer Add Successfully', 'alert-type' => 'success');
+        $notification =  array('message' => 'Customer Saved Successfully', 'alert-type' => 'success');
 
         return back()->with($notification);
     }

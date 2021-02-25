@@ -33,47 +33,36 @@ class VmController extends Controller
         return view('vm\requirement_classify');
     }
 
-    public function save(Request $request)
-    {
-        $request->validate([
-            'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
-        User::create([
-            'id' => mt_rand(1, 10000),
-            'name' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        $notification = array('message' => 'User Add Successfully', 'alert-type' => 'success');
-
-        return back()->with($notification);
-    }
-
-    public function delete(Request $request)
-    {
-        $user = User::find($request->user_id);
-        $user->delete();
-        $notification = array('message' => 'User Delete Successfully', 'alert-type' => 'success');
-        return back()->with($notification);
-    }
-
     public function getRequireData()
     {
-        return DB::table('customer_vms')
-            ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
-            ->select('customer_vms.*', 'customer_vmreq.*')
-            ->get();
+        if(auth()->user()->is_admin == 1){
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->get();
+        }else{
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get();
+        }
     }
 
     public function getvmreqdata(Request $request)
     {
-        $vmdata = DB::table('customer_vms')
-            ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
-            ->select('customer_vms.*', 'customer_vmreq.*')
-            ->get();
+        if(auth()->user()->is_admin == 1) {
+            $vmdata = DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->get();
+        }else{
+            $vmdata = DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get();
+        }
         $retData = array('data' => $vmdata);
         return json_encode($retData);
     }
@@ -92,11 +81,18 @@ class VmController extends Controller
         foreach ($data as $key => $row) {
             Machinerequire::where('vmid', $key)->update($row);
         }
-
-        $vmdata = DB::table('customer_vms')
-            ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
-            ->select('customer_vms.*', 'customer_vmreq.*')
-            ->get();
+        if(auth()->user()->is_admin == 1) {
+            $vmdata = DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->get();
+        }else{
+            $vmdata = DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get();
+        }
         $retData = array('data' => $vmdata);
         return json_encode($retData);
     }
@@ -155,8 +151,7 @@ class VmController extends Controller
 
     public function change_proposal()
     {
-        $vms = Virtualmachine::getProposalData();
-        return view('vm\proposal', compact('vms'));
+        return view('vm\proposal');
     }
 
     public function get_proposal()

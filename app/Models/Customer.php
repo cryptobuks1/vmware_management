@@ -22,5 +22,4 @@ class Customer extends Model
         'customername',
         'currency'
     ];
-
 }

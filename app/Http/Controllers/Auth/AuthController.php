@@ -31,17 +31,17 @@ class AuthController extends Controller
             );
             $user->id = $random_id;
         }
-//        $url = URL::temporarySignedRoute(
-//            'sign-in',
-//            now()->addMinutes(30),
-//            ['user' => $random_id]
-//        );
-//        Mail::send(new SigninEmail($user, $url));
-//
-//        return view('auth/login-sent');
-        $user = User::findOrFail('92438');
-        Auth::login($user);
-        return redirect('/');
+        $url = URL::temporarySignedRoute(
+            'sign-in',
+            now()->addMinutes(30),
+            ['user' => $random_id]
+        );
+        Mail::send(new SigninEmail($user, $url));
+
+        return view('auth/login-sent');
+//        $user = User::findOrFail($user->id);
+//        Auth::login($user);
+//        return redirect('/');
     }
 
     /**

@@ -27,10 +27,13 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('da
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users');
+Route::get('/users/getusers', [App\Http\Controllers\Admin\UserController::class, 'getusers'])->name('users.getusers');
+
 Route::post('/users/save', [App\Http\Controllers\Admin\UserController::class, 'save'])->name('users.save');
 Route::post('/users/delete', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('users.delete');
 
 Route::get('/customers', [App\Http\Controllers\Admin\CustomerController::class, 'index'])->name('customers');
+Route::get('/customers/getcustomers', [App\Http\Controllers\Admin\CustomerController::class, 'getcustomers'])->name('customers.getcustomers');
 Route::post('/customers/save', [App\Http\Controllers\Admin\CustomerController::class, 'save'])->name('customers.save');
 Route::post('/customers/delete', [App\Http\Controllers\Admin\CustomerController::class, 'delete'])->name('customers.delete');
 

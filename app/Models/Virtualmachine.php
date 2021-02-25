@@ -30,17 +30,142 @@ class Virtualmachine extends Model
         return $this->hasOne(Machinerequire::class, 'vmid');
     }
 
-    static function getSizingData(){
-        return DB::table('customer_vms')
-            ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
-            ->join('customer_vmpricing', 'customer_vms.vmid', '=', 'customer_vmpricing.vmid')
-            ->select('customer_vms.*', 'customer_vmreq.*', 'customer_vmpricing.armSkuName')
-            ->get();
+    static function getSizingData()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->join('customer_vmpricing', 'customer_vms.vmid', '=', 'customer_vmpricing.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*', 'customer_vmpricing.armSkuName')
+                ->get();
+        } else {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->join('customer_vmpricing', 'customer_vms.vmid', '=', 'customer_vmpricing.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*', 'customer_vmpricing.armSkuName')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get();
+        }
     }
-    static function getProposalData(){
-        return DB::table('customer_vms')
-            ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
-            ->select('customer_vms.*', 'customer_vmreq.*')
-            ->get();
+
+    static function getProposalData()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->get();
+        } else {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get();
+        }
+    }
+
+    static function getTotalVmsCount()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return DB::table('customer_vms')
+                ->get()->count();
+        } else {
+            return DB::table('customer_vms')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get()->count();
+        }
+    }
+
+    static function getTotalRequireCount()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('region', null)
+                ->orWhere('hourson', null)
+                ->orWhere('pricetype', null)
+                ->orWhere('backupretdays', null)
+                ->orWhere('tempstoragegb', null)
+                ->get()->count();
+        } else {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->orWhere(function($query){
+                    $query->where('region', null);
+                    $query->where('pricetype', null);
+                    $query->where('hourson', null);
+                    $query->where('backupretdays', null);
+                    $query->where('tempstoragegb', null);
+                })
+                ->get()->count();
+        }
+    }
+
+    static function getTotalRecognizeCount()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('region', null)
+                ->orWhere('hourson', null)
+                ->orWhere('pricetype', null)
+                ->orWhere('backupretdays', null)
+                ->orWhere('tempstoragegb', null)
+                ->get()->count();
+        } else {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->orWhere(function($query){
+                    $query->where('region', null);
+                    $query->where('pricetype', null);
+                    $query->where('hourson', null);
+                    $query->where('backupretdays', null);
+                    $query->where('tempstoragegb', null);
+                })
+                ->get()->count();
+        }
+    }
+
+    static function getTotalProposedCount()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('pvmdiskcount', '<>', null)
+                ->where('pvmproccount', '<>', null)
+                ->get()->count();
+        } else {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('pvmdiskcount', '<>', null)
+                ->where('pvmproccount', '<>', null)
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get()->count();
+        }
+    }
+    static function getTotalDonotmigrateCount()
+    {
+        if (auth()->user()->is_admin == 1) {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('donotmigrate', 1)
+                ->get()->count();
+        } else {
+            return DB::table('customer_vms')
+                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
+                ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('donotmigrate', 1)
+                ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->get()->count();
+        }
     }
 }

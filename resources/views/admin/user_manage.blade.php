@@ -10,59 +10,67 @@
             </ul>
         </div>
     @endif
-    <div class="container-fluid">
+    <script>
+        function edit_user(user_id, name, email, company_id) {
+            $('#user_id').val(user_id);
+            $('#username').val(name);
+            $('#email').val(email);
+            $('#customerSelect').val(company_id);
+            $('#modal-lg').modal('show');
+            return;
+            if (!confirm('Do you want to set this proposal accept?'))
+                return;
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/vm/accept_proposal',
+                data: {vmid: vmid},
+                success: function () {
+                    $('#userTable').DataTable().ajax.reload();
+                }
+            });
+        }
+
+        function delete_user(user_id) {
+            if (!confirm('Do you want to delete user?'))
+                return;
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/users/delete',
+                data: {user_id: user_id},
+                success: function () {
+                    $('#userTable').DataTable().ajax.reload();
+                }
+            });
+        }
+    </script>
+    <div class="container-fluid" id="main">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <h3 class="card-title col">Users List</h3>
-                            <div class="card-tools col-9">
-                                <div class="input-group input-group-sm" style="width: 200px;">
-                                    <input type="text" name="table_search" class="form-control float-right"
-                                           placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-tools col">
-                                <button type="button" style="width: 100px;" class="btn btn-block btn-info btn-sm"
-                                        data-toggle="modal" data-target="#modal-lg">Add User
-                                </button>
-                            </div>
+                    <div class="card-header row">
+                        <div class="col-10">
+                            <h3 class="card-title">User Management</h3>
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0" style="height: 300px;">
-                        <table class="table table-head-fixed text-nowrap">
+                    <div class="card-body" style="max-height: 80%;">
+                        <table id="userTable" class="table table-bordered table-striped" width="100%">
                             <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>UserName</th>
                                 <th>Email</th>
+                                <th>Customer</th>
                                 <th>Register Date</th>
-                                <th>Action</th>
+                                <th width="120px;">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            @foreach($users as $user)
-                                <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->created_at}}</td>
-                                    <td>
-                                        <form role="form" method="post" action="{{route('users.delete')}}">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{$user->id}}"/>
-                                            <button type="submit" class="btn btn-block btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -72,12 +80,13 @@
         </div>
     </div>
     <div class="modal fade" id="modal-lg" aria-hidden="true">
-        <form role="form" name="addUserForm" method="post" action="{{route('users.save')}}" novalidate="novalidate">
+        <form role="form" name="editUserForm" method="post" action="{{route('users.save')}}" novalidate="novalidate">
             @csrf
+            <input type="hidden" name="user_id" id="user_id" value=""/>
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add User</h4>
+                        <h4 class="modal-title">Edit User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -86,19 +95,20 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="username">User Name</label>
-                                <input type="text" class="form-control" name="username" placeholder="Enter Full Name">
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Enter Full Name">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input type="email" class="form-control" name="email" placeholder="Enter email">
+                                <input type="email" class="form-control" name="email"  id="email" placeholder="Enter email">
                             </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmed">Confirmed Password</label>
-                                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirmed Password">
+                                <label for="customerSelect">Customer Link</label>
+                                <select name="customer_id" id="customerSelect" class="form-control">
+                                    <option></option>
+                                    @foreach($customers as $customer)
+                                        <option value="{{$customer->customerid}}">{{$customer->customername}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
