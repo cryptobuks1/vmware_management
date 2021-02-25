@@ -34,7 +34,7 @@ class AuthController extends Controller
         $url = URL::temporarySignedRoute(
             'sign-in',
             now()->addMinutes(30),
-            ['user' => $random_id]
+            ['user' => $user->id]
         );
         Mail::send(new SigninEmail($user, $url));
 
