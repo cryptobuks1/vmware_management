@@ -23,7 +23,7 @@ class AuthController extends Controller
     {
         // find the user for the email - or create it.
         $random_id = mt_rand(1, 99999);
-        $user = User::where('email', $request->post('email'))->get();
+        $user = User::where('email', $request->post('email'))->first();
         if (!$user->count()){
             $user = User::Create(
                 ['id' => $random_id, 'name' => $request->post('email'), 'email' => $request->post('email'),
