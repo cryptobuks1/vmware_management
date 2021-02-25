@@ -52,11 +52,13 @@ class VmController extends Controller
     public function getvmreqdata(Request $request)
     {
         if(auth()->user()->is_admin == 1) {
+            exit('ok');
             $vmdata = DB::table('customer_vms')
                 ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
                 ->select('customer_vms.*', 'customer_vmreq.*')
                 ->get();
         }else{
+            exit('no');
             $vmdata = DB::table('customer_vms')
                 ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
                 ->select('customer_vms.*', 'customer_vmreq.*')
