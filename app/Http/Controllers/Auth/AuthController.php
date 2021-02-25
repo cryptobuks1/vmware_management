@@ -60,6 +60,7 @@ class AuthController extends Controller
 
         // Authenticate the user
         $user = User::findOrFail($user);
+
         Auth::login($user);
 
         // Redirect to homepage
