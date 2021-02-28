@@ -24,11 +24,10 @@ class AppAzure extends Azure
 
         $email = strtolower($graph_user->getUserPrincipalName());
 
-        $user = User::updateOrCreate(['email' => $email], [
-            'name' => $graph_user->getGivenName(),
-            'id' => mt_rand(1, 999999),
-            'password' => Str::random()
-        ]);
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            return redirect('/login')->withErrors(['email' => 'Unregistered Email Address']);
+        }
 
         Auth::login($user, true);
 

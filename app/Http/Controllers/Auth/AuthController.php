@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Mail\SigninEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -22,15 +23,14 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         // find the user for the email - or create it.
-        $random_id = mt_rand(1, 99999);
-        $user = User::where('email', $request->post('email'))->firstOrFail();
-        if (!$user) {
-            $user = User::Create(
-                ['id' => $random_id, 'name' => $request->post('email'), 'email' => $request->post('email'),
-                    'password' => Str::random()]
-            );
-            $user->id = $random_id;
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|exists:App\Models\User,email',
+        ]);
+        if($validator->fails()){
+//            return back()->withErrors($validator);
+            return redirect('/login')->withErrors(['email' => 'Unregistered Email Address']);
         }
+        $user = User::where('email', $request->post('email'))->first();
         $url = URL::temporarySignedRoute(
             'sign-in',
             now()->addMinutes(30),

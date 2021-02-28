@@ -40,7 +40,7 @@
                         <div class="input-group-text"><span class="fas fa-envelope"></span></div>
                     </div>
                     @error('email')
-                    <span class="error invalid-feedback">{{ $message }}</span>
+                    <span class="error invalid-feedback">Unregistered Email Address</span>
                     @enderror
                 </div>
                 <div class="row">
