@@ -41,6 +41,7 @@
     @if(request()->path() == 'vm/requirement_classify') class="nav-item has-treeview menu-open"
     @elseif(request()->path() == 'vm/sizing') class="nav-item has-treeview menu-open"
     @elseif(request()->path() == 'vm/change_proposal') class="nav-item has-treeview menu-open"
+    @elseif(request()->path() == 'vm/unsupported') class="nav-item has-treeview menu-open"
     @else class="nav-item has-treeview" @endif
 >
     <a href="#" class="nav-link">
@@ -72,6 +73,14 @@
                @else  class="nav-link" @endif>
                 <i class="fas fa-hat-cowboy-side nav-icon"></i>
                 <p>Config Change Proposal</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{route('vm.unsupported')}}"
+               @if(request()->path() == 'vm/unsupported') class="nav-link active"
+               @else  class="nav-link" @endif>
+                <i class="fas fa-ban nav-icon"></i>
+                <p>Unsupported VMs</p>
             </a>
         </li>
     </ul>

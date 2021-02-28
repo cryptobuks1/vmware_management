@@ -56,7 +56,7 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>VM Name</th>
+                                <th width="120px">VM Name</th>
                                 <th>Nic Count</th>
                                 <th>CPU Count</th>
                                 <th>Proposed CPU Count</th>

@@ -51,3 +51,5 @@ Route::get('/vm/change_proposal', [App\Http\Controllers\VmController::class, 'ch
 Route::get('/vm/get_proposal', [App\Http\Controllers\VmController::class, 'get_proposal'])->name('vm.get_proposal');
 Route::post('/vm/accept_proposal', [App\Http\Controllers\VmController::class, 'accept_proposal'])->name('vm.accept_proposal');
 Route::post('/vm/deny_proposal', [App\Http\Controllers\VmController::class, 'deny_proposal'])->name('vm.deny_proposal');
+
+Route::get('/vm/unsupported', [App\Http\Controllers\VmController::class, 'unsupported'])->name('vm.unsupported');

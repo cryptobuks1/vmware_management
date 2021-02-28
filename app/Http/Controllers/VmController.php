@@ -186,4 +186,10 @@ class VmController extends Controller
 
         return $vmid;
     }
+
+    public function unsupported()
+    {
+        $vms = Virtualmachine::getUnsupportedData();
+        return view('vm\unsupported', compact('vms'));
+    }
 }

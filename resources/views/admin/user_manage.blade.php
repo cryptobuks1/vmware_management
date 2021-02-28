@@ -11,26 +11,23 @@
         </div>
     @endif
     <script>
-        function edit_user(user_id, name, email, company_id) {
+        function add_user() {
+            $('#user_id').val('');
+            $('#username').val('');
+            $('#email').val('');
+            $('#customerSelect').val('');
+            $('#usertypeSelect').val(0);
+            $('.modal-title').html('Add User');
+            $('#modal-lg').modal('show');
+        }
+        function edit_user(user_id, name, email, company_id, user_type) {
+            $('.modal-title').html('Edit User');
             $('#user_id').val(user_id);
             $('#username').val(name);
             $('#email').val(email);
             $('#customerSelect').val(company_id);
+            $('#usertypeSelect').val(user_type);
             $('#modal-lg').modal('show');
-            return;
-            if (!confirm('Do you want to set this proposal accept?'))
-                return;
-            $.ajax({
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '/vm/accept_proposal',
-                data: {vmid: vmid},
-                success: function () {
-                    $('#userTable').DataTable().ajax.reload();
-                }
-            });
         }
 
         function delete_user(user_id) {
@@ -66,6 +63,7 @@
                                 <th>ID</th>
                                 <th>UserName</th>
                                 <th>Email</th>
+                                <th>User Type</th>
                                 <th>Customer</th>
                                 <th>Register Date</th>
                                 <th width="120px;">Action</th>
@@ -108,6 +106,13 @@
                                     @foreach($customers as $customer)
                                         <option value="{{$customer->customerid}}">{{$customer->customername}}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerSelect">User Type</label>
+                                <select name="is_admin" id="usertypeSelect" class="form-control">
+                                    <option value="0">User</option>
+                                    <option value="1">Admin</option>
                                 </select>
                             </div>
                         </div>

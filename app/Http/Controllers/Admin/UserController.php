@@ -44,14 +44,25 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255']
         ]);
+        if ($request->user_id) {
+            User::where('id', $request->user_id)->update([
+                'name' => $request->username,
+                'email' => $request->email,
+                'customer_id' => $request->customer_id,
+                'is_admin' => $request->is_admin
+            ]);
+        } else {
+            $request->validate(['email'=>'unique:users']);
+            User::create([
+                'id' => mt_rand(0, 999999),
+                'name' => $request->username,
+                'email' => $request->email,
+                'customer_id' => $request->customer_id,
+                'is_admin' => $request->is_admin,
+            ]);
+        }
 
-        User::where('id', $request->user_id)->update([
-            'name' => $request->username,
-            'email' => $request->email,
-            'customer_id' => $request->customer_id
-        ]);
-
-        $notification = array('message' => 'User Updated Successfully', 'alert-type' => 'success');
+        $notification = array('message' => 'User Saved Successfully', 'alert-type' => 'success');
 
         return back()->with($notification);
     }

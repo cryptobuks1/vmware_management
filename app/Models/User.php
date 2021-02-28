@@ -20,7 +20,7 @@ class User extends Authenticatable
         'id',
         'name',
         'email',
-        'password',
+        'customer_id',
         'is_admin'
     ];
 
@@ -30,7 +30,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -47,7 +46,7 @@ class User extends Authenticatable
         return DB::table('users')
             ->leftJoin('customers', 'customers.customerid', '=', 'users.customer_id')
             ->select('users.*', 'customers.*')
-            ->where('users.is_admin', '!=', 1)
+//            ->where('users.is_admin', '!=', 1)
             ->get();
     }
 }

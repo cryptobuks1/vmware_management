@@ -23,14 +23,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         // find the user for the email - or create it.
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|exists:App\Models\User,email',
-        ]);
-        if($validator->fails()){
-//            return back()->withErrors($validator);
+
+        $user = User::where('email', $request->post('email'))->first();
+        if(!$user){
             return redirect('/login')->withErrors(['email' => 'Unregistered Email Address']);
         }
-        $user = User::where('email', $request->post('email'))->first();
         $url = URL::temporarySignedRoute(
             'sign-in',
             now()->addMinutes(30),
@@ -39,7 +36,6 @@ class AuthController extends Controller
         Mail::send(new SigninEmail($user, $url));
 
         return view('auth/login-sent');
-//        $user = User::findOrFail($user->id);
 //        Auth::login($user);
 //        return redirect('/');
     }

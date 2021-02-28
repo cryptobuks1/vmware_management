@@ -4,6 +4,7 @@ var sizingTable;
 var proposalTable;
 var userTable;
 var customerTable;
+var unsupportedTable;
 var regions = [
     {value: 'asia-pacific-east', label: 'eastasia'},
     {value: 'asia-pacific - southeast', label: 'southeastasia'},
@@ -332,12 +333,8 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    if (row.pnewsize != 0) {
-                        return '<button class="btn btn-primary btn-sm" onclick="accept_proposal(\'' + row.vmid + '\')">Accept </button> | ' +
-                            '<button class="btn btn-secondary btn-sm" onclick="deny_proposal(\'' + row.vmid + '\')">Deny </button>';
-                    } else {
-                        return 'Denied';
-                    }
+                    return '<button class="btn btn-primary btn-sm" onclick="accept_proposal(\'' + row.vmid + '\')">Accept </button> | ' +
+                        '<button class="btn btn-secondary btn-sm" onclick="deny_proposal(\'' + row.vmid + '\')">Deny </button>';
                 }
             }
         ],
@@ -354,6 +351,7 @@ $(document).ready(function () {
     }).draw();
 
     userTable = $('#userTable').DataTable({
+        dom: 'Bfrtip',
         ajax: "/users/getusers",
         "paging": false,
         "searching": true,
@@ -366,6 +364,12 @@ $(document).ready(function () {
             {data: "id"},
             {data: "name"},
             {data: "email"},
+            {
+                data: "is_admin",
+                render: function (val) {
+                    return (val == 1) ? 'Admin' : 'User'
+                }
+            },
             {data: "customername"},
             {
                 data: "created_at",
@@ -378,7 +382,7 @@ $(document).ready(function () {
                 data: null,
                 render: function (row) {
                     return '<button class="btn btn-primary btn-sm" onclick="edit_user(\'' + row.id + '\',\''
-                        + row.name + '\', \'' + row.email + '\',\'' + row.customer_id + '\')">Edit </button> | ' +
+                        + row.name + '\', \'' + row.email + '\',\'' + row.customer_id + '\',\'' + row.is_admin + '\')">Edit </button> | ' +
                         '<button class="btn btn-secondary btn-sm" onclick="delete_user(\'' + row.id + '\')">Delete </button>';
                 }
             }
@@ -388,6 +392,15 @@ $(document).ready(function () {
             "orderable": false,
             "targets": 0
         }],
+        'buttons': [
+            {
+                text: 'Add User',
+                className: 'btn btn-info',
+                action: function (e, dt, node, config) {
+                    add_user();
+                }
+            }
+        ]
     });
     customerTable = $('#customerTable').DataTable({
         dom: 'Bfrtip',
@@ -423,10 +436,18 @@ $(document).ready(function () {
                 className: 'btn btn-info',
                 action: function (e, dt, node, config) {
                     add_customer();
-                    $('#mo')
                 }
             }
         ]
+    });
+    unsupportedTable = $('#unsupportedTable').DataTable({
+        "paging": false,
+        "searching": true,
+        "info": true,
+        "autoWidth": true,
+        "scrollY": $(window).height() - 320,
+        'scrollCollapse': true,
+        order: [[0, 'asc']]
     });
 })
 
