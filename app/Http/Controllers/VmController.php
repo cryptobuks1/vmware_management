@@ -130,8 +130,8 @@ class VmController extends Controller
         if ($request->dr != '') {
             $reqData['dr'] = $request->dr;
         }
-        if ($request->azbackup != '') {
-            $reqData['azbackup'] = $request->azbackup;
+        if ($request->backupretdays != '') {
+            $reqData['backupretdays'] = $request->backupretdays;
         }
         if ($request->tempstoragegb != '') {
             $reqData['tempstoragegb'] = $request->tempstoragegb;
