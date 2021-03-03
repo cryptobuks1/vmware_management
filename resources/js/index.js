@@ -6,6 +6,7 @@ var userTable;
 var customerTable;
 var unsupportedTable;
 var regions = [
+    {value: '', label: ''},
     {value: 'asia-pacific-east', label: 'eastasia'},
     {value: 'asia-pacific - southeast', label: 'southeastasia'},
     {value: 'australia-central', label: 'australiacentral'},
@@ -123,6 +124,7 @@ $(document).ready(function () {
             name: "pricetype",
             type: "select",
             options: [
+                {label: "", value: ""},
                 {label: "Pay-as-you-Go", value: "Pay-as-you-Go"},
                 {label: "Azure Hybrid Use Benefit", value: "Azure Hybrid Use Benefit"},
                 {label: "1 Year Reserved Instance", value: "1 Year Reserved Instance"},

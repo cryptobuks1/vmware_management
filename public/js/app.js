@@ -4427,6 +4427,9 @@ var userTable;
 var customerTable;
 var unsupportedTable;
 var regions = [{
+  value: '',
+  label: ''
+}, {
   value: 'asia-pacific-east',
   label: 'eastasia'
 }, {
@@ -4637,6 +4640,9 @@ $(document).ready(function () {
       name: "pricetype",
       type: "select",
       options: [{
+        label: "",
+        value: ""
+      }, {
         label: "Pay-as-you-Go",
         value: "Pay-as-you-Go"
       }, {
