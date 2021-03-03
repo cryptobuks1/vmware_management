@@ -35,12 +35,12 @@ class VmController extends Controller
 
     public function getRequireData()
     {
-        if(auth()->user()->is_admin == 1){
+        if (auth()->user()->is_admin == 1) {
             return DB::table('customer_vms')
                 ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
                 ->select('customer_vms.*', 'customer_vmreq.*')
                 ->get();
-        }else{
+        } else {
             return DB::table('customer_vms')
                 ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
                 ->select('customer_vms.*', 'customer_vmreq.*')
@@ -49,18 +49,28 @@ class VmController extends Controller
         }
     }
 
-    public function getvmreqdata(Request $request)
+    public function getvmreqdata()
     {
-        if(auth()->user()->is_admin == 1) {
+        if (auth()->user()->is_admin == 1) {
             $vmdata = DB::table('customer_vms')
                 ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
                 ->select('customer_vms.*', 'customer_vmreq.*')
+                ->where('region', null)
+                ->orWhere('pricetype', null)
+                ->orWhere('hourson', null)
+                ->orWhere('backupretdays', null)
                 ->get();
-        }else{
+        } else {
             $vmdata = DB::table('customer_vms')
                 ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
                 ->select('customer_vms.*', 'customer_vmreq.*')
                 ->where('customer_vms.customerid', auth()->user()->customer_id)
+                ->orWhere(function ($query) {
+                    $query->where('region', null);
+                    $query->where('pricetype', null);
+                    $query->where('hourson', null);
+                    $query->where('backupretdays', null);
+                })
                 ->get();
         }
         $retData = array('data' => $vmdata);
@@ -81,20 +91,7 @@ class VmController extends Controller
         foreach ($data as $key => $row) {
             Machinerequire::where('vmid', $key)->update($row);
         }
-        if(auth()->user()->is_admin == 1) {
-            $vmdata = DB::table('customer_vms')
-                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
-                ->select('customer_vms.*', 'customer_vmreq.*')
-                ->get();
-        }else{
-            $vmdata = DB::table('customer_vms')
-                ->join('customer_vmreq', 'customer_vms.vmid', '=', 'customer_vmreq.vmid')
-                ->select('customer_vms.*', 'customer_vmreq.*')
-                ->where('customer_vms.customerid', auth()->user()->customer_id)
-                ->get();
-        }
-        $retData = array('data' => $vmdata);
-        return json_encode($retData);
+        return $this->getvmreqdata();
     }
 
     public function getvmdata(Request $request)

@@ -180,6 +180,9 @@ $(document).ready(function () {
             onBlur: 'submit'
         });
     });
+    editor.on( 'postSubmit', function ( e, json, data ) {
+        $('#requireTable').DataTable().ajax.reload();
+    } );
     requireTable = $('#requireTable').removeAttr('width').DataTable({
         dom: 'Bfrtip',
         ajax: "/vm/getvmreqdata",

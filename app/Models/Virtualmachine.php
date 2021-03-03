@@ -107,7 +107,6 @@ class Virtualmachine extends Model
                 ->orWhere('hourson', null)
                 ->orWhere('pricetype', null)
                 ->orWhere('backupretdays', null)
-                ->orWhere('tempstoragegb', null)
                 ->get()->count();
         } else {
             return DB::table('customer_vms')
@@ -119,7 +118,6 @@ class Virtualmachine extends Model
                     $query->where('pricetype', null);
                     $query->where('hourson', null);
                     $query->where('backupretdays', null);
-                    $query->where('tempstoragegb', null);
                 })
                 ->get()->count();
         }

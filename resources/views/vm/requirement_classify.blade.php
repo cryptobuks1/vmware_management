@@ -56,7 +56,7 @@
                                 <th>Disk Total Size</th>
                                 <th>Region</th>
                                 <th>Billing Model</th>
-                                <th>Hours on per dag</th>
+                                <th>Hours on per day</th>
                                 <th>Burstable</th>
                                 <th>Latency Sensitive</th>
                                 <th>Service Level Agreement</th>
