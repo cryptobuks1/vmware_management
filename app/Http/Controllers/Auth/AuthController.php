@@ -33,11 +33,11 @@ class AuthController extends Controller
             now()->addMinutes(30),
             ['user' => $user->id]
         );
-//        Mail::send(new SigninEmail($user, $url));
-//
-//        return view('auth/login-sent');
-        Auth::login($user);
-        return redirect('/');
+        Mail::send(new SigninEmail($user, $url));
+
+        return view('auth/login-sent');
+//        Auth::login($user);
+//        return redirect('/');
     }
 
     /**
