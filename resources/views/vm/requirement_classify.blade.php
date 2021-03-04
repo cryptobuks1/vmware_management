@@ -98,7 +98,7 @@
                     </select>
                 </div>
                 <div class="form-group row col-12">
-                    <label for="vmtotaldisksizegb">Hours on per dag</label>
+                    <label for="vmtotaldisksizegb">Hours on per day</label>
                     <input type="number" class="form-control" id="pricetype">
                 </div>
                 <div class="form-group row col-12">
@@ -141,7 +141,7 @@
                     <label for="tempstoragegb">Temp storage need (GB)</label>
                     <input type="number" class="form-control" id="tempstoragegb" name="tempstoragegb">
                 </div>
-                <div class="row justify-content-between" style="margin-bottom:50px;">
+                <div class="row justify-content-between" style="margin-bottom:80px;">
                     <button type="button" class="btn btn-default ml-2" onclick="closeNav();">Close</button>
                     <button type="button" class="btn btn-primary mr-2" id="bulkSaveBtn">Save changes</button>
                 </div>

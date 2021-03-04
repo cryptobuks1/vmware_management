@@ -192,7 +192,7 @@ $(document).ready(function () {
         "searching": true,
         "info": true,
         "autoWidth": false,
-        "scrollY": $(window).height() - 310,
+        "scrollY": $(window).height() - 320,
         "scrollX": true,
         'scrollCollapse': true,
         'fixedColumns': {
