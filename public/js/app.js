@@ -4620,6 +4620,36 @@ var regionAry = {
   'usgov-virginia': "usgov-virginia",
   'west-india': "westindia"
 };
+var pricetype = [{
+  value: '',
+  label: ''
+}, {
+  value: 'payg',
+  label: 'Pay-as-you-Go'
+}, {
+  value: 'Azure Hybrid Use Benefit',
+  label: 'Azure Hybrid Use Benefit'
+}, {
+  value: '1 Year Reserved Instance',
+  label: '1 Year Reserved Instance'
+}, {
+  value: '3 Year Reserved Instance',
+  label: '3 Year Reserved Instance'
+}, {
+  value: '1 Year Reserved Instance with AHUB',
+  label: '1 Year Reserved Instance with AHUB'
+}, {
+  value: '3 Year Reserved Instance with AHUB',
+  label: '3 Year Reserved Instance with AHUB'
+}];
+var pricetypeAry = {
+  'payg': 'Pay-as-you-Go',
+  'Azure Hybrid Use Benefit': 'Azure Hybrid Use Benefit',
+  '1 Year Reserved Instance': '1 Year Reserved Instance',
+  '3 Year Reserved Instance': '3 Year Reserved Instance',
+  '1 Year Reserved Instance with AHUB': '1 Year Reserved Instance with AHUB',
+  '3 Year Reserved Instance with AHUB': '3 Year Reserved Instance with AHUB'
+};
 $(document).ready(function () {
   editor = new $.fn.DataTable.Editor({
     ajax: {
@@ -4639,28 +4669,7 @@ $(document).ready(function () {
       label: "Billing model:",
       name: "pricetype",
       type: "select",
-      options: [{
-        label: "",
-        value: ""
-      }, {
-        label: "Pay-as-you-Go",
-        value: "Pay-as-you-Go"
-      }, {
-        label: "Azure Hybrid Use Benefit",
-        value: "Azure Hybrid Use Benefit"
-      }, {
-        label: "1 Year Reserved Instance",
-        value: "1 Year Reserved Instance"
-      }, {
-        label: "3 Year Reserved Instance",
-        value: "3 Year Reserved Instance"
-      }, {
-        label: "1 Year Reserved Instance with AHUB",
-        value: "1 Year Reserved Instance with AHUB"
-      }, {
-        label: "3 Year Reserved Instance with AHUB",
-        value: "3 Year Reserved Instance with AHUB"
-      }]
+      options: pricetype
     }, {
       label: "Hours on per dag:",
       name: "hourson"
@@ -4760,7 +4769,10 @@ $(document).ready(function () {
         return regionAry[val] == undefined ? '' : regionAry[val];
       }
     }, {
-      data: "pricetype"
+      data: "pricetype",
+      "render": function render(val, type, row) {
+        return pricetypeAry[val] == undefined ? '' : pricetypeAry[val];
+      }
     }, {
       data: "hourson"
     }, {
