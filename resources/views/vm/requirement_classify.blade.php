@@ -89,7 +89,7 @@
                     <label for="pricetype">Billing model</label>
                     <select class="form-control" id="pricetype" style="width: 100%;" name="pricetype">
                         <option></option>
-                        <option>Pay-as-you-Go</option>
+                        <option value="payg">Pay-as-you-Go</option>
                         <option>Azure Hybrid Use Benefit</option>
                         <option>1 Year Reserved Instance</option>
                         <option>3 Year Reserved Instance</option>
