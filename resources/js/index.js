@@ -52,8 +52,8 @@ var regions = [
     {label: 'West US2', value: 'westus2'},
 ]
 var regionAry = [];
-for(var i in regions){
-    regionAry[regions[i].value] = regions[i].label;
+for (var i in regions) {
+    regionAry['"' + regions[i].value + '"'] = regions[i].label;
 }
 console.log(regionAry);
 // var regionAry = {
@@ -102,21 +102,21 @@ console.log(regionAry);
 //     'west-india': "westindia"
 // };
 var pricetype = [
-    {value:'', label : ''},
-    {value:'payg', label : 'Pay-as-you-Go'},
-    {value:'Azure Hybrid Use Benefit', label : 'Azure Hybrid Use Benefit'},
-    {value:'1 Year Reserved Instance', label : '1 Year Reserved Instance'},
-    {value:'3 Year Reserved Instance', label : '3 Year Reserved Instance'},
-    {value:'1 Year Reserved Instance with AHUB', label : '1 Year Reserved Instance with AHUB'},
-    {value:'3 Year Reserved Instance with AHUB', label : '3 Year Reserved Instance with AHUB'},
+    {value: '', label: ''},
+    {value: 'payg', label: 'Pay-as-you-Go'},
+    {value: 'Azure Hybrid Use Benefit', label: 'Azure Hybrid Use Benefit'},
+    {value: '1 Year Reserved Instance', label: '1 Year Reserved Instance'},
+    {value: '3 Year Reserved Instance', label: '3 Year Reserved Instance'},
+    {value: '1 Year Reserved Instance with AHUB', label: '1 Year Reserved Instance with AHUB'},
+    {value: '3 Year Reserved Instance with AHUB', label: '3 Year Reserved Instance with AHUB'},
 ]
 var pricetypeAry = {
-    'payg':'Pay-as-you-Go',
-    'Azure Hybrid Use Benefit':'Azure Hybrid Use Benefit',
-    '1 Year Reserved Instance':'1 Year Reserved Instance',
-    '3 Year Reserved Instance':'3 Year Reserved Instance',
-    '1 Year Reserved Instance with AHUB':'1 Year Reserved Instance with AHUB',
-    '3 Year Reserved Instance with AHUB':'3 Year Reserved Instance with AHUB',
+    'payg': 'Pay-as-you-Go',
+    'Azure Hybrid Use Benefit': 'Azure Hybrid Use Benefit',
+    '1 Year Reserved Instance': '1 Year Reserved Instance',
+    '3 Year Reserved Instance': '3 Year Reserved Instance',
+    '1 Year Reserved Instance with AHUB': '1 Year Reserved Instance with AHUB',
+    '3 Year Reserved Instance with AHUB': '3 Year Reserved Instance with AHUB',
 }
 $(document).ready(function () {
     editor = new $.fn.DataTable.Editor({
@@ -188,9 +188,9 @@ $(document).ready(function () {
             onBlur: 'submit'
         });
     });
-    editor.on( 'postSubmit', function ( e, json, data ) {
+    editor.on('postSubmit', function (e, json, data) {
         $('#requireTable').DataTable().ajax.reload();
-    } );
+    });
     requireTable = $('#requireTable').removeAttr('width').DataTable({
         dom: 'Bfrtip',
         ajax: "/vm/getvmreqdata",
@@ -222,10 +222,12 @@ $(document).ready(function () {
                     return regionAry[val] == undefined ? '' : regionAry[val];
                 }
             },
-            {data: "pricetype",
+            {
+                data: "pricetype",
                 "render": function (val, type, row) {
                     return pricetypeAry[val] == undefined ? '' : pricetypeAry[val];
-                }},
+                }
+            },
             {data: "hourson"},
             {
                 data: "burstable",

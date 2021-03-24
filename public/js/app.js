@@ -4562,7 +4562,7 @@ var regions = [{
 var regionAry = [];
 
 for (var i in regions) {
-  regionAry[regions[i].value] = regions[i].label;
+  regionAry['"' + regions[i].value + '"'] = regions[i].label;
 }
 
 console.log(regionAry); // var regionAry = {
