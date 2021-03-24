@@ -4430,196 +4430,187 @@ var regions = [{
   value: '',
   label: ''
 }, {
-  value: 'asia-pacific-east',
-  label: 'eastasia'
+  label: 'East Asia',
+  value: 'eastasia'
 }, {
-  value: 'asia-pacific - southeast',
-  label: 'southeastasia'
+  label: 'Southeast Asia',
+  value: 'southeastasia'
 }, {
-  value: 'australia-central',
-  label: 'australiacentral'
+  label: 'Australia Central',
+  value: 'australiacentral'
 }, {
-  value: 'australia-central - 2',
-  label: 'australiacentral2'
+  label: 'Australia Central2',
+  value: 'australiacentral2'
 }, {
-  value: 'australia-east',
-  label: 'australiaeast'
+  label: 'Australia East',
+  value: 'australiaeast'
 }, {
-  value: 'australia-southeast',
-  label: 'australiasoutheast'
+  label: 'Australia Southeast',
+  value: 'australiasoutheast'
 }, {
-  value: 'brazil-south',
-  label: 'brazilsouth'
+  label: 'Brazil South',
+  value: 'brazilsouth'
 }, {
-  value: 'brazil-southeast',
-  label: 'brazilsoutheast'
+  label: 'Brazil Southeast',
+  value: 'brazilsoutheast'
 }, {
-  value: 'canada-central',
-  label: 'canadacentral'
+  label: 'Canada Central',
+  value: 'canadacentral'
 }, {
-  value: 'canada-east',
-  label: 'canadaeast'
+  label: 'Canada East',
+  value: 'canadaeast'
 }, {
-  value: 'central-india',
-  label: 'centralindia'
+  label: 'Central India',
+  value: 'centralindia'
 }, {
-  value: 'south-india',
-  label: 'southindia'
+  label: 'South India',
+  value: 'southindia'
 }, {
-  value: 'west-india',
-  label: 'westindia'
+  label: 'West India',
+  value: 'westindia'
 }, {
-  value: 'europe-north',
-  label: 'northeurope'
+  label: 'North Europe',
+  value: 'northeurope'
 }, {
-  value: 'europe-west',
-  label: 'westeurope'
+  label: 'West Europe',
+  value: 'westeurope'
 }, {
-  value: 'france-central',
-  label: 'francecentral'
+  label: 'France Central',
+  value: 'francecentral'
 }, {
-  value: 'france-south',
-  label: 'francesouth'
+  label: 'France South',
+  value: 'francesouth'
 }, {
-  value: 'germany-central',
-  label: 'germanycentral'
+  label: 'Germany Central',
+  value: 'germanycentral'
 }, {
-  value: 'germany-north',
-  label: 'germanynorth'
+  label: 'Germany North',
+  value: 'germanynorth'
 }, {
-  value: 'germany-northeast',
-  label: 'germanynortheast'
+  label: 'Germany Northeast',
+  value: 'germanynortheast'
 }, {
-  value: 'germany-west-central',
-  label: 'germanywestcentral'
+  label: 'Germany Westcentral',
+  value: 'germanywestcentral'
 }, {
-  value: 'japan-east',
-  label: 'japaneast'
+  label: 'Japan East',
+  value: 'japaneast'
 }, {
-  value: 'japan-west',
-  label: 'japanwest'
+  label: 'Japan West',
+  value: 'japanwest'
 }, {
-  value: 'korea-central',
-  label: 'koreacentral'
+  label: 'Korea Central',
+  value: 'koreacentral'
 }, {
-  value: 'korea-south',
-  label: 'koreasouth'
+  label: 'Korea South',
+  value: 'koreasouth'
 }, {
-  value: 'norway-east',
-  label: 'norwayeast'
+  label: 'Norway East',
+  value: 'norwayeast'
 }, {
-  value: 'norway-west',
-  label: 'norwaywest'
+  label: 'Norway West',
+  value: 'norwaywest'
 }, {
-  value: 'south-africa - north',
-  label: 'southafricanorth'
+  label: 'South Africa North',
+  value: 'southafricanorth'
 }, {
-  value: 'south-africa - west',
-  label: 'southafricawest'
+  label: 'South Africa West',
+  value: 'southafricawest'
 }, {
-  value: 'switzerland-north',
-  label: 'switzerlandnorth'
+  label: 'Switzerland North',
+  value: 'switzerlandnorth'
 }, {
-  value: 'switzerland-west',
-  label: 'switzerlandwest'
+  label: 'Switzerland West',
+  value: 'switzerlandwest'
 }, {
-  value: 'uae-central',
-  label: 'uaecentral'
+  label: 'UAE Central',
+  value: 'uaecentral'
 }, {
-  value: 'uae-north',
-  label: 'uaenorth'
+  label: 'UAE North',
+  value: 'uaenorth'
 }, {
-  value: 'united-kingdom - south',
-  label: 'uksouth'
+  label: 'UK South',
+  value: 'uksouth'
 }, {
-  value: 'united-kingdom - west',
-  label: 'ukwest'
+  label: 'UK West',
+  value: 'ukwest'
 }, {
-  value: 'us-central',
-  label: 'centralus'
+  label: 'Central US',
+  value: 'centralus'
 }, {
-  value: 'us-east',
-  label: 'eastus'
+  label: 'East US',
+  value: 'eastus'
 }, {
-  value: 'us-east - 2',
-  label: 'eastus2'
+  label: 'East US2',
+  value: 'eastus2'
 }, {
-  value: 'us-north - central',
-  label: 'northcentralus'
+  label: 'North Central US',
+  value: 'northcentralus'
 }, {
-  value: 'us-south - central',
-  label: 'southcentralus'
+  label: 'South Central US',
+  value: 'southcentralus'
 }, {
-  value: 'us-west - central',
-  label: 'westcentralus'
+  label: 'West Central US',
+  value: 'westcentralus'
 }, {
-  value: 'us-west',
-  label: 'westus'
+  label: 'West US',
+  value: 'westus'
 }, {
-  value: 'us-west - 2',
-  label: 'westus2'
-}, {
-  value: 'usgov-arizona',
-  label: 'usgov-arizona'
-}, {
-  value: 'usgov-texas',
-  label: 'usgov-texas'
-}, {
-  value: 'usgov-virginia',
-  label: 'usgov-virginia'
-}, {
-  value: 'global',
-  label: 'global'
+  label: 'West US2',
+  value: 'westus2'
 }];
-var regionAry = {
-  'asia-pacific - southeast': "southeastasia",
-  'asia-pacific-east': "eastasia",
-  'australia-central': "australiacentral",
-  'australia-central - 2': "australiacentral2",
-  'australia-east': "australiaeast",
-  'australia-southeast': "australiasoutheast",
-  'brazil-south': "brazilsouth",
-  'brazil-southeast': "brazilsoutheast",
-  'canada-central': "canadacentral",
-  'canada-east': "canadaeast",
-  'central-india': "centralindia",
-  'europe-north': "northeurope",
-  'europe-west': "westeurope",
-  'france-central': "francecentral",
-  'france-south': "francesouth",
-  'germany-central': "germanycentral",
-  'germany-north': "germanynorth",
-  'germany-northeast': "germanynortheast",
-  'germany-west-central': "germanywestcentral",
-  'global': "global",
-  'japan-east': "japaneast",
-  'japan-west': "japanwest",
-  'korea-central': "koreacentral",
-  'korea-south': "koreasouth",
-  'norway-east': "norwayeast",
-  'norway-west': "norwaywest",
-  'south-africa - north': "southafricanorth",
-  'south-africa - west': "southafricawest",
-  'south-india': "southindia",
-  'switzerland-north': "switzerlandnorth",
-  'switzerland-west': "switzerlandwest",
-  'uae-central': "uaecentral",
-  'uae-north': "uaenorth",
-  'united-kingdom - south': "uksouth",
-  'united-kingdom - west': "ukwest",
-  'us-central': "centralus",
-  'us-east': "eastus",
-  'us-east - 2': "eastus2",
-  'us-north - central': "northcentralus",
-  'us-south - central': "southcentralus",
-  'us-west': "westus",
-  'us-west - 2': "westus2",
-  'us-west - central': "westcentralus",
-  'usgov-arizona': "usgov-arizona",
-  'usgov-texas': "usgov-texas",
-  'usgov-virginia': "usgov-virginia",
-  'west-india': "westindia"
-};
+var regionAry = [];
+
+for (var i in regions) {
+  regionAry[regions[i].value] = regions[i].label;
+}
+
+console.log(regionAry); // var regionAry = {
+//     "southeastasia",
+//     "eastasia",
+//     "australiacentral",
+//     "australiacentral2",
+//     "australiaeast",
+//     "australiasoutheast",
+//     "brazilsouth",
+//     "brazilsoutheast",
+//     "canadacentral",
+//     "canadaeast",
+//     "centralindia",
+//     "northeurope",
+//     "westeurope",
+//     "francecentral",
+//     "francesouth",
+//     "germanycentral",
+//     "germanynorth",
+//     "germanynortheast",
+//     "germanywestcentral",
+//     "japaneast",
+//     "japanwest",
+//     "koreacentral",
+//     "koreasouth",
+//     "norwayeast",
+//     "norwaywest",
+//     "southafricanorth",
+//     "southafricawest",
+//     "southindia",
+//     "switzerlandnorth",
+//     "switzerlandwest",
+//     "uaecentral",
+//     "uaenorth",
+//     "uksouth",
+//     "ukwest",
+//     "centralus",
+//     "eastus",
+//     "eastus2",
+//     "northcentralus",
+//     "southcentralus",
+//     "westus",
+//     "westus2",
+//     'usgov-virginia': "usgov-virginia",
+//     'west-india': "westindia"
+// };
+
 var pricetype = [{
   value: '',
   label: ''
