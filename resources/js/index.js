@@ -55,68 +55,71 @@ var regionAry = [];
 for (var i in regions) {
     regionAry['"' + regions[i].value + '"'] = regions[i].label;
 }
-console.log(regionAry);
-// var regionAry = {
-//     "southeastasia",
-//     "eastasia",
-//     "australiacentral",
-//     "australiacentral2",
-//     "australiaeast",
-//     "australiasoutheast",
-//     "brazilsouth",
-//     "brazilsoutheast",
-//     "canadacentral",
-//     "canadaeast",
-//     "centralindia",
-//     "northeurope",
-//     "westeurope",
-//     "francecentral",
-//     "francesouth",
-//     "germanycentral",
-//     "germanynorth",
-//     "germanynortheast",
-//     "germanywestcentral",
-//     "japaneast",
-//     "japanwest",
-//     "koreacentral",
-//     "koreasouth",
-//     "norwayeast",
-//     "norwaywest",
-//     "southafricanorth",
-//     "southafricawest",
-//     "southindia",
-//     "switzerlandnorth",
-//     "switzerlandwest",
-//     "uaecentral",
-//     "uaenorth",
-//     "uksouth",
-//     "ukwest",
-//     "centralus",
-//     "eastus",
-//     "eastus2",
-//     "northcentralus",
-//     "southcentralus",
-//     "westus",
-//     "westus2",
-//     'usgov-virginia': "usgov-virginia",
-//     'west-india': "westindia"
-// };
+var regionAry = {
+    "australiacentral2": "Australia Central2",
+    "australiacentral": "Australia Central",
+    "australiaeast": "Australia East",
+    "australiasoutheast": "Australia Southeast",
+    "brazilsouth": "Brazil South",
+    "brazilsoutheast": "Brazil Southeast",
+    "canadacentral": "Canada Central",
+    "canadaeast": "Canada East",
+    "centralindia": "Central India",
+    "centralus": "Central US",
+    "eastasia": "East Asia",
+    "eastus2": "East US2",
+    "eastus": "East US",
+    "francecentral": "France Central",
+    "francesouth": "France South",
+    "germanycentral": "Germany Central",
+    "germanynorth": "Germany North",
+    "germanynortheast": "Germany Northeast",
+    "germanywestcentral": "Germany Westcentral",
+    "japaneast": "Japan East",
+    "japanwest": "Japan West",
+    "koreacentral": "Korea Central",
+    "koreasouth": "Korea South",
+    "northcentralus": "North Central US",
+    "northeurope": "North Europe",
+    "norwayeast": "Norway East",
+    "norwaywest": "Norway West",
+    "southafricanorth": "South Africa North",
+    "southafricawest": "South Africa West",
+    "southcentralus": "South Central US",
+    "southeastasia": "Southeast Asia",
+    "southindia": "South India",
+    "switzerlandnorth": "Switzerland North",
+    "switzerlandwest": "Switzerland West",
+    "uaecentral": "UAE Central",
+    "uaenorth": "UAE North",
+    "uksouth": "UK South",
+    "ukwest": "UK West",
+    "westcentralus": "West Central US",
+    "westeurope": "West Europe",
+    "westindia": "West India",
+    "westus2": "West US2",
+    "westus": "West US"
+};
 var pricetype = [
     {value: '', label: ''},
     {value: 'payg', label: 'Pay-as-you-Go'},
-    {value: 'Azure Hybrid Use Benefit', label: 'Azure Hybrid Use Benefit'},
-    {value: '1 Year Reserved Instance', label: '1 Year Reserved Instance'},
-    {value: '3 Year Reserved Instance', label: '3 Year Reserved Instance'},
-    {value: '1 Year Reserved Instance with AHUB', label: '1 Year Reserved Instance with AHUB'},
-    {value: '3 Year Reserved Instance with AHUB', label: '3 Year Reserved Instance with AHUB'},
+    {value: 'spot', label: 'Spot'},
+    {value: 'ahb', label: 'Azure Hybrid Use Benefit'},
+    {value: 'ahboneyear', label: '1 Year Reserved Instance'},
+    {value: 'ahbthreeyear', label: '3 Year Reserved Instance'},
+    {value: 'ahbspot', label: 'Spot with AHUB'},
+    {value: 'oneyear', label: '1 Year Reserved Instance with AHUB'},
+    {value: 'threeyear', label: '3 Year Reserved Instance with AHUB'},
 ]
 var pricetypeAry = {
     'payg': 'Pay-as-you-Go',
-    'Azure Hybrid Use Benefit': 'Azure Hybrid Use Benefit',
-    '1 Year Reserved Instance': '1 Year Reserved Instance',
-    '3 Year Reserved Instance': '3 Year Reserved Instance',
-    '1 Year Reserved Instance with AHUB': '1 Year Reserved Instance with AHUB',
-    '3 Year Reserved Instance with AHUB': '3 Year Reserved Instance with AHUB',
+    'spot': 'Spot',
+    'ahb': 'Azure Hybrid Use Benefit',
+    'ahboneyear': '1 Year Reserved Instance',
+    'ahbthreeyear': '3 Year Reserved Instance',
+    'ahbspot': 'Spot with AHUB',
+    'oneyear': '1 Year Reserved Instance with AHUB',
+    'threeyear': '3 Year Reserved Instance with AHUB',
 }
 $(document).ready(function () {
     editor = new $.fn.DataTable.Editor({
@@ -162,8 +165,9 @@ $(document).ready(function () {
             name: "SLA",
             type: "select",
             options: [
-                {label: "Yes", value: 1},
-                {label: "No", value: 0}
+                {label: "99.9%", value: '99.9'},
+                {label: "99.5%", value: '99.5'},
+                {label: "99%", value: '99'}
             ]
         }, {
             label: "Backup retention (months):",
@@ -244,7 +248,7 @@ $(document).ready(function () {
             {
                 data: "SLA",
                 "render": function (val, type, row) {
-                    return val == 1 ? "Yes" : "No";
+                    return val + '%';
                 }
             },
             {data: "backupretdays"},

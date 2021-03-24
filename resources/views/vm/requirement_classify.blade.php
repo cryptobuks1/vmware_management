@@ -90,11 +90,13 @@
                     <select class="form-control" id="pricetype" style="width: 100%;" name="pricetype">
                         <option></option>
                         <option value="payg">Pay-as-you-Go</option>
-                        <option>Azure Hybrid Use Benefit</option>
-                        <option>1 Year Reserved Instance</option>
-                        <option>3 Year Reserved Instance</option>
-                        <option>1 Year Reserved Instance with AHUB</option>
-                        <option>3 Year Reserved Instance with AHUB</option>
+                        <option value="spot">Spot</option>
+                        <option value="ahb">Azure Hybrid Use Benefit</option>
+                        <option value="ahboneyear">1 Year Reserved Instance</option>
+                        <option value="ahbthreeyear">3 Year Reserved Instance</option>
+                        <option value="ahbspot">Spot with AHUB</option>
+                        <option value="oneyear">1 Year Reserved Instance with AHUB</option>
+                        <option value="threeyear">3 Year Reserved Instance with AHUB</option>
                     </select>
                 </div>
                 <div class="form-group row col-12">
@@ -121,8 +123,9 @@
                     <label for="SLA" class="mr-1">Service Level Agreement</label>
                     <select class="form-control" id="SLA" name="SLA">
                         <option></option>
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
+                        <option value="99.9">99.9%</option>
+                        <option value="99.5">99.5%</option>
+                        <option value="99">99%</option>
                     </select>
                 </div>
                 <div class="form-group row col-12">
